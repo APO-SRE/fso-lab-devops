@@ -1,0 +1,277 @@
+---------------------------------------------------------------------------------------------------
+FSO Lab Devops - Hybrid Deployment Steps
+---------------------------------------------------------------------------------------------------
+
+1. Install pre-requisite software locally. --------------------------------------------------------
+
+Homebrew 3.3.7
+Git 2.34.1
+Packer 1.7.8
+Terraform 1.0.11
+jq 1.6
+
+
+2. Checkout Git project locally. ------------------------------------------------------------------
+
+git clone https://github.com/APO-SRE/fso-lab-devops.git
+cd fso-lab-devops
+git fetch origin
+git submodule update --init --recursive
+
+
+3. Update environment variables for your environment. ---------------------------------------------
+
+cd ~/fso-lab-devops/bin
+cp -p set_devops_env.sh.template set_devops_env.sh
+vi set_devops_env.sh
+
+
+4. Build AWS AMI Image for lab VM 'FSO-LPAD-AL2-AMI'. ---------------------------------------------
+
+cd ~/fso-lab-devops/bin
+. ./set_devops_env.sh
+cd ../builders/packer/aws
+packer build fso-lpad-al2.json
+
+
+5. Create AWS Lab VM and EKS Kubernetes Cluster. --------------------------------------------------
+
+cd ~/fso-lab-devops/bin
+. ./set_devops_env.sh
+cd ../builders/terraform/aws/fso_lab/eks-cluster
+
+# edit 'terraform.tfvars' and modify CIDR block variables: aws_vpc_cidr_block', 'aws_vpc_private_subnets', and 'aws_vpc_public_subnets'.
+# example:
+#   aws_vpc_cidr_block = "172.20.0.0/22"
+#   aws_vpc_private_subnets = ["172.20.0.0/24", "172.20.1.0/24", "172.20.2.0/24"]
+#   aws_vpc_public_subnets = ["172.20.3.0/24"]
+
+# modify lab number as needed:
+#   resource_name_prefix = "FSO-01"
+#   "Event" = "FSO Lab Test 01"
+
+vi terraform.tfvars
+
+# create the aws eks cluster.
+terraform --version
+terraform init
+terraform validate
+terraform plan -out terraform-eks-cluster.tfplan
+terraform apply terraform-eks-cluster.tfplan
+
+6. Create Transit Gateway attachment. -------------------------------------------------------------
+
+# get vpc id from eks cluster.
+# navigate to transit gateway attachments.
+
+VPCs --> Transit Gateway Attachments
+Create transit gateway attachment:
+  Details
+    Name: FSO-02-2021-12-06-TGW-Attachment
+    Transit gateway ID: tgw-018e358e3ec03dfd8
+    Attachment type: VPC
+  VPC Attachment
+    DNS support: checked
+    IPv6 support: unchecked
+    VPC ID: vpc-09aaf3870c58236a7 (FSO-02-2021-12-06-VPC)
+    Subnet IDs:
+      us-west-1a: checked
+      us-west-1b: checked
+  Tags
+    Name: FSO-02-2021-12-06-TGW-Attachment
+    Owner: Ed Barberis
+
+Click the 'Create transit gateway attachment' button.
+
+Wait until the Transit Gateway Attachment is 'Available'.
+
+
+7. Add Route to Transit Gateway in VPC Public route table. ----------------------------------------
+
+# get vpc public route table.
+# add route to transit gateway.
+
+Route tables --> Edit routes
+  Destination: 10.0.0.0/8
+  Target: Transit Gateway ('tgw-018e358e3ec03dfd8')
+
+Click the 'Save changes' button.
+
+
+8. Edit 'Inbound rules' in 'eks-remoteAccess' Security Group. -------------------------------------
+
+# edit 'inbound rules' for the 'eks-remoteAccess' security group, which is the security group for
+# all nodes in the nodeGroup to allow SSH access.
+
+# The following rules are currently defined by the 'eks-remoteAccess' security group for EKS:
+
+  Type: SSH                     Protocol: TCP       Port range: 22          Source: 0.0.0.0/0               Description: Allow SSH access from anywhere.
+
+# Click the 'Edit inbound rules' button and add or replace the following rules:
+
+  Type: All ICMP - IPv4         Protocol: ICMP      Port range: All         Source: 0.0.0.0/0               Description: Allow ping to cluster nodes.
+  Type: All TCP                 Protocol: TCP       Port range: 0-65535     Source: 10.20.0.0/16            Description: Allow all TCP traffic from Cisco data center.
+  Type: SSH                     Protocol: TCP       Port range: 22          Source: 72.163.220.53/32        Description: Allow SSH access from Cisco network.
+  Type: SSH                     Protocol: TCP       Port range: 22          Source: 209.234.175.138/32      Description: Allow SSH access from Cisco network.
+  Type: SSH                     Protocol: TCP       Port range: 22          Source: 128.107.248.205/32      Description: Allow SSH access from Cisco network.
+  Type: SSH                     Protocol: TCP       Port range: 22          Source: 173.38.208.173/32       Description: Allow SSH access from Cisco network.
+  Type: SSH                     Protocol: TCP       Port range: 22          Source: 69.14.20.94/32          Description: Allow SSH access for Ed Barberis.
+
+Click the 'Save rules' button.
+
+
+9. Edit 'Inbound rules' in 'EKS-eks_worker_sg' Security Group. ------------------------------------
+
+# edit 'inbound rules' for the 'EKS-eks_worker_sg' security group, which is the security group for
+# all nodes in the cluster.
+
+# The following rules are currently defined by the 'EKS-eks_worker_sg' security group for EKS:
+
+  Type: All traffic             Protocol: All       Port range: All         Source: sg-086338b8205c2580f    Description: Allow node to communicate with each other.
+  Type: Custom TCP              Protocol: TCP       Port range: 1025-65535  Source: sg-0af1af90ffe21a9c7    Description: Allow workers pods to receive communication from...
+  Type: HTTPS                   Protocol: TCP       Port range: 443         Source: sg-0af1af90ffe21a9c7    Description: Allow pods running extension API servers on port 443...
+
+# Click the 'Edit inbound rules' button and add these additional rules:
+
+  Type: All ICMP - IPv4         Protocol: ICMP      Port range: All         Source: 0.0.0.0/0               Description: Allow ping to cluster nodes.
+  Type: All TCP                 Protocol: TCP       Port range: 0-65535     Source: 10.20.0.0/16            Description: Allow all TCP traffic from Cisco data center.
+  Type: All traffic             Protocol: All       Port range: All         Source: sg-0380c81f2444d9ef3    Description: Allow all traffic from LPAD VM security group.
+
+Click the 'Save rules' button.
+
+
+10. Connect Lab VM to AWS Cloud9. -----------------------------------------------------------------
+
+AWS Console --> Cloud9
+Click the 'Create environment' button.
+Name environment
+  Environment name and description
+    Name: FSO-02-2021-12-06-Cloud9
+    Description: Cloud9 environment for FSO Lab VM.
+  Click the 'Next' button.
+
+Configure settings
+  Environment settings
+    Environment type: Select the 'Create and run in remote server (SSH connection)' radio button.
+  SSH server connection
+    User: ec2-user
+    Host: ec2-52-53-180-37.us-west-1.compute.amazonaws.com
+    Port: 22
+
+  Click the 'Add new tag' button.
+    Key: Owner
+    Value: Ed Barberis
+
+  Click the 'Next step' button.
+
+Review
+  Environment name and settings
+  Review and click the 'Create environment' button.
+
+
+11. SSH into the remote LPAD VM EC2 instance. -----------------------------------------------------
+
+ssh -i ~/.ssh/FSO-Lab-DevOps.pem -o ServerAliveInterval=120 ec2-user@ec2-54-215-191-234.us-west-1.compute.amazonaws.com -p 22
+
+
+12. Retrieve and verify Kubernetes config from AWS EKS. -------------------------------------------
+
+# verify aws cli is configured correctly.
+aws sts get-caller-identity
+
+# retrieve kubernetes config from EKS.
+aws eks --region us-west-1 update-kubeconfig --name FSO-02-2021-12-06-EKS
+
+# list eks worker nodes.
+kubectl get nodes -o wide
+
+# list eks services.
+kubectl get services
+
+# exit vm.
+exit
+
+13. Download and copy IKS Kubernetes config files to LPAD VM. -------------------------------------
+
+# Retrieve IKS config.
+https://www.intersight.com/
+Kubernetes --> FSO-SRE-Test-02
+Actions --> Download Kubeconfig
+
+scp -i ~/.ssh/FSO-Lab-DevOps.pem ./FSO-SRE-Test-02-kubeconfig.yml ec2-user@ec2-54-215-191-234.us-west-1.compute.amazonaws.com:~
+
+
+14. Verify Kubernetes config for Intersight IKS. --------------------------------------------------
+
+ssh -i ~/.ssh/FSO-Lab-DevOps.pem -o ServerAliveInterval=120 ec2-user@ec2-54-215-191-234.us-west-1.compute.amazonaws.com -p 22
+
+# list eks worker nodes.
+kubectl get nodes -o wide --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+
+# list eks services.
+kubectl get services --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+
+15. Clone the FSO Lab TeaStore GitHub repository. -------------------------------------------------
+
+cd
+git clone https://github.com/brownkw/TeaStore.git
+cd ~/TeaStore
+git fetch origin
+git submodule update --init --recursive
+
+16. Deploy the TeaStore application to a hybrid Kubernetes environment. ---------------------------
+
+# deploy the teastore registry service to awk eks.
+cd ~/TeaStore/examples/k8s-split/
+kubectl apply -f ./teastore-registry.yaml
+kubectl get pods -o wide
+kubectl get services
+
+export REGISTRY_NODEPORT_HOST=$(kubectl get nodes -o wide --output json | jq -r '.items[0].status.addresses[0].address')
+echo $REGISTRY_NODEPORT_HOST
+
+export REGISTRY_NODEPORT_PORT=$(kubectl get services teastore-registry --output json | jq -r '.spec.ports[0].nodePort')
+echo $REGISTRY_NODEPORT_PORT
+
+# deploy the teastore persistence service to intersight iks.
+cp -p teastore-persistence.yaml teastore-persistence.yaml.orig
+envsubst < teastore-persistence.yaml > teastore-persistence.yaml.lb
+mv teastore-persistence.yaml.lb teastore-persistence.yaml
+
+kubectl apply -f teastore-persistence.yaml --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+kubectl get pods -o wide --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+kubectl get services --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+
+export PERSISTENCE_NODEPORT_HOST=$(kubectl get nodes -o wide --output json --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml | jq -r '.items[1].status.addresses[1].address')
+echo $PERSISTENCE_NODEPORT_HOST
+kubectl set env deployment/teastore-persistence HOST_NAME=$PERSISTENCE_NODEPORT_HOST --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+
+export PERSISTENCE_NODEPORT_PORT=$(kubectl get services teastore-persistence --output json --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml | jq -r '.spec.ports[0].nodePort')
+echo $PERSISTENCE_NODEPORT_PORT
+kubectl set env deployment/teastore-persistence SERVICE_PORT=$PERSISTENCE_NODEPORT_PORT --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+
+# deploy the teastore frontend services to aws eks.
+kubectl apply -f ./teastore-frontend.yaml
+kubectl get pods -o wide
+kubectl get services
+
+# validate the teastore webui deployment.
+export WEBUI_LOADBALANCER_HOST=$(kubectl get services teastore-webui --output json | jq -r '.status.loadBalancer.ingress[0].hostname')
+echo $WEBUI_LOADBALANCER_HOST
+
+export TEASTORE_URL="http://${WEBUI_LOADBALANCER_HOST}:8080/tools.descartes.teastore.webui/"
+echo $TEASTORE_URL
+curl --silent $TEASTORE_URL | grep 'title'
+
+Open a browser, and navigate to the $TEASTORE_URL.
+
+
+17. Deploy and validate Metrics Server deployment. ------------------------------------------------
+
+# deploy and validate metrics server deployment on aws eks.
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl get deployment metrics-server -n kube-system
+
+# deploy and validate metrics server deployment on intersight iks.
+kubectl apply -f metrics-server-iks.yaml --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
+kubectl get deployment metrics-server -n kube-system --kubeconfig ~/FSO-SRE-Test-02-kubeconfig.yml
