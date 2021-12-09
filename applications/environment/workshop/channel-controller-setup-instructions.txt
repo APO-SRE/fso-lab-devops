@@ -1,0 +1,14 @@
+This ZIP file should work on any Linux host that has Java 1.8; (However,) there are 2 files
+( setupWorkshop.sh & workshop-setup.yaml ) that have a hardcoded path in them which is:
+
+/home/ec2-user/environment/workshop/
+
+So, you only need to do the following:
+
+ * create the directory and/or user for: /home/ec2-user/environment/workshop/'
+ * copy the zip file there and unzip it
+ * chmod all the '.sh' files to executable
+ * set the lab user variable - export appd_workshop_user=EDB12
+ * run the 'setupWorkshop.sh'
+
+Let me know if you have any questions!
