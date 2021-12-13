@@ -133,12 +133,6 @@ variable "aws_eks_kubernetes_version" {
   default     = "1.20"
 }
 
-variable "aws_resource_name_prefix" {
-  description = "AWS resource name prefix."
-  type        = string
-  default     = "eks"
-}
-
 variable "lab_ssh_pub_key_name" {
   description = "Name of SSH public key for EKS worker nodes."
   type        = string

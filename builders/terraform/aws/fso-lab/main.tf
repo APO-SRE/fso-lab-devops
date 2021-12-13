@@ -14,9 +14,13 @@ locals {
   # format current date for convenience.
   current_date = formatdate("YYYY-MM-DD", timestamp())
 
+  # create formatted hostname and resource prefixes with lab number.
+  lab_hostname_prefix = var.lab_number > 0 ? format("%s-%02d", var.aws_ec2_vm_hostname_prefix, var.lab_number) : var.aws_ec2_vm_hostname_prefix
+  lab_resource_prefix = var.lab_number > 0 ? format("%s-%02d", var.resource_name_prefix, var.lab_number) : var.resource_name_prefix
+
   # eks cluster name defined here so it can be referenced in other resources.
-# cluster_name = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-eks-cluster"
-  cluster_name = "${var.resource_name_prefix}-${local.current_date}-EKS"
+# cluster_name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-eks-cluster"
+  cluster_name = "${local.lab_resource_prefix}-${local.current_date}-EKS"
 }
 
 # Data Sources -------------------------------------------------------------------------------------
@@ -49,8 +53,8 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = ">= 3.11"
 
-# name = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-vpc"
-  name = "${var.resource_name_prefix}-${local.current_date}-VPC"
+# name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-vpc"
+  name = "${local.lab_resource_prefix}-${local.current_date}-VPC"
   cidr = var.aws_vpc_cidr_block
 
   azs             = data.aws_availability_zones.available.names
@@ -78,8 +82,8 @@ module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = ">= 4.7"
 
-# name        = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-security-group"
-  name        = "${var.resource_name_prefix}-${local.current_date}-Security-Group"
+# name        = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-security-group"
+  name        = "${local.lab_resource_prefix}-${local.current_date}-Security-Group"
   description = "Security group for LPAD VM EC2 instance"
   vpc_id      = module.vpc.vpc_id
   tags        = var.resource_tags
@@ -111,8 +115,8 @@ module "vm" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = ">= 3.3"
 
-# name                 = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-vm"
-  name                 = "${var.resource_name_prefix}-${local.current_date}-VM"
+# name                 = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-vm"
+  name                 = "${local.lab_resource_prefix}-${local.current_date}-VM"
   ami                  = data.aws_ami.fso_lab_ami.id
   instance_type        = var.aws_ec2_instance_type
   iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.id
@@ -125,7 +129,7 @@ module "vm" {
 
   user_data_base64 = base64encode(templatefile("${path.module}/templates/user-data-sh.tmpl", {
     aws_ec2_user_name    = var.aws_ec2_user_name
-    aws_ec2_hostname     = "${var.aws_ec2_vm_hostname_prefix}-vm"
+    aws_ec2_hostname     = "${local.lab_hostname_prefix}-vm"
     aws_ec2_domain       = var.aws_ec2_domain
     aws_region_name      = var.aws_region
     aws_eks_cluster_name = local.cluster_name
@@ -187,22 +191,22 @@ resource "random_string" "suffix" {
 }
 
 resource "aws_iam_role" "ec2_access_role" {
-# name               = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-ec2-access-role"
-  name               = "${var.resource_name_prefix}-${local.current_date}-EC2-Access-Role"
+# name               = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-access-role"
+  name               = "${local.lab_resource_prefix}-${local.current_date}-EC2-Access-Role"
   assume_role_policy = file("${path.module}/policies/ec2-assume-role-policy.json")
   tags               = var.resource_tags
 }
 
 resource "aws_iam_role_policy" "ec2_access_policy" {
-# name   = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-ec2-access-policy"
-  name   = "${var.resource_name_prefix}-${local.current_date}-EC2-Access-Policy"
+# name   = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-access-policy"
+  name   = "${local.lab_resource_prefix}-${local.current_date}-EC2-Access-Policy"
   role   = aws_iam_role.ec2_access_role.id
   policy = file("${path.module}/policies/ec2-access-policy.json")
 }
 
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
-# name = "${var.resource_name_prefix}-${lower(random_string.suffix.result)}-ec2-instance-profile"
-  name = "${var.resource_name_prefix}-${local.current_date}-EC2-Instance-Profile"
+# name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-instance-profile"
+  name = "${local.lab_resource_prefix}-${local.current_date}-EC2-Instance-Profile"
   role = aws_iam_role.ec2_access_role.name
 }
 
