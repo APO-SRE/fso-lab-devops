@@ -194,18 +194,18 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Git Bash Completion
 	-	Git-Flow 1.12.3 (AVH Edition)
 	-	Git-Flow Bash Completion
--	Helm CLI 3.7.1 (Package Manager for Kubernetes)
+-	Helm CLI 3.7.2 (Package Manager for Kubernetes)
 -	Java SE JDK 8 Update 312 (Amazon Corretto 8)
 -	Java SE JDK 11.0.13 (Amazon Corretto 11)
 -	Java SE JDK 17.0.1 (Amazon Corretto 17)
 -	jq 1.6 (command-line JSON processor)
 -	Node.js JavaScript runtime v16.13.1 (Latest LTS Version)
--	npm JavaScript Package Manager for Node.js 8.2.0
+-	npm JavaScript Package Manager for Node.js 8.3.0
 -	nvm (Node Version Manager) bash script 0.39.0
 -	Python 2.7.5
 	-	Pip 21.3.1
 -	Python 3.6.8
 	-	Pip 21.3.1
--	Serverless Framework CLI 2.68.0
+-	Serverless Framework CLI 2.69.0
 -	VIM - Vi IMproved 8.2
 -	yq 4.16.1 (command-line YAML processor)
