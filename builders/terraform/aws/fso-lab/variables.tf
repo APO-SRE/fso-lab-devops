@@ -36,10 +36,22 @@ variable "aws_ssh_ingress_cidr_blocks" {
 # default     = "0.0.0.0/0,172.20.0.0/24,172.20.1.0/24,172.20.2.0/24,172.20.3.0/24"
 }
 
+variable "cisco_tgw_owner_id" {
+  description = "Cisco SRE AWS account ID that owns the EC2 Transit Gateway."
+  type    = list(string)
+  default = ["496972728175"]
+}
+
 variable "cisco_tcp_ingress_cidr_blocks" {
   description = "The computed ingress CIDR blocks for inbound TCP traffic from the Cisco data center."
   type        = string
   default     = "10.20.0.0/16"
+}
+
+variable "cisco_tgw_route_cidr_block" {
+  description = "CIDR block to route traffic to the Cisco data center via the Transit Gateway."
+  type        = string
+  default     = "10.0.0.0/8"
 }
 
 variable "aws_ec2_vm_hostname_prefix" {

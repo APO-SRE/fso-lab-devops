@@ -59,6 +59,11 @@ output "aws_vpc_public_subnet_ids" {
   value       = tolist(module.vpc.public_subnets)
 }
 
+output "aws_ec2_transit_gateway_id" {
+  description = "AWS Transit Gateway for the Cisco SRE network."
+  value       = data.aws_ec2_transit_gateway.tgw.id
+}
+
 output "aws_eks_desired_node_count" {
   description = "Desired number of EKS worker nodes."
   value       = var.aws_eks_desired_node_count

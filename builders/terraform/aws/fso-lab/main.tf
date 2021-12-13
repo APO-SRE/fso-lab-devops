@@ -40,6 +40,13 @@ data "aws_ami" "fso_lab_ami" {
   }
 }
 
+data "aws_ec2_transit_gateway" "tgw" {
+  filter {
+    name   = "owner-id"
+    values = var.cisco_tgw_owner_id
+  }
+}
+
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
@@ -188,6 +195,19 @@ module "eks" {
 resource "random_string" "suffix" {
   length  = 5
   special = false
+}
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
+  transit_gateway_id = data.aws_ec2_transit_gateway.tgw.id
+  vpc_id             = module.vpc.vpc_id
+  subnet_ids         = tolist([module.vpc.public_subnets[0], module.vpc.public_subnets[1]])
+  tags               = var.resource_tags
+}
+
+resource "aws_route" "tgw_route" {
+  route_table_id         = module.vpc.public_route_table_ids[0]
+  destination_cidr_block = var.cisco_tgw_route_cidr_block
+  transit_gateway_id     = data.aws_ec2_transit_gateway.tgw.id
 }
 
 resource "aws_iam_role" "ec2_access_role" {
