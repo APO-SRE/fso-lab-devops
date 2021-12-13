@@ -30,10 +30,21 @@ variable "aws_vpc_private_subnets" {
 }
 
 variable "aws_ssh_ingress_cidr_blocks" {
-  description = "The computed ingress CIDR blocks for inbound ssh traffic"
+  description = "The ingress CIDR blocks for inbound ssh traffic external to AWS."
   type        = string
   default     = "0.0.0.0/0"
-# default     = "0.0.0.0/0,172.20.0.0/24,172.20.1.0/24,172.20.2.0/24,172.20.3.0/24"
+}
+
+variable "cisco_ssh_ingress_cidr_blocks" {
+  description = "The ingress CIDR blocks for inbound ssh traffic from Cisco networks."
+  type        = string
+  default     = "128.107.248.205/32,72.163.220.53/32,209.234.175.138/32,173.38.208.173/32"
+}
+
+variable "aws_cloud9_ssh_ingress_cidr_blocks" {
+  description = "The ingress CIDR blocks for inbound ssh traffic from AWS Cloud9 System Manager."
+  type        = string
+  default     = "13.52.232.224/27,18.144.158.0/27"
 }
 
 variable "cisco_tgw_owner_id" {
@@ -43,7 +54,7 @@ variable "cisco_tgw_owner_id" {
 }
 
 variable "cisco_tcp_ingress_cidr_blocks" {
-  description = "The computed ingress CIDR blocks for inbound TCP traffic from the Cisco data center."
+  description = "The ingress CIDR blocks for inbound TCP traffic from the Cisco data center."
   type        = string
   default     = "10.20.0.0/16"
 }

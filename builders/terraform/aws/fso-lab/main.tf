@@ -55,6 +55,15 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
 
+data "aws_security_group" "eks_remote" {
+  vpc_id  = module.vpc.vpc_id
+
+  filter {
+    name   = "tag:eks"
+    values = toset([module.eks.node_groups.node-group.node_group_name])
+  }
+}
+
 # Modules ------------------------------------------------------------------------------------------
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -105,7 +114,7 @@ module "security_group" {
       to_port     = 22
       protocol    = "tcp"
       description = "Allow SSH access."
-      cidr_blocks = var.aws_ssh_ingress_cidr_blocks
+      cidr_blocks = join(",", tolist([var.aws_ssh_ingress_cidr_blocks, var.cisco_ssh_ingress_cidr_blocks, var.aws_cloud9_ssh_ingress_cidr_blocks]))
     },
     {
       from_port   = 0
@@ -201,7 +210,14 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
   transit_gateway_id = data.aws_ec2_transit_gateway.tgw.id
   vpc_id             = module.vpc.vpc_id
   subnet_ids         = tolist([module.vpc.public_subnets[0], module.vpc.public_subnets[1]])
-  tags               = var.resource_tags
+
+  tags = {
+    Name        = "${local.lab_resource_prefix}-${local.current_date}-TGW-Attachment"
+    Environment = lookup(var.resource_tags, "Environment")
+    Owner       = lookup(var.resource_tags, "Owner")
+    Event       = lookup(var.resource_tags, "Event")
+    Project     = lookup(var.resource_tags, "Project")
+  }
 }
 
 resource "aws_route" "tgw_route" {
@@ -228,6 +244,66 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
 # name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-instance-profile"
   name = "${local.lab_resource_prefix}-${local.current_date}-EC2-Instance-Profile"
   role = aws_iam_role.ec2_access_role.name
+}
+
+resource "aws_security_group_rule" "eks_remote_ssh_ingress" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  description       = "Allow SSH access."
+  cidr_blocks       = toset(split(",", join(",", tolist([var.aws_ssh_ingress_cidr_blocks, var.cisco_ssh_ingress_cidr_blocks]))))
+  security_group_id = data.aws_security_group.eks_remote.id
+}
+
+resource "aws_security_group_rule" "eks_remote_icmp_ingress" {
+  type              = "ingress"
+  from_port         = -1
+  to_port           = -1
+  protocol          = "icmp"
+  description       = "Allow ping traffic to EKS cluster."
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = data.aws_security_group.eks_remote.id
+}
+
+resource "aws_security_group_rule" "eks_remote_tcp_ingress" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  description       = "Allow all TCP traffic from Cisco data center."
+  cidr_blocks       = toset([var.cisco_tcp_ingress_cidr_blocks])
+  security_group_id = data.aws_security_group.eks_remote.id
+}
+
+resource "aws_security_group_rule" "eks_worker_icmp_ingress" {
+  type              = "ingress"
+  from_port         = -1
+  to_port           = -1
+  protocol          = "icmp"
+  description       = "Allow ping traffic to EKS worker nodes."
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.eks.worker_security_group_id
+}
+
+resource "aws_security_group_rule" "eks_worker_tcp_ingress" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  description       = "Allow all TCP traffic from Cisco data center."
+  cidr_blocks       = toset([var.cisco_tcp_ingress_cidr_blocks])
+  security_group_id = module.eks.worker_security_group_id
+}
+
+resource "aws_security_group_rule" "eks_worker_all_ingress" {
+  type                     = "ingress"
+  from_port                = -1
+  to_port                  = -1
+  protocol                 = "all"
+  description              = "Allow all traffic from this Security Group."
+  source_security_group_id = module.security_group.security_group_id
+  security_group_id        = module.eks.worker_security_group_id
 }
 
 resource "null_resource" "kubectl_trigger" {
