@@ -75,12 +75,12 @@ export devops_home
 #appd_machine_agent_user="centos"
 #export appd_machine_agent_user
 
-# [optional] machine agent release (defaults to '21.12.1.3206').
-#appd_machine_agent_release="21.12.1.3206"
+# [optional] machine agent release (defaults to '21.12.2.3210').
+#appd_machine_agent_release="21.12.2.3210"
 #export appd_machine_agent_release
 
 # [optional] machine agent sha-256 checksum (defaults to published value).
-#appd_machine_agent_sha256="48ad889967eb73991810f134feac9cb1b999f8b3a58e55c50173dc567d84f214"
+#appd_machine_agent_sha256="411ae673d001616d60055f4e6b154f43f7d741b7bfd2a14f621dc5b7ac92f7bc"
 #export appd_machine_agent_sha256
 
 # --------------------------------------------------------------------------------------------------
