@@ -11,10 +11,10 @@ rm -f gradle-release-notes.html
 curl --silent https://docs.gradle.org/current/release-notes.html --output gradle-release-notes.html
 gradle_home="gradle"
 gradle_release=$(awk '/Release Notes<\/title>/ {print $2}' gradle-release-notes.html)
-gradle_release="7.3.1"
+gradle_release="7.3.2"
 gradle_folder="gradle-${gradle_release}"
 gradle_binary="gradle-${gradle_release}-all.zip"
-gradle_sha256="b75392c5625a88bccd58a574552a5a323edca82dab5942d2d41097f809c6bcce"
+gradle_sha256="dd54e87b4d7aa8ff3c6afb0f7805aa121d4b70bca55b8c9b1b896eb103184582"
 
 # download gradle build tool from gradle.org.
 curl --silent --location https://services.gradle.org/distributions/${gradle_binary} --output ${gradle_binary}
