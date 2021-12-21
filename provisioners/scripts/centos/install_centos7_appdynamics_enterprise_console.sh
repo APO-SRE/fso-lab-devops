@@ -24,7 +24,7 @@ local_hostname="$(hostname --short)"                            # initialize sho
 # appd platform install parameters.
 appd_home="${appd_home:-/opt/appdynamics}"
 appd_platform_home="${appd_platform_home:-platform}"
-appd_platform_release="${appd_platform_release:-21.4.9.24662}"
+appd_platform_release="${appd_platform_release:-21.4.10.24688}"
 appd_platform_sha256="${appd_platform_sha256:-d65448406361983969b879e91aacf6291599782e3ab94bf0795771b4c84c83ab}"
 appd_platform_user_name="${appd_platform_user_name:-centos}"
 appd_platform_user_group="${appd_platform_user_group:-centos}"
@@ -57,7 +57,7 @@ Usage:
   [OPTIONAL] appdynamics platform install parameters [w/ defaults].
     [root]# export appd_home="/opt/appdynamics"                         # [optional] appd home (defaults to '/opt/appdynamics').
     [root]# export appd_platform_home="platform"                        # [optional] platform home folder (defaults to 'platform').
-    [root]# export appd_platform_release="21.4.9.24662"                 # [optional] platform release (defaults to '21.4.9.24662').
+    [root]# export appd_platform_release="21.4.10.24688"                # [optional] platform release (defaults to '21.4.10.24688').
                                                                         # [optional] platform sha-256 checksum (defaults to published value).
     [root]# export appd_platform_sha256="d65448406361983969b879e91aacf6291599782e3ab94bf0795771b4c84c83ab"
     [root]# export appd_platform_user_name="centos"                     # [optional] platform user name (defaults to 'centos').
