@@ -25,8 +25,18 @@ locals {
   lab_hostname_prefix = var.lab_number > 0 ? format("%s-%02d", var.aws_ec2_vm_hostname_prefix, var.lab_number) : var.aws_ec2_vm_hostname_prefix
   lab_resource_prefix = var.lab_number > 0 ? format("%s-%02d", var.resource_name_prefix, var.lab_number) : var.resource_name_prefix
 
+  # create vm ssh ingress cidr block list without duplicates.
+  vm_ssh_ingress_cidr_blocks = join(",", distinct(tolist([var.aws_ssh_ingress_cidr_blocks, var.cisco_ssh_ingress_cidr_blocks, var.aws_cloud9_ssh_ingress_cidr_blocks])))
+
+  # NOTE: the eks remote ssh ingress security group contains a "0.0.0.0/0" cidr block rule by default.
+  #       when adding our custom cidr blocks, we need to strip off "0.0.0.0/0" (if it exists) to
+  #       avoid creating a duplicate rule.
+  ssh_ingress_cidr_blocks = sort(toset(split(",", join(",", tolist([var.aws_ssh_ingress_cidr_blocks, var.cisco_ssh_ingress_cidr_blocks, "0.0.0.0/0"])))))
+  ssh_ingress_cidr_blocks_length = length(local.ssh_ingress_cidr_blocks)
+  eks_remote_ssh_ingress_cidr_blocks = slice(local.ssh_ingress_cidr_blocks, 1, local.ssh_ingress_cidr_blocks_length)
+
   # eks cluster name defined here so it can be referenced in other resources.
-# cluster_name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-eks-cluster"
+# cluster_name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-EKS"
   cluster_name = "${local.lab_resource_prefix}-${local.current_date}-EKS"
 }
 
@@ -121,7 +131,7 @@ module "security_group" {
       to_port     = 22
       protocol    = "tcp"
       description = "Allow SSH access."
-      cidr_blocks = join(",", tolist([var.aws_ssh_ingress_cidr_blocks, var.cisco_ssh_ingress_cidr_blocks, var.aws_cloud9_ssh_ingress_cidr_blocks]))
+      cidr_blocks = local.vm_ssh_ingress_cidr_blocks
     },
     {
       from_port   = 0
@@ -259,7 +269,7 @@ resource "aws_security_group_rule" "eks_remote_ssh_ingress" {
   to_port           = 22
   protocol          = "tcp"
   description       = "Allow SSH access."
-  cidr_blocks       = toset(split(",", join(",", tolist([var.aws_ssh_ingress_cidr_blocks, var.cisco_ssh_ingress_cidr_blocks]))))
+  cidr_blocks       = local.eks_remote_ssh_ingress_cidr_blocks
   security_group_id = data.aws_security_group.eks_remote.id
 }
 
@@ -318,7 +328,7 @@ resource "aws_security_group_rule" "eks_worker_all_ingress" {
   from_port                = -1
   to_port                  = -1
   protocol                 = "all"
-  description              = "Allow all traffic from this Security Group."
+  description              = "Allow all traffic from the LPAD VM Security Group."
   source_security_group_id = module.security_group.security_group_id
   security_group_id        = module.eks.worker_security_group_id
 }
@@ -329,7 +339,8 @@ resource "null_resource" "kubectl_trigger" {
     eks_cluster_id = module.eks.cluster_id
   }
 
-  # run 'kubectl' to retrieve the kubernetes config when the eks cluster is ready.
+  # execute the following 'local-exec' provisioners each time the trigger is invoked.
+  # run aws cli to retrieve the kubernetes config when the eks cluster is ready.
   provisioner "local-exec" {
     working_dir = "."
     command = "aws eks --region ${var.aws_region} update-kubeconfig --name ${local.cluster_name}"
@@ -343,7 +354,7 @@ resource "null_resource" "ansible_trigger" {
   }
 
   # execute the following 'local-exec' provisioners each time the trigger is invoked.
-  # generate the ansible aws hosts inventory.
+  # generate the ansible aws hosts inventory using 'cat' and Heredoc.
   provisioner "local-exec" {
     working_dir = "."
     command     = <<EOD
