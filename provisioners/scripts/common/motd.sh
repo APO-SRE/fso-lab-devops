@@ -1,7 +1,7 @@
 #!/bin/sh -eux
 
 devops='
-This system was built with the FSO Lab DevOps project by the AppDynamics Cloud Channel Sales Team.
+This system was built with the FSO Lab DevOps project by the Cisco SRE and AppDynamics Cloud Channel Sales Teams.
 More information can be found at: https://github.com/APO-SRE/fso-lab-devops.git'
 
 if [ -d /etc/update-motd.d ]; then
