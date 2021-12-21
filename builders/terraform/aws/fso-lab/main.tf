@@ -263,6 +263,16 @@ resource "aws_security_group_rule" "eks_remote_ssh_ingress" {
   security_group_id = data.aws_security_group.eks_remote.id
 }
 
+resource "aws_security_group_rule" "eks_remote_ssh_ingress_for_vm" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  description              = "Allow SSH access from the LPAD VM security group."
+  source_security_group_id = module.security_group.security_group_id
+  security_group_id        = data.aws_security_group.eks_remote.id
+}
+
 resource "aws_security_group_rule" "eks_remote_icmp_ingress" {
   type              = "ingress"
   from_port         = -1

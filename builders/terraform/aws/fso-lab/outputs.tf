@@ -109,6 +109,11 @@ output "aws_eks_cluster_security_group_id" {
   value       = module.eks.cluster_security_group_id
 }
 
+output "aws_eks_remote_security_group_id" {
+  description = "Security group ID attached to the EKS cluster to allow SSH access."
+  value       = data.aws_security_group.eks_remote.id
+}
+
 output "aws_eks_worker_security_group_id" {
   description = "Security group ID attached to the EKS workers."
   value       = module.eks.worker_security_group_id
