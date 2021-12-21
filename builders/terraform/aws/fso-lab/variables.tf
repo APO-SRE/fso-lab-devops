@@ -9,24 +9,18 @@ variable "aws_vpc_cidr_block" {
   description = "The CIDR block for the VPC."
   type    = string
   default = "172.20.0.0/22"
-# default = "172.16.0.0/16"
-# default = "10.0.0.0/16"
 }
 
 variable "aws_vpc_public_subnets" {
   description = "A list of public subnets inside the VPC."
   type    = list(string)
   default = ["172.20.0.0/24", "172.20.1.0/24", "172.20.2.0/24"]
-# default = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
-# default = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 }
 
 variable "aws_vpc_private_subnets" {
   description = "A list of private subnets inside the VPC."
   type    = list(string)
   default = ["172.20.3.0/24"]
-# default = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
-# default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
 variable "aws_ssh_ingress_cidr_blocks" {
@@ -100,9 +94,8 @@ variable "aws_ec2_source_ami_filter" {
 variable "aws_ec2_instance_type" {
   description = "AWS EC2 instance type."
   type        = string
-  default     = "t2.micro"
-# default     = "m5a.large"
-# default     = "m5a.xlarge"
+# default     = "t2.micro"
+  default     = "t2.large"
 }
 
 variable "lab_number" {
@@ -165,18 +158,31 @@ variable "lab_ssh_pub_key_name" {
 variable "resource_name_prefix" {
   description = "Resource name prefix."
   type        = string
-  default     = "FSO"
+  default     = "FSO-Lab"
 }
 
-variable "resource_tags" {
-  description = "Tag names for AWS resources."
-  type = map
-  default = {
-    "Environment" = "Cisco One Lab"
-    "Owner"       = "Cisco SRE and AppDynamics Cloud Channel Sales Team"
-    "Project"     = "FSO Lab DevOps"
-    "Event"       = "FSO Lab"
-  }
+variable "resource_environment_tag" {
+  description = "Resource environment tag."
+  type        = string
+  default     = "Cisco One Lab"
+}
+
+variable "resource_owner_tag" {
+  description = "Resource owner tag."
+  type        = string
+  default     = "Cisco SRE and AppDynamics Cloud Channel Sales Team"
+}
+
+variable "resource_project_tag" {
+  description = "Resource project tag."
+  type        = string
+  default     = "FSO Lab DevOps"
+}
+
+variable "resource_event_tag" {
+  description = "Resource event tag."
+  type        = string
+  default     = "FSO Lab Demo"
 }
 
 variable "map_roles" {

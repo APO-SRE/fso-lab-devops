@@ -35,9 +35,15 @@ locals {
   ssh_ingress_cidr_blocks_length = length(local.ssh_ingress_cidr_blocks)
   eks_remote_ssh_ingress_cidr_blocks = slice(local.ssh_ingress_cidr_blocks, 1, local.ssh_ingress_cidr_blocks_length)
 
-  # eks cluster name defined here so it can be referenced in other resources.
-# cluster_name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-EKS"
-  cluster_name = "${local.lab_resource_prefix}-${local.current_date}-EKS"
+  # define resource names here to ensure standardized naming conventions.
+  vpc_name                  = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-VPC"
+  security_group_name       = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-Security-Group"
+  vm_name                   = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-VM"
+  cluster_name              = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-EKS"
+  tgw_attachment_name       = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-TGW-Attachment"
+  ec2_access_role_name      = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-EC2-Access-Role"
+  ec2_access_policy_name    = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-EC2-Access-Policy"
+  ec2_instance_profile_name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-EC2-Instance-Profile"
 }
 
 # Data Sources -------------------------------------------------------------------------------------
@@ -86,8 +92,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = ">= 3.11"
 
-# name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-vpc"
-  name = "${local.lab_resource_prefix}-${local.current_date}-VPC"
+  name = local.vpc_name
   cidr = var.aws_vpc_cidr_block
 
   azs             = data.aws_availability_zones.available.names
@@ -98,7 +103,13 @@ module "vpc" {
   single_nat_gateway   = true
   enable_dns_hostnames = true
 
-  tags = var.resource_tags
+  tags = {
+    Environment = var.resource_environment_tag
+    Owner       = var.resource_owner_tag
+    Event       = var.resource_event_tag
+    Project     = var.resource_project_tag
+    Date        = local.current_date
+  }
 
   public_subnet_tags = {
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
@@ -115,11 +126,17 @@ module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = ">= 4.7"
 
-# name        = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-security-group"
-  name        = "${local.lab_resource_prefix}-${local.current_date}-Security-Group"
+  name        = local.security_group_name
   description = "Security group for LPAD VM EC2 instance"
   vpc_id      = module.vpc.vpc_id
-  tags        = var.resource_tags
+
+  tags = {
+    Environment = var.resource_environment_tag
+    Owner       = var.resource_owner_tag
+    Event       = var.resource_event_tag
+    Project     = var.resource_project_tag
+    Date        = local.current_date
+  }
 
   ingress_cidr_blocks               = ["0.0.0.0/0"]
   ingress_rules                     = ["http-80-tcp", "http-8080-tcp", "https-443-tcp", "all-icmp"]
@@ -148,13 +165,19 @@ module "vm" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = ">= 3.3"
 
-# name                 = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-vm"
-  name                 = "${local.lab_resource_prefix}-${local.current_date}-VM"
+  name                 = local.vm_name
   ami                  = data.aws_ami.fso_lab_ami.id
   instance_type        = var.aws_ec2_instance_type
   iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.id
   key_name             = var.aws_ec2_ssh_pub_key_name
-  tags                 = var.resource_tags
+
+  tags = {
+    Environment = var.resource_environment_tag
+    Owner       = var.resource_owner_tag
+    Event       = var.resource_event_tag
+    Project     = var.resource_project_tag
+    Date        = local.current_date
+  }
 
   subnet_id                   = tolist(module.vpc.public_subnets)[0]
   vpc_security_group_ids      = [module.security_group.security_group_id]
@@ -181,7 +204,13 @@ module "eks" {
   cluster_endpoint_public_access       = var.aws_eks_endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.aws_eks_endpoint_public_access_cidrs
 
-  tags = var.resource_tags
+  tags = {
+    Environment = var.resource_environment_tag
+    Owner       = var.resource_owner_tag
+    Event       = var.resource_event_tag
+    Project     = var.resource_project_tag
+    Date        = local.current_date
+  }
 
   node_groups_defaults = {
     ami_type  = "AL2_x86_64"
@@ -201,7 +230,13 @@ module "eks" {
         GithubOrg   = "terraform-aws-modules"
       }
 
-      additional_tags = var.resource_tags
+      additional_tags = {
+        Environment = var.resource_environment_tag
+        Owner       = var.resource_owner_tag
+        Event       = var.resource_event_tag
+        Project     = var.resource_project_tag
+        Date        = local.current_date
+      }
     }
   }
 
@@ -229,11 +264,12 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
   subnet_ids         = tolist([module.vpc.public_subnets[0], module.vpc.public_subnets[1]])
 
   tags = {
-    Name        = "${local.lab_resource_prefix}-${local.current_date}-TGW-Attachment"
-    Environment = lookup(var.resource_tags, "Environment")
-    Owner       = lookup(var.resource_tags, "Owner")
-    Event       = lookup(var.resource_tags, "Event")
-    Project     = lookup(var.resource_tags, "Project")
+    Name        = local.tgw_attachment_name
+    Environment = var.resource_environment_tag
+    Owner       = var.resource_owner_tag
+    Event       = var.resource_event_tag
+    Project     = var.resource_project_tag
+    Date        = local.current_date
   }
 }
 
@@ -244,22 +280,26 @@ resource "aws_route" "tgw_route" {
 }
 
 resource "aws_iam_role" "ec2_access_role" {
-# name               = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-access-role"
-  name               = "${local.lab_resource_prefix}-${local.current_date}-EC2-Access-Role"
+  name               = local.ec2_access_role_name
   assume_role_policy = file("${path.module}/policies/ec2-assume-role-policy.json")
-  tags               = var.resource_tags
+
+  tags = {
+    Environment = var.resource_environment_tag
+    Owner       = var.resource_owner_tag
+    Event       = var.resource_event_tag
+    Project     = var.resource_project_tag
+    Date        = local.current_date
+  }
 }
 
 resource "aws_iam_role_policy" "ec2_access_policy" {
-# name   = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-access-policy"
-  name   = "${local.lab_resource_prefix}-${local.current_date}-EC2-Access-Policy"
+  name   = local.ec2_access_policy_name
   role   = aws_iam_role.ec2_access_role.id
   policy = file("${path.module}/policies/ec2-access-policy.json")
 }
 
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
-# name = "${local.lab_resource_prefix}-${lower(random_string.suffix.result)}-ec2-instance-profile"
-  name = "${local.lab_resource_prefix}-${local.current_date}-EC2-Instance-Profile"
+  name = local.ec2_instance_profile_name
   role = aws_iam_role.ec2_access_role.name
 }
 
