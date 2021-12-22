@@ -74,7 +74,6 @@ variable "aws_ec2_domain" {
 variable "aws_ec2_user_name" {
   description = "AWS EC2 user name."
   type        = string
-# default     = "centos"
   default     = "ec2-user"
 }
 
@@ -88,7 +87,6 @@ variable "aws_ec2_source_ami_filter" {
   description = "AWS EC2 source AMI disk image filter."
   type        = string
   default     = "FSO-LPAD-AL2-AMI-*"
-# default     = "FSO-LPAD-CentOS79-AMI-*"
 }
 
 variable "aws_ec2_instance_type" {
