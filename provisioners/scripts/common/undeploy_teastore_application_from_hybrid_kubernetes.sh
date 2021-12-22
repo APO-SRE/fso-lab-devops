@@ -27,10 +27,10 @@
 #---------------------------------------------------------------------------------------------------
 
 # set default values for input environment variables if not set. -----------------------------------
-# [MANDATORY] teastore application deploy parameters [w/ defaults].
+# [MANDATORY] teastore application undeploy parameters [w/ defaults].
 iks_kubeconfig_filepath="${iks_kubeconfig_filepath:-}"
 
-# [OPTIONAL] teastore application deploy parameters [w/ defaults].
+# [OPTIONAL] teastore application undeploy parameters [w/ defaults].
 eks_kubeconfig_filepath="${eks_kubeconfig_filepath:-${HOME}/.kube/config}"
 kubectl_pause_time="${kubectl_pause_time:-90}"
 
@@ -44,12 +44,12 @@ Usage:
         Optional variables have reasonable defaults, but you may override as needed.
         Script should be run with installed user privilege (i.e. 'non-root' user).
 
-  [MANDATORY] teastore application deploy parameters [w/ defaults].
+  [MANDATORY] teastore application undeploy parameters [w/ defaults].
     [ec2-user]$ export iks_kubeconfig_filepath="${HOME}/FSO-SRE-kubeconfig.yml"  # IKS kubeconfig file path.
 
-  [OPTIONAL] teastore application deploy parameters [w/ defaults].
+  [OPTIONAL] teastore application undeploy parameters [w/ defaults].
     [ec2-user]$ export eks_kubeconfig_filepath="${HOME}/.kube/config"            # [optional] EKS kubeconfig file (defaults to '${HOME}/.kube/config').
-    [ec2-user]$ export kubectl_pause_time="90"                                   # [optional] 'kubectl' pause time to allow deployments to complete. (defaults to '90').
+    [ec2-user]$ export kubectl_pause_time="90"                                   # [optional] 'kubectl' pause time to allow undeployments to complete. (defaults to '90').
 
     [ec2-user]$ $0
 EOF
@@ -124,13 +124,24 @@ echo ""
 echo "Validating the TeaStore services undeployment..."
 echo ""
 
-# allow time for the services to be deployed and then validate deployment.
+# allow time for the aws eks services to be undeployed and then validate.
+echo "Checking the AWS EKS environment..."
 echo "kubectl get pods -o wide --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl get pods -o wide --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
 echo "kubectl get services --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl get services --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+# allow time for the intersight iks services to be undeployed and then validate.
+echo "Checking the Intersight IKS environment..."
+echo "kubectl get pods -o wide --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl get pods -o wide --kubeconfig ${iks_kubeconfig_filepath}
+echo ""
+
+echo "kubectl get services --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl get services --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
 # print completion message. ------------------------------------------------------------------------
