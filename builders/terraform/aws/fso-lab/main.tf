@@ -194,7 +194,7 @@ module "vm" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = ">= 17.24"
+  version = "= 17.24"
 
   cluster_name    = local.cluster_name
   cluster_version = var.aws_eks_kubernetes_version
@@ -396,7 +396,7 @@ resource "null_resource" "ansible_trigger" {
   # execute the following 'local-exec' provisioners each time the trigger is invoked.
   # generate the ansible aws hosts inventory using 'cat' and Heredoc.
   provisioner "local-exec" {
-    working_dir = "."
+    working_dir = "../../../../provisioners/ansible/fso-lab"
     command     = <<EOD
 cat <<EOF > aws_hosts.inventory
 [fso_lab_vm]
