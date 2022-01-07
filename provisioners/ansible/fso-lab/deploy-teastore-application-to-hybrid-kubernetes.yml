@@ -1,0 +1,43 @@
+---
+# deploy fso-customized teastore microservice application to hybrid Kubernetes (eks/iks). ----------
+- name: deploy teastore microservice application playbook
+  hosts: all
+  gather_facts: yes
+  any_errors_fatal: yes
+
+  vars:
+    env_vars:
+      iks_kubeconfig_filepath: "{{ lookup('env', 'iks_kubeconfig_filepath') | default(ansible_env.HOME + '/AppD-FSO-Lab-01-kubeconfig.yaml', true) }}"
+      eks_kubeconfig_filepath: "{{ lookup('env', 'eks_kubeconfig_filepath') | default(ansible_env.HOME + '/.kube/config', true) }}"
+      kubectl_pause_time: "{{ lookup('env', 'kubectl_pause_time') | default('10', true) }}"
+      devops_home: "{{ lookup('env', 'devops_home') | default('/opt/fso-lab-devops', true) }}"
+
+  tasks:
+    # run the deploy teastore application script.
+    - name: deploy teastore microservice application
+      shell:
+        chdir: "{{ env_vars.devops_home }}/provisioners/scripts/common"
+        cmd: "./deploy_teastore_application_to_hybrid_kubernetes.sh"
+        creates: "teastore-application.deployed"
+      environment: "{{ env_vars }}"
+      register: deploy_teastore_application
+
+    # create the 'teastore-application.deployed' file to make the deploy task idempotent.
+    - name: touch the 'teastore-application.deployed' file
+      file:
+        path: "{{ env_vars.devops_home }}/provisioners/scripts/common/teastore-application.deployed"
+        state: touch
+        mode: "0644"
+      become: yes
+
+    # delete the 'teastore-application.undeployed' file so the undeploy task can run again.
+    - name: delete the 'teastore-application.undeployed' file
+      file:
+        path: "{{ env_vars.devops_home }}/provisioners/scripts/common/teastore-application.undeployed"
+        state: absent
+      become: yes
+
+    # print the results from the deploy script.
+    - name: print deploy teastore microservice application results
+      debug:
+        var: deploy_teastore_application.stdout_lines

@@ -32,7 +32,7 @@ iks_kubeconfig_filepath="${iks_kubeconfig_filepath:-}"
 
 # [OPTIONAL] teastore application undeploy parameters [w/ defaults].
 eks_kubeconfig_filepath="${eks_kubeconfig_filepath:-${HOME}/.kube/config}"
-kubectl_pause_time="${kubectl_pause_time:-90}"
+kubectl_pause_time="${kubectl_pause_time:-10}"
 
 # define usage function. ---------------------------------------------------------------------------
 usage() {
@@ -49,7 +49,7 @@ Usage:
 
   [OPTIONAL] teastore application undeploy parameters [w/ defaults].
     [ec2-user]$ export eks_kubeconfig_filepath="${HOME}/.kube/config"            # [optional] EKS kubeconfig file (defaults to '${HOME}/.kube/config').
-    [ec2-user]$ export kubectl_pause_time="90"                                   # [optional] 'kubectl' pause time to allow undeployments to complete. (defaults to '90').
+    [ec2-user]$ export kubectl_pause_time="10"                                   # [optional] 'kubectl' pause time to allow undeployments to complete. (defaults to '10').
 
     [ec2-user]$ $0
 EOF
@@ -86,41 +86,68 @@ if [ ! -d "${HOME}/TeaStore" ]; then
 fi
 
 # undeploy the teastore application from a hybrid kubernetes environment. --------------------------
-cd $HOME/TeaStore/examples/k8s-split/
+cd $HOME/TeaStore/examples/fso-hybrid/
 
-# undeploy the teastore frontend services from aws eks.
-echo "Undeploying the TeaStore Front-End services from AWS EKS cluster..."
-kubectl delete -f ./teastore-frontend.yaml --kubeconfig ${eks_kubeconfig_filepath}
+# undeploy the teastore image service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Image service from AWS EKS cluster..."
+kubectl delete -f ./teastore-image.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
-echo "Pausing for $(($kubectl_pause_time * 2)) seconds..."
-sleep $(($kubectl_pause_time * 2))
+# undeploy the teastore recommender service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Recommender service from AWS EKS cluster..."
+kubectl delete -f ./teastore-recommender.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
-# undeploy the teastore persistence service from intersight iks.
-echo "Undeploying the TeaStore Persistence services from Intersight IKS cluster..."
-kubectl delete -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepath}
+# undeploy the teastore auth service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Auth service from AWS EKS cluster..."
+kubectl delete -f ./teastore-auth.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
-echo "Pausing for ${kubectl_pause_time} seconds..."
-sleep ${kubectl_pause_time}
-echo ""
-
-# undeploy the teastore registry service from aws eks.
-echo "Undeploying the TeaStore Registry services from AWS EKS cluster..."
+# undeploy the teastore registry service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Registry service from AWS EKS cluster..."
 kubectl delete -f ./teastore-registry.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
-echo "Pausing for ${kubectl_pause_time} seconds..."
-sleep ${kubectl_pause_time}
+# undeploy the teastore webui service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore WebUI service from AWS EKS cluster..."
+kubectl delete -f ./teastore-webui.yaml --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+# allow time for the teastore front-end services to be undeployed. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "Pausing for $(($kubectl_pause_time * 18)) seconds..."
+sleep $(($kubectl_pause_time * 18))
+echo ""
+
+# undeploy the teastore persistence service from intersight iks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Persistence service from Intersight IKS cluster..."
+kubectl delete -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepath}
+echo ""
+
+# undeploy the teastore database from intersight iks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Database from Intersight IKS cluster..."
+kubectl delete -f teastore-db.yaml --kubeconfig ${iks_kubeconfig_filepath}
+echo ""
+
+# allow time for the teastore front-end services to be undeployed. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "Pausing for $(($kubectl_pause_time * 9)) seconds..."
+sleep $(($kubectl_pause_time * 9))
 echo ""
 
 # remove the teastore application project directory. -----------------------------------------------
+echo "----------------------------------------------------------------------------------------------------"
 echo "Deleting the TeaStore application project directory..."
 rm -Rf $HOME/TeaStore
 echo ""
 
 # validate the teastore services undeployment. -----------------------------------------------------
+echo "----------------------------------------------------------------------------------------------------"
 echo "Validating the TeaStore services undeployment..."
 echo ""
 
