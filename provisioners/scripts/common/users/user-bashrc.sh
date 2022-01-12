@@ -1,4 +1,4 @@
-# @(#).bashrc       1.0 2021/12/16 SMI
+# @(#).bashrc       1.0 2022/01/12 SMI
 # bash resource configuration for fso lpad users.
 
 # source global definitions.
@@ -55,6 +55,19 @@ export devops_home
 # set kubectl config path.
 KUBECONFIG=$HOME/.kube/config
 export KUBECONFIG
+
+# set fso lab environment variables.
+aws_region_name="us-west-1"
+export aws_region_name
+
+aws_eks_cluster_name="AppD-FSO-Lab-01-abcde-EKS"
+export aws_eks_cluster_name
+
+iks_kubeconfig_filepath="$HOME/AppD-FSO-Lab-01-IKS-kubeconfig.yml"
+export iks_kubeconfig_filepath
+
+fso_lab_number="01"
+export fso_lab_number
 
 # define prompt code and colors.
 reset='\[\e]0;\w\a\]'
@@ -126,4 +139,12 @@ function psgrep {
 
 function netstatgrep {
   netstat -an | grep "Active\|Proto\|$@"
+}
+
+function teastoreurl {
+  WEBUI_LOADBALANCER_HOST=$(kubectl get services teastore-webui --output json | jq -r '.status.loadBalancer.ingress[0].hostname')
+  export WEBUI_LOADBALANCER_HOST
+  TEASTORE_URL="http://${WEBUI_LOADBALANCER_HOST}:8080/tools.descartes.teastore.webui/"
+  export TEASTORE_URL
+  echo "TEASTORE_URL: ${TEASTORE_URL}"
 }
