@@ -99,11 +99,6 @@ echo "Deploying the TeaStore Database to Intersight IKS cluster..."
 kubectl apply -f ./teastore-db.yaml --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
-# allow time for the teastore database to be deployed.
-echo "Pausing for ${kubectl_pause_time} seconds..."
-sleep ${kubectl_pause_time}
-echo ""
-
 # deploy the teastore registry service to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deploying the TeaStore Registry service to AWS EKS cluster..."
@@ -111,8 +106,8 @@ kubectl apply -f ./teastore-registry.yaml --kubeconfig ${eks_kubeconfig_filepath
 echo ""
 
 # allow time for the teastore registry service to be deployed.
-echo "Pausing for $(($kubectl_pause_time * 9)) seconds..."
-sleep $(($kubectl_pause_time * 9))
+echo "Pausing for ${kubectl_pause_time} seconds..."
+sleep ${kubectl_pause_time}
 echo ""
 
 # store teastore registry nodeport host.
@@ -132,6 +127,11 @@ echo "kubectl set env deployment/teastore-registry SERVICE_PORT=$REGISTRY_NODEPO
 kubectl set env deployment/teastore-registry SERVICE_PORT=$REGISTRY_NODEPORT_PORT --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
+# allow time for the teastore registry service to be deployed.
+echo "Pausing for $(($kubectl_pause_time * 9)) seconds..."
+sleep $(($kubectl_pause_time * 9))
+echo ""
+
 # deploy the teastore persistence service to intersight iks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deploying the TeaStore Persistence service to Intersight IKS cluster..."
@@ -146,8 +146,8 @@ kubectl apply -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepat
 echo ""
 
 # allow time for the teastore persistence service to be deployed.
-echo "Pausing for $(($kubectl_pause_time * 9)) seconds..."
-sleep $(($kubectl_pause_time * 9))
+echo "Pausing for ${kubectl_pause_time} seconds..."
+sleep ${kubectl_pause_time}
 echo ""
 
 # store teastore persistence nodeport host.
@@ -167,6 +167,11 @@ echo "kubectl set env deployment/teastore-persistence SERVICE_PORT=$PERSISTENCE_
 kubectl set env deployment/teastore-persistence SERVICE_PORT=$PERSISTENCE_NODEPORT_PORT --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
+# allow time for the teastore persistence service to be deployed.
+echo "Pausing for $(($kubectl_pause_time * 9)) seconds..."
+sleep $(($kubectl_pause_time * 9))
+echo ""
+
 # deploy the teastore auth service to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deploying the TeaStore Auth service to AWS EKS cluster..."
@@ -178,11 +183,6 @@ mv teastore-auth.yaml.np teastore-auth.yaml
 
 # deploy the teastore auth service.
 kubectl apply -f ./teastore-auth.yaml --kubeconfig ${eks_kubeconfig_filepath}
-echo ""
-
-# allow time for the teastore auth service to be deployed.
-echo "Pausing for ${kubectl_pause_time} seconds..."
-sleep ${kubectl_pause_time}
 echo ""
 
 # deploy the teastore webui service to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -218,11 +218,6 @@ mv teastore-recommender.yaml.np teastore-recommender.yaml
 
 # deploy the teastore recommender service.
 kubectl apply -f ./teastore-recommender.yaml --kubeconfig ${eks_kubeconfig_filepath}
-echo ""
-
-# allow time for the teastore recommender service to be deployed.
-echo "Pausing for ${kubectl_pause_time} seconds..."
-sleep ${kubectl_pause_time}
 echo ""
 
 # deploy the teastore image service to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
