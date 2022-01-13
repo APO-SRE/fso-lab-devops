@@ -12,7 +12,7 @@ usage() {
   cat <<EOF
 Usage:
   All inputs are defined by external environment variables.
-  Script should be run with correct privilege for the given user name.
+  Script should be run with 'root' privilege.
   Example:
     [root]# export user_name="user1"                            # user name.
     [root]# export devops_home="/opt/fso-lab-devops"            # [optional] devops home (defaults to '/opt/fso-lab-devops').
@@ -37,4 +37,15 @@ fi
 user_host_os=$(hostnamectl | awk '/Operating System/ {printf "%s %s %s", $3, $4, $5}')
 if [ "$user_host_os" == "Amazon Linux 2" ]; then
   runuser -c "${devops_home}/provisioners/scripts/aws/c9-install.sh" - ${user_name}
+
+  # aws toolkit uses a file watcher utility that monitors changes to files and directories.
+  # increase the maximum number of files that can be handled by file watcher to avoid errors.
+  sysctlfile="/etc/sysctl.conf"
+  fscmd="fs.inotify.max_user_watches = 524288"
+  if [ -f "$sysctlfile" ]; then
+    sysctl fs.inotify.max_user_watches
+    grep -qF "${fscmd}" ${sysctlfile} || echo "${fscmd}" >> ${sysctlfile}
+    sysctl -p ${sysctlfile}
+    sysctl fs.inotify.max_user_watches
+  fi
 fi
