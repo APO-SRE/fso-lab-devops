@@ -192,7 +192,7 @@ __NOTE:__ The following steps are repeated for each major element of the worksho
 1.	Deploy the AWS Lab infrastructure.
 
 	a.	Create the Terraform `terraform.tfvars` file. AppDynamics SEs can download an example (`.tfvars`) file
-    [here](https://drive.google.com/file/d/1jlv0sNTyxNMgbpoq4RV4hJ1_xupB4raE/view?usp=sharing).
+    [here](https://drive.google.com/file/d/1uhgAEXtGSB5JKfBEvDp_iq8yIyoEYMOE/view?usp=sharing).
 
     __NOTE:__ The `terraform.tfvars` file is automatically loaded by Terraform and provides a convenient way to
     override input parameters found in [`variables.tf`](builders/terraform/azure/aks-monitoring-lab/lpad/variables.tf). The two

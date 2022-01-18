@@ -22,15 +22,15 @@ and is highly performant. A machine image (or immutable VM image) is a single st
 a pre-configured operating system and installed software which is used to quickly create new running 
 machines.  
 
-As part of this project, Packer is used to create immutable VM images consisting of a standardized 
-installation of Amazon Linux 2 with a set of common software. These static images are later used by 
-Terraform when standing-up the infrastructure and compute resources needed by workshop participants. 
-Currently, these VMs consist of the following type:
+As part of this project, Packer is used to create an immutable Lab VM image consisting of a standardized 
+installation of Amazon Linux 2 with a set of common software. This static image is later used by Terraform 
+when standing-up the infrastructure and compute resources needed by workshop participants. Currently, this 
+VM consists of the following type:
 
--	__LPAD VM__: A 'Launchpad' VM with pre-configured tooling for Kubernetes and AWS CLI Operations.
+-	__LPAD VM__: A 'Launchpad' Lab VM with pre-configured tooling for Kubernetes and AWS CLI Operations.
 
-For SE-lead workshops, these VM images are built and maintained by Cisco/AppDynamics. However, all of the 
-artifacts used to build the images are present in this project, so customers are free to customize and 
+For SE-lead workshops, the Lab VM image is built and maintained by Cisco/AppDynamics. However, all of the 
+artifacts used to build the image are present in this project, so customers are free to customize and 
 build their own VM images if desired.  
 
 ### Terraform
@@ -42,7 +42,7 @@ instances, storage, and networking, as well as high-level components such as DNS
 etc.  
 
 In this project, Terraform is used to automate the deployment of the Lab infrastructure, including VPCs, 
-subnets, security groups, load balancers, Kubdernetes clusters, and VMs using templates.
+subnets, security groups, load balancers, Kubdernetes clusters, and Lab VM using templates.
 
 ## Get Started
 
@@ -55,7 +55,7 @@ cloud CLI and/or SSH to communicate with your cloud resources and managed nodes.
 
 ## Installation Instructions - macOS
 
-The following open source software needs to be installed on the host macOS machine:
+For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
 -	Homebrew 3.3.11
 -	Git 2.34.1
@@ -124,7 +124,7 @@ Perform the following steps to install the needed software:
 
 ## Installation Instructions - Windows 64-Bit
 
-To build the FSO Lab DevOps immutable VM images, the following open source software needs to be installed on the host Windows machine:
+For Windows environments, the following open source software needs to be installed on the host Windows machine:
 
 -	Git 2.34.1 for Win64
 -	Packer 1.7.8
