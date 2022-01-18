@@ -1,192 +1,244 @@
-# AWS CentOS 7.9 AMI Build Instructions
+# AWS Amazon Linux 2 AMI Build and Deployment Instructions
 
-Follow these instructions to build the AWS CentOS 7.9 AMI images:
+## Overview
 
--	__APM-Platform VM__: An APM Platform stand-alone VM with an AppDynamics Controller.
--	__CWOM-Platform VM__: A Cisco Workload Optimization Manager (CWOM) stand-alone VM with a CWOM Platform server.
--	__LPAD VM__: An AWS EC2 'Launchpad' VM needed for Kubernetes and Serverless CLI Operations and running the sample apps.
+Here is an example of the deployment architecture when deployed to the AWS Cloud Platform:  
 
-Before building the FSO Lab DevOps VM images for AWS, it is recommended that you install the AWS CLI v2. This will allow you to cleanup and delete any resources created by the Packer builds when you are finished. It will also provide the ability to easily purge old AMI images while keeping the latest. Note that in AWS CLI version 2, the required Python 3 libraries are now embedded in the installer and no longer need to be installed separately.
+__FSO Lab DevOps: Workshop Deployment on AWS__
+![Workshop_Deployment_on_AWS](./images/FSO-Lab-DevOps-Workshop-Deployment-on-AWS.png)
+
+## Build and Deployment Steps
+
+Before building and deploying the FSO Lab DevOps artifacts for AWS, you will need to install the AWS CLI v2 
+command-line interface. The AWS CLI manages authentication, local configuration, developer workflow, and 
+interactions with the AWS Cloud APIs. It is the primary tool used to create and manage AWS Cloud resources.  
+
+The AWS CLI will also allow you to cleanup and delete any resources created by the DevOps tooling when 
+you are finished, such as purging old AMI images created by Packer. Note that in AWS CLI version 2, the 
+required Python 3 libraries are now embedded in the installer and no longer need to be installed separately.
 
 ## AWS-Specific Installation Instructions - macOS
 
 Here is a list of the recommended open source software to be installed on the host macOS machine:
 
--	Amazon AWS CLI 2.4.10 (command-line interface)
+-	Amazon AWS CLI 2.4.11 (command-line interface)
 
 Perform the following steps to install the needed software:
 
-1.	Install [AWS CLI 2.4.10](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).  
-    `$ brew install awscli@2`  
+1.	Install [AWS CLI 2.4.11](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).  
+    `brew install awscli@2`  
 
 2.	Validate installed command-line tools:
 
     ```bash
-    $ aws --version
-    aws-cli/2.4.10 Python/3.9.9 Darwin/20.6.0 source/x86_64 prompt/off
+    aws --version
+    # aws-cli/2.4.11 Python/3.9.10 Darwin/20.6.0 source/x86_64 prompt/off
     ```
 
 ## AWS-Specific Installation Instructions - Windows 64-Bit
 
+Windows users have a wide variety of choice in command-line tools and shells for running the AWS CLI, 
+such as the Windows Command Prompt, [PowerShell](https://docs.microsoft.com/en-us/powershell/), 
+[Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal/get-started), 
+[Git Bash](https://git-scm.com/download/win), and 
+[The Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about).  
+
+Although you are free to use any of these tools, the installation steps described below will be based on 
+the usage of the **Git Bash** terminal for consistency.  
+
 Here is a list of the recommended open source software to be installed on the host Windows machine:
 
--	Amazon AWS CLI 2.4.10 (command-line interface)
+-	Amazon AWS CLI 2.4.11 (command-line interface)
 
 Perform the following steps to install the needed software:
 
-1.	Install [AWS CLI 2.4.10](https://awscli.amazonaws.com/AWSCLIV2.msi) for Windows 64-bit.  
+1.	Install [AWS CLI 2.4.11](https://awscli.amazonaws.com/AWSCLIV2.msi) for Windows 64-bit.  
     Run the downloaded MSI installer and follow the on-screen instructions.  
 
-    **NOTE:** For Windows users, the MSI installation package offers a familiar and convenient way to install the AWS CLI without installing any other prerequisites. However, when updates are released, you must repeat the installation process to get the latest version of the AWS CLI. If you prefer more frequent updates, consider using `pip` as described in the AWS CLI [install guide](https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html).
+    **NOTE:** For Windows users, the MSI installation package offers a familiar and convenient way to 
+    install the AWS CLI without installing any other prerequisites. However, when updates are released, 
+    you must repeat the installation process to get the latest version of the AWS CLI. If you prefer 
+    more frequent updates, consider using `pip` as described in the AWS CLI 
+    [install guide](https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html).
 
 2.	Validate installed command-line tool:
 
     ```bash
-    $ aws --version
-    aws-cli/2.4.10 Python/3.8.8 Windows/10 exe/AMD64 prompt/off
+    aws --version
+    # aws-cli/2.4.11 Python/3.8.8 Windows/10 exe/AMD64 prompt/off
+    ```
+
+## Configuration and Validation
+
+The configuration and validation steps are essentially identical for macOS and Windows 64-Bit systems. 
+Perform the following steps to complete these tasks:  
+
+1.	Configure AWS CLI and authenticate to the AWS Cloud:
+
+    ```bash
+    aws configure
+    # AWS Access Key ID [None]: <Your_AWS_ACCESS_KEY_ID>
+    # AWS Secret Access Key [None]: <Your_AWS_SECRET_ACCESS_KEY>
+    # Default region name [None]: us-west-1
+    # Default output format [None]: json
+    ```
+
+2.	Verify your AWS credentials:
+
+    ```bash
+    aws sts get-caller-identity
+    # {
+    #   "UserId": "<Your_User_ID>",
+    #   "Account": "<Your_Account>",
+    #   "Arn": "arn:aws:iam::<Your_Account>:<Your_Amazon_Resource_Name>"
+    # }
     ```
 
 ## Prepare for the Build
 
-All user credentials and installation inputs are driven by environment variables and can be configured within 
-the `set_devops_env.sh` script you will create in `./bin`. There are LOTS of options, but most 
-have acceptable defaults. You only need to concentrate on a handful that are uncommented in the template file.  
+All user credentials and installation inputs are driven by environment variables and can be configured 
+within the `set_devops_env.sh` script you will create in `./bin`. There are LOTS of options, but most 
+have acceptable defaults. You only need to concentrate on a handful that are uncommented in the template 
+file.  
 
-In particular, you will need to provide an AWS Access Key ID and Secret Access Key from a valid AWS account.  
+In particular, you will need to add the AWS Access Key ID and Secret Access Key used earlier as environent 
+variables.
 
 To prepare for the build, perform the following steps:
 
 1.	Customize your FSO Lab DevOps project environment:
 
-    Copy the template file and edit `set_devops_env.sh` located in `./bin` to customize the environment variables for your environment.
+    Copy the template file and edit `set_devops_env.sh` located in `./bin` to customize the environment 
+    variables for your environment.
 
     ```bash
-    $ cd /<drive>/projects/fso-lab-devops/bin
-    $ cp -p set_devops_env.sh.template set_devops_env.sh
-    $ vi set_devops_env.sh
+    cd ~/fso-lab-devops/bin
+    cp -p set_devops_env.sh.template set_devops_env.sh
+    vi set_devops_env.sh
     ```
 
-    The following environment variables are the most common to be overridden. They are grouped by sections in the file, so you will have to search to locate the exact line. For example, the AWS-related variables are at the end of the file.
+    The following environment variables are the most common to be overridden. They are grouped by sections 
+    in the file, so you will have to search to locate the exact line. For example, the AWS-related variables 
+    are at the end of the file.  
 
-    The first two are mandatory and the others are optional, but helpful. If you are building the AMI images in the `us-east-1` region (N. Virginia), the region-related variables can be left alone.
+    The first two are mandatory and the others are optional, but helpful. If you are building the AMI images 
+    in the `us-west-1` region (N. California), the region-related variables can be left alone.
 
     ```bash
     AWS_ACCESS_KEY_ID="<Your_AWS_ACCESS_KEY_ID>"
     AWS_SECRET_ACCESS_KEY="<Your_AWS_SECRET_ACCESS_KEY>"
 
     aws_ami_owner="<Your Firstname> <Your Lastname>"
-    aws_cli_default_region_name="us-west-1"         # example for N. California.
-    aws_ami_region="us-west-1"                      # example for N. California.
     ```
 
     Save and source the environment variables file in order to define the variables in your shell.
 
     ```bash
-    $ source ./set_devops_env.sh
+    source ./set_devops_env.sh
     ```
 
     Validate the newly-defined environment variables via the following commands:
 
     ```bash
-    $ env | grep -i ^aws | sort
-    $ env | grep -i ^appd | sort
+    env | grep -i ^aws | sort
     ```
 
-2.	Supply a valid AppDynamics Controller license file:
+## Build the Amazon Machine Image (AMIs) with Packer
 
-	-	This license can be supplied by any AppDynamics SE
-		-	It is recommended to have at least 10 APM, 10 server, 10 network, 5 DB, 1 unit of each Analytics and 1 unit of each RUM within the license key.
-		-	Copy your AppDynamics Controller `license.lic` and rename it to `provisioners/scripts/centos/tools/appd-controller-license.lic`.
+Follow these instructions to build the AWS Amazon Linux 2 (AL2) AMI image:
 
+-	__LPAD VM__: An AWS EC2 'Launchpad' Lab VM with pre-configured tooling for Kubernetes and AWS CLI Operations.
 
-## Build the Amazon Machine Images (AMIs) with Packer
+Here is an example of the Packer build flow for the AWS Cloud:
 
-1.	Build the __APM-Platform VM__ CentOS 7.9 AMI image:
+__Packer Build Flow for AWS
+![Packer_Build_Flow_for_AWS](./images/FSO-Lab-DevOps-Packer-Build-Flow-on-AWS.png)
+
+1.	Build the __LPAD VM__ Amazon Linux 2 AMI image:
 
     This will take several minutes to run.
 
     ```bash
-    $ cd /<drive>/projects/fso-lab-devops/builders/packer/aws
-    $ packer build apm-platform-centos79.json
+    packer build fso-lpad-al2.json
     ```
 
-    If the build fails, check to ensure the accuracy of all variables edited above--including items such as spaces between access keys and the ending parentheses.
+    If the build fails, check to ensure the accuracy of all variables edited above.
 
-2.	Build the __CWOM-Platform VM__ CentOS 7.9 AMI image:
+2.	[Optional] Delete older __LPAD VM__ AMI images:
 
-    This will take several minutes to run.
+    Run this utility script to automatically remove previously created AMI images. By default, the latest 
+    AMI image is not removed. To delete ALL images, set the `aws_ami_keep_last` environment variable to `false`.
 
     ```bash
-    $ cd /<drive>/projects/fso-lab-devops/builders/packer/aws
-    $ packer build cwom-platform-centos79.json
+    cd ~/fso-lab-devops/provisioners/scripts/utils
+    ./delete_aws_ami_images_by_region.sh
     ```
 
-    If the build fails, check to ensure the accuracy of all variables edited above--including items such as spaces between access keys and the ending parentheses.
+The steps for creating the AMI's are completed.
 
-3.	Build the __LPAD VM__ CentOS 7.9 AMI image:
+## Deploy the Infrastructure with Terraform
 
-    This will take several minutes to run. However, this build will be shorter
-    because the size of the root volume for the AMI image is much smaller.
+Follow these instructions to deploy the infrastructure and create a Lab environment for the lab participant:
+
+-	__LPAD VM__: Deploy the AWS EC2 'Launchpad' Lab VM.
+
+Here is an example of the Terraform build flow for the AWS Cloud:
+
+__Terraform Build Flow for AWS
+![Terraform_Build_Flow_for_AWS](./images/FSO-Lab-DevOps-Terraform-Build-Flow-on-AWS.png)
+
+__NOTE:__ The following steps are repeated for each major element of the workshop.
+
+1.	Deploy the AWS Lab infrastructure.
+
+	a.	Create the Terraform `terraform.tfvars` file. AppDynamics SEs can download an example (`.tfvars`) file
+    [here](https://drive.google.com/file/d/1jlv0sNTyxNMgbpoq4RV4hJ1_xupB4raE/view?usp=sharing).
+
+    __NOTE:__ The `terraform.tfvars` file is automatically loaded by Terraform and provides a convenient way to
+    override input parameters found in [`variables.tf`](builders/terraform/azure/aks-monitoring-lab/lpad/variables.tf). The two
+    most important variables are:
+
+    | Variable                        | Description                                                                                                                                                                                                                                                                                               |
+    |---------------------------------|------------------------------------------------------------|
+    | `lab_count`                     | Number of Lab environments to launch.
+    | `lab_start_number`              | Starting lab number for incrementally naming Lab resources.
+
+    <br>
 
     ```bash
-    $ packer build lpad-centos79.json
+    $ cd ~/projects/AppD-Cloud-Kickstart/builders/terraform/azure/aks-monitoring-lab/lpad
+    $ vi terraform.tfvars
+    ...
+    # set number of lab environments to launch with starting lab number.
+    lab_count = 10
+    lab_start_number = 1
+    ...
     ```
 
-4. The steps for creating the AMI's are completed. 
+	b.	Deploy the Lab infrastructure on Azure. Execute the following Terraform lifecycle commands in sequence:
 
-## AWS CentOS 7.9 Bill-of-Materials
+    ```bash
+    $ cd ~/projects/AppD-Cloud-Kickstart/builders/terraform/azure/aks-monitoring-lab/lpad
+    $ terraform --version
+    $ terraform init
+    $ terraform validate
+    $ terraform plan -out terraform-lpad.tfplan
+    $ terraform apply terraform-lpad.tfplan
+    ```
 
-__APM-Platform VM__ - The following utilities and application performance management applications are pre-installed:
-
--	Amazon AWS CLI 2.4.10 (command-line interface)
--	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
--	Ansible 2.9.27
--	AppDynamics Enterprise Console 21.4.10 Build 24688
-	-	AppDynamics Controller 21.4.10 Build 1472
-	-	AppDynamics Events Service 4.5.2 Build 20651
--	Docker 20.10.12 CE
-	-	Docker Bash Completion
-	-	Docker Compose 1.29.2
-	-	Docker Compose Bash Completion
--	Java SE JDK 8 Update 312 (Amazon Corretto 8)
--	jq 1.6 (command-line JSON processor)
--	MySQL Shell 8.0.27
--	Python 2.7.5
-	-	Pip 21.3.1
--	Python 3.6.8
-	-	Pip 21.3.1
--	VIM - Vi IMproved 8.2
--	yq 4.16.2 (command-line YAML processor)
-
-__CWOM-Platform VM__ - The following utilities and workload optimization management applications are pre-installed:
-
--	Amazon AWS CLI 2.4.10 (command-line interface)
--	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
--	Ansible 2.9.27
--	Cisco Workload Optimization Manager (CWOM) 2.3.28
--	Docker 20.10.12 CE
-	-	Docker Bash Completion
-	-	Docker Compose 1.29.2
-	-	Docker Compose Bash Completion
--	Java SE JDK 8 Update 312 (Amazon Corretto 8)
--	jq 1.6 (command-line JSON processor)
--	MySQL Shell 8.0.27
--	Python 2.7.5
-	-	Pip 21.3.1
--	Python 3.6.8
-	-	Pip 21.3.1
--	VIM - Vi IMproved 8.2
--	yq 4.16.2 (command-line YAML processor)
+## AWS Amazon Linux 2 Bill-of-Materials
 
 __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-installed:
 
--	Amazon AWS CLI 2.4.10 (command-line interface)
+-	Amazon AWS CLI 2.4.11 (command-line interface)
+-	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
--	Amazon AWS EKS CLI [eksctl] 0.78.0 (command-line interface)
+-	Amazon AWS EKS CLI [eksctl] 0.79.0 (command-line interface)
 -	Amazon AWS Kubernetes Control CLI [kubectl] 1.20.4 (command-line interface)
--	Ansible 2.9.27
+-	Ansible 2.9.23
+-	Ant 1.10.12
 -	AppDynamics Node.js Serverless Tracer 21.11.348
--	Docker 20.10.12 CE
+-	Docker 20.10.7 CE
 	-	Docker Bash Completion
 	-	Docker Compose 1.29.2
 	-	Docker Compose Bash Completion
@@ -194,18 +246,25 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Git Bash Completion
 	-	Git-Flow 1.12.3 (AVH Edition)
 	-	Git-Flow Bash Completion
+-	Go 1.17.6
+-	Gradle 7.3.3
 -	Helm CLI 3.7.2 (Package Manager for Kubernetes)
 -	Java SE JDK 8 Update 312 (Amazon Corretto 8)
 -	Java SE JDK 11.0.13 (Amazon Corretto 11)
 -	Java SE JDK 17.0.1 (Amazon Corretto 17)
+-	JMESPath jp 0.2.1 (command-line JSON processor)
 -	jq 1.6 (command-line JSON processor)
+-	Maven 3.8.4
 -	Node.js JavaScript runtime v16.13.2 (Latest LTS Version)
--	npm JavaScript Package Manager for Node.js 8.3.0
+-	npm JavaScript Package Manager for Node.js 8.3.1
 -	nvm (Node Version Manager) bash script 0.39.1
--	Python 2.7.5
+-	Packer 1.7.8
+-	Python 2.7.18
 	-	Pip 21.3.1
--	Python 3.6.8
+-	Python 3.7.10
 	-	Pip 21.3.1
--	Serverless Framework CLI 2.71.0
+-	Serverless Framework CLI 2.72.0
+-	Terraform 1.1.3
 -	VIM - Vi IMproved 8.2
+-	XMLStarlet 1.6.1 (command-line XML processor)
 -	yq 4.16.2 (command-line YAML processor)

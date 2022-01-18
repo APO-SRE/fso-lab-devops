@@ -2,10 +2,10 @@
 
 ## Overview
 
-When delivering AppDynamics Cloud workshops, the provisioning and configuration of these lab environments 
-can be an extremely tedious and time-consuming challenge for SE's. To solve that problem, the AppDynamics 
-FSO Lab DevOps project delivers a set of artifacts to automate the build, deployment, and configuration 
-portion of these pre-workshop activities using open source tooling.
+The provisioning, configuration, and preparation needed for delivering the Cisco Full Stack Observability 
+(FSO) series of workshops can be an extremely tedious and time-consuming challenge for SE's. To solve 
+that problem, the FSO Lab DevOps project delivers a set of artifacts to automate the build, deployment, 
+and configuration portion of these pre-workshop activities using open source tooling.
 
 ## Build and Deployment Tools
 
@@ -16,48 +16,48 @@ environments, as well as having a high level of adoption within the developer co
 
 ### Packer
 
-[Packer](https://packer.io/) is an open source tool for creating identical machine images for multiple platforms
-from a single source configuration. Packer is lightweight, runs on every major operating system, and is highly
-performant. A machine image (or immutable VM image) is a single static unit that contains a pre-configured
-operating system and installed software which is used to quickly create new running machines.  
+[Packer](https://packer.io/) is an open source tool for creating identical machine images for multiple 
+platforms from a single source configuration. Packer is lightweight, runs on every major operating system, 
+and is highly performant. A machine image (or immutable VM image) is a single static unit that contains 
+a pre-configured operating system and installed software which is used to quickly create new running 
+machines.  
 
-As part of this project, Packer is used to create immutable VM images consisting of a standardized installation 
-of CentOS 7.9 with a set of common software. These static images are later used by Terraform when standing-up 
-the infrastructure and compute resources needed by workshop participants. Currently, these VMs consist of the 
-following types:
+As part of this project, Packer is used to create immutable VM images consisting of a standardized 
+installation of Amazon Linux 2 with a set of common software. These static images are later used by 
+Terraform when standing-up the infrastructure and compute resources needed by workshop participants. 
+Currently, these VMs consist of the following type:
 
--	__LPAD VM__: A 'Launchpad' VM with pre-configured tooling for Kubernetes and Serverless CLI Operations.
--	__APM-Platform VM__: An APM Platform stand-alone VM designed for Application Performance Monitoring. It consists of the AppDynamics Enterprise Console, Controller, and Events Service.
+-	__LPAD VM__: A 'Launchpad' VM with pre-configured tooling for Kubernetes and AWS CLI Operations.
 
-For SE-lead workshops, these VM images are built and maintained by AppDynamics. However, all of the artifacts 
-used to build the images are present in this project, so customers are free to customize and build their own VM
-images if desired.  
+For SE-lead workshops, these VM images are built and maintained by Cisco/AppDynamics. However, all of the 
+artifacts used to build the images are present in this project, so customers are free to customize and 
+build their own VM images if desired.  
 
 ### Terraform
 
-[Terraform](https://terraform.io/) is a tool for building, changing, and versioning infrastructure safely and
-efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.
-The infrastructure Terraform can manage includes low-level components such as compute instances, storage, and
-networking, as well as high-level components such as DNS entries, SaaS features, etc.  
+[Terraform](https://terraform.io/) is a tool for building, changing, and versioning infrastructure 
+safely and efficiently. Terraform can manage existing and popular service providers as well as custom 
+in-house solutions. The infrastructure Terraform can manage includes low-level components such as compute 
+instances, storage, and networking, as well as high-level components such as DNS entries, SaaS features, 
+etc.  
 
-In this project, Terraform is used to automate the deployment of the Lab infrastructure, including VPCs, subnets, 
-security groups, load balancers, and VMs using templates. The SE can also specify the number of environments 
-needed (one for each participant) as well as the lab sequence start number, such as Lab01, Lab02, Lab03, etc.
+In this project, Terraform is used to automate the deployment of the Lab infrastructure, including VPCs, 
+subnets, security groups, load balancers, Kubdernetes clusters, and VMs using templates.
 
 ## Get Started
 
-To configure the AppDynamics Cloud workshop environments, the first step is to set-up your local environment 
-by installing the needed software.
+To configure the FSO Lab workshop environments, the first step is to set-up your local environment by 
+installing the needed software.
 
 ### Prerequisites
-You install Packer and Terraform on a control node, usually your local laptop, which then uses the cloud CLI and/or
-SSH to communicate with your cloud resources and managed nodes.
+You install Packer and Terraform on a control node, usually your local laptop, which then uses the 
+cloud CLI and/or SSH to communicate with your cloud resources and managed nodes.
 
 ## Installation Instructions - macOS
 
 The following open source software needs to be installed on the host macOS machine:
 
--	Homebrew 3.3.10
+-	Homebrew 3.3.11
 -	Git 2.34.1
 -	Packer 1.7.8
 -	Terraform 1.1.3
@@ -65,60 +65,61 @@ The following open source software needs to be installed on the host macOS machi
 
 Perform the following steps to install the needed software:
 
-1.	Install the [Homebrew 3.3.10](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
+1.	Install the [Homebrew 3.3.11](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
     ```bash
-    $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
 
 2.	Install [Git 2.34.1](https://git-scm.com/downloads) for macOS 64-bit.  
     ```bash
-    $ brew install git
+    brew install git
     ```
 
 3.	Install [Packer 1.7.8](https://www.packer.io/downloads.html) for macOS 64-bit.  
     ```bash
-    $ brew tap hashicorp/tap
-    $ brew install hashicorp/tap/packer
+    brew tap hashicorp/tap
+    brew install hashicorp/tap/packer
     ```
 
 4.	Install [Terraform 1.1.3](https://www.terraform.io/downloads.html) for macOS 64-bit.  
     ```bash
-    $ brew tap hashicorp/tap
-    $ brew install hashicorp/tap/terraform
+    brew tap hashicorp/tap
+    brew install hashicorp/tap/terraform
     ```
 
 5.	Install [jq 1.6](https://stedolan.github.io/jq/) for macOS 64-bit.  
-    `$ brew install jq`  
+    `brew install jq`  
 
 ### Configuration and Validation - macOS
 
 1.	Validate installed command-line tools:
 
     ```bash
-    $ brew --version
-    Homebrew 3.3.10
-    $ brew doctor
-    Your system is ready to brew.
+    brew --version
+    # Homebrew 3.3.11
 
-    $ git --version
-    git version 2.34.1
+    brew doctor
+    # Your system is ready to brew.
 
-    $ packer --version
-    1.7.8
+    git --version
+    # git version 2.34.1
 
-    $ terraform --version
-    Terraform v1.1.3
+    packer --version
+    # 1.7.8
 
-    $ jq --version
-    jq-1.6
+    terraform --version
+    # Terraform v1.1.3
+
+    jq --version
+    # jq-1.6
     ```
 
 2.	Configure Git for local user:
 
     ```bash
-    $ git config --global user.name "<first_name> <last_name>"
-    $ git config --global user.email "<your_email>"
-    $ git config --global --list
+    git config --global user.name "<first_name> <last_name>"
+    git config --global user.email "<your_email>"
+    git config --global --list
     ```
 
 ## Installation Instructions - Windows 64-Bit
@@ -162,48 +163,46 @@ Perform the following steps to install the needed software:
 4.	Validate installed command-line tools:
 
     ```bash
-    $ git --version
-    git version 2.34.1.windows.1
+    git --version
+    # git version 2.34.1.windows.1
 
-    $ packer --version
-    1.7.8
+    packer --version
+    # 1.7.8
 
-    $ terraform --version
+    terraform --version
     Terraform v1.1.3
 
-    $ jq --version
-    jq-1.6
+    jq --version
+    # jq-1.6
     ```
 
 5.	Configure Git for local user:
 
     ```bash
-    $ git config --global user.name "<first_name> <last_name>"
-    $ git config --global user.email "<your_email>"
-    $ git config --global --list
+    git config --global user.name "<first_name> <last_name>"
+    git config --global user.email "<your_email>"
+    git config --global --list
     ```
 
 ## Get the Code
 
-1.	Create a folder for your FSO Lab DevOps project:
+1.	Create a folder for your FSO Lab DevOps project or use your home directory:
 
     ```bash
-    $ mkdir -p /<drive>/projects
-    $ cd /<drive>/projects
+    cd ~
     ```
 
 2.	Get the code from GitHub:
 
     ```bash
-    $ git clone https://github.com/APO-SRE/fso-lab-devops.git
-    $ cd fso-lab-devops
+    git clone https://github.com/APO-SRE/fso-lab-devops.git
+    cd fso-lab-devops
     ```
 
 ## Build the VM Images and Deploy the Lab Infrastructure
 
-The AppDynamics FSO Lab DevOps project currently supports VM image builds for Amazon AWS, Microsoft Azure, 
-and Google Cloud Platform (GCP). Click on a link below for platform-specific instructions and a Bill-of-Materials.
+The FSO Lab DevOps project currently supports VM image builds for Amazon AWS; wiht future support planned 
+for Microsoft Azure and Google Cloud Platform (GCP). Click on a link below for platform-specific 
+instructions and a Bill-of-Materials:
 
 -	[AWS Build and Deploy](AWS_VM_BUILD_INSTRUCTIONS.md): Instructions
--	[Azure Build and Deploy](AZURE_VM_BUILD_INSTRUCTIONS.md): Instructions
--	[GCP Build and Deploy](GCP_VM_BUILD_INSTRUCTIONS.md): Instructions
