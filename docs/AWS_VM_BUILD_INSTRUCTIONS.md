@@ -151,7 +151,7 @@ Follow these instructions to build the AWS Amazon Linux 2 (AL2) AMI image:
 
 Here is an example of the Packer build flow for the AWS Cloud:
 
-__Packer Build Flow for AWS
+__Packer Build Flow for AWS__
 ![Packer_Build_Flow_for_AWS](./images/FSO-Lab-DevOps-Packer-Build-Flow-on-AWS.png)
 
 1.	Build the __LPAD VM__ Amazon Linux 2 AMI image:
@@ -184,7 +184,7 @@ Follow these instructions to deploy the infrastructure and create a Lab environm
 
 Here is an example of the Terraform build flow for the AWS Cloud:
 
-__Terraform Build Flow for AWS
+__Terraform Build Flow for AWS__
 ![Terraform_Build_Flow_for_AWS](./images/FSO-Lab-DevOps-Terraform-Build-Flow-on-AWS.png)
 
 __NOTE:__ The following steps are repeated for each major element of the workshop.
