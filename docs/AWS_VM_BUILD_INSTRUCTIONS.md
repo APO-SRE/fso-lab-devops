@@ -21,18 +21,18 @@ required Python 3 libraries are now embedded in the installer and no longer need
 
 Here is a list of the recommended open source software to be installed on the host macOS machine:
 
--	Amazon AWS CLI 2.4.11 (command-line interface)
+-	Amazon AWS CLI 2.4.12 (command-line interface)
 
 Perform the following steps to install the needed software:
 
-1.	Install [AWS CLI 2.4.11](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).  
+1.	Install [AWS CLI 2.4.12](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).  
     `brew install awscli@2`  
 
 2.	Validate installed command-line tools:
 
     ```bash
     aws --version
-    # aws-cli/2.4.11 Python/3.9.10 Darwin/20.6.0 source/x86_64 prompt/off
+    # aws-cli/2.4.12 Python/3.9.10 Darwin/20.6.0 source/x86_64 prompt/off
     ```
 
 ## AWS-Specific Installation Instructions - Windows 64-Bit
@@ -48,11 +48,11 @@ the usage of the **Git Bash** terminal for consistency.
 
 Here is a list of the recommended open source software to be installed on the host Windows machine:
 
--	Amazon AWS CLI 2.4.11 (command-line interface)
+-	Amazon AWS CLI 2.4.12 (command-line interface)
 
 Perform the following steps to install the needed software:
 
-1.	Install [AWS CLI 2.4.11](https://awscli.amazonaws.com/AWSCLIV2.msi) for Windows 64-bit.  
+1.	Install [AWS CLI 2.4.12](https://awscli.amazonaws.com/AWSCLIV2.msi) for Windows 64-bit.  
     Run the downloaded MSI installer and follow the on-screen instructions.  
 
     **NOTE:** For Windows users, the MSI installation package offers a familiar and convenient way to 
@@ -65,7 +65,7 @@ Perform the following steps to install the needed software:
 
     ```bash
     aws --version
-    # aws-cli/2.4.11 Python/3.8.8 Windows/10 exe/AMD64 prompt/off
+    # aws-cli/2.4.12 Python/3.8.8 Windows/10 exe/AMD64 prompt/off
     ```
 
 ## Configuration and Validation
@@ -159,6 +159,7 @@ __Packer Build Flow for AWS__
     This will take several minutes to run.
 
     ```bash
+    $ cd ~/fso-lab-devops/builders/packer/aws
     packer build fso-lpad-al2.json
     ```
 
@@ -230,7 +231,7 @@ __NOTE:__ The following steps are repeated for each major element of the worksho
 
 __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-installed:
 
--	Amazon AWS CLI 2.4.11 (command-line interface)
+-	Amazon AWS CLI 2.4.12 (command-line interface)
 -	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
 -	Amazon AWS EKS CLI [eksctl] 0.79.0 (command-line interface)
@@ -258,13 +259,13 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Node.js JavaScript runtime v16.13.2 (Latest LTS Version)
 -	npm JavaScript Package Manager for Node.js 8.3.1
 -	nvm (Node Version Manager) bash script 0.39.1
--	Packer 1.7.8
+-	Packer 1.7.9
 -	Python 2.7.18
 	-	Pip 21.3.1
 -	Python 3.7.10
 	-	Pip 21.3.1
 -	Serverless Framework CLI 2.72.0
--	Terraform 1.1.3
+-	Terraform 1.1.4
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
 -	yq 4.16.2 (command-line YAML processor)
