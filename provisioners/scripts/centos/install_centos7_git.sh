@@ -24,6 +24,7 @@ cd /usr/local/src/git
 wget --no-verbose https://www.kernel.org/pub/software/scm/git/${gitbinary}
 
 # extract git source.
+rm -Rf ${gitfolder}
 tar -zxvf ${gitbinary} --no-same-owner --no-overwrite-dir
 chown -R root:root ./${gitfolder}
 rm -f ${gitbinary}
