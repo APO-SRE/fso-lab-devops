@@ -1,0 +1,8 @@
+----------------------------------------------------------------------------------------------------
+Deploy/Undeploy to Hybrid Kubernetes Clusters (EKS/IKS)
+----------------------------------------------------------------------------------------------------
+For more information, see the TeaStore microservice application deploy and undeploy scripts here:
+
+  https://github.com/APO-SRE/fso-lab-devops/blob/main/provisioners/scripts/common/deploy_teastore_application_to_hybrid_kubernetes.sh
+  https://github.com/APO-SRE/fso-lab-devops/blob/main/provisioners/scripts/common/undeploy_teastore_application_from_hybrid_kubernetes.sh
+

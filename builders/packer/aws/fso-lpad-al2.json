@@ -40,13 +40,27 @@
     {
       "inline": [
         "sudo mkdir -p {{user `devops_home`}}/provisioners/scripts",
-        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} {{user `devops_home`}}"
+        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} {{user `devops_home`}}",
+        "sudo mkdir -p /home/{{user `aws_ec2_username`}}/applications/environment/workshop",
+        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} /home/{{user `aws_ec2_username`}}/applications",
+        "sudo mkdir -p /home/{{user `aws_ec2_username`}}/TeaStore/examples/fso-hybrid",
+        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} /home/{{user `aws_ec2_username`}}/TeaStore"
       ],
       "type": "shell"
     },
     {
       "destination": "{{user `devops_home`}}/provisioners/scripts",
       "source": "{{template_dir}}/../../../provisioners/scripts/",
+      "type": "file"
+    },
+    {
+      "destination": "/home/{{user `aws_ec2_username`}}/applications/environment/workshop",
+      "source": "{{template_dir}}/../../../applications/environment/workshop/",
+      "type": "file"
+    },
+    {
+      "destination": "/home/{{user `aws_ec2_username`}}/TeaStore/examples/fso-hybrid",
+      "source": "{{template_dir}}/../../../applications/TeaStore/examples/fso-hybrid/",
       "type": "file"
     },
     {

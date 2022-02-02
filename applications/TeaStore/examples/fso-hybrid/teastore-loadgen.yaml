@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-loadgen
+spec:
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-loadgen
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-loadgen
+    spec:
+      containers:
+        - name: teastore-loadgen
+          image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-loadgen
+          ports:
+            - containerPort: 8080
+          args: ["-t", "/teastore_browse_nogui.jmx", "-Jhostname", "teastore-webui", "-Jport", "8080", "-JnumUser", "2", "-JrampUp", "1", "-n"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-loadgen-amex
+spec:
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-loadgen-amex
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-loadgen-amex
+    spec:
+      containers:
+        - name: teastore-loadgen-amex
+          image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-loadgen
+          ports:
+            - containerPort: 8080
+          args: ["-t", "/teastore_browse_nogui_amex.jmx", "-Jhostname", "teastore-webui", "-Jport", "8080", "-JnumUser", "2", "-JrampUp", "1", "-n"]

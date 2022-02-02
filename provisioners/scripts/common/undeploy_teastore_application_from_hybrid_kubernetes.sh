@@ -79,42 +79,55 @@ fi
 
 # validate the teastore application project. -------------------------------------------------------
 # test if teastore application project directory exists.
-if [ ! -d "${HOME}/TeaStore" ]; then
-  echo "Error: TeaStore GitHub repository folder '${HOME}/TeaStore' does NOT exist."
+if [ ! -d "${HOME}/TeaStore/examples/fso-hybrid" ]; then
+  echo "Error: TeaStore GitHub repository folder '${HOME}/TeaStore/examples/fso-hybrid' does NOT exist."
   usage
   exit 1
 fi
 
 # undeploy the teastore application from a hybrid kubernetes environment. --------------------------
+echo "cd $HOME/TeaStore/examples/fso-hybrid/"
 cd $HOME/TeaStore/examples/fso-hybrid/
+
+# undeploy the teastore load generator from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Load Generator from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-loadgen.yaml --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl delete -f ./teastore-loadgen.yaml --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
 
 # undeploy the teastore image service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Image service from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-image.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl delete -f ./teastore-image.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
 # undeploy the teastore recommender service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Recommender service from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-recommender.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl delete -f ./teastore-recommender.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
 # undeploy the teastore auth service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Auth service from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-auth.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl delete -f ./teastore-auth.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
 # undeploy the teastore registry service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Registry service from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-registry.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl delete -f ./teastore-registry.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
 # undeploy the teastore webui service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore WebUI service from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-webui.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl delete -f ./teastore-webui.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
@@ -126,12 +139,14 @@ echo ""
 # undeploy the teastore persistence service from intersight iks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Persistence service from Intersight IKS cluster..."
+echo "kubectl delete -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepath}"
 kubectl delete -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
 # undeploy the teastore database from intersight iks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Database from Intersight IKS cluster..."
+echo "kubectl delete -f teastore-db.yaml --kubeconfig ${iks_kubeconfig_filepath}"
 kubectl delete -f teastore-db.yaml --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
@@ -142,8 +157,9 @@ echo ""
 
 # remove the teastore application project directory. -----------------------------------------------
 echo "----------------------------------------------------------------------------------------------------"
-echo "Deleting the TeaStore application project directory..."
-rm -Rf $HOME/TeaStore
+echo "Deleting the TeaStore generated YAML files..."
+echo "rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml"
+rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml
 echo ""
 
 # validate the teastore services undeployment. -----------------------------------------------------

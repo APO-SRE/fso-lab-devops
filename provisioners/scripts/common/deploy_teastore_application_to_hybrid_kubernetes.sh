@@ -77,31 +77,21 @@ if [ ! -f "$iks_kubeconfig_filepath" ]; then
   exit 1
 fi
 
-# import teastore application project from github.com. ---------------------------------------------
-# change directory to lab user's home directory.
-cd $HOME
-
-# download teastore application project from github.com.
-echo "----------------------------------------------------------------------------------------------------"
-echo "Downloading TeaStore application project from GitHub.com..."
-rm -Rf ./TeaStore
-git clone https://github.com/brownkw/TeaStore.git
-cd $HOME/TeaStore
-git fetch origin
-echo ""
-
 # deploy the teastore application to a hybrid kubernetes environment. ------------------------------
+echo "cd $HOME/TeaStore/examples/fso-hybrid/"
 cd $HOME/TeaStore/examples/fso-hybrid/
 
 # deploy the teastore database to intersight iks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deploying the TeaStore Database to Intersight IKS cluster..."
+echo "kubectl apply -f ./teastore-db.yaml --kubeconfig ${iks_kubeconfig_filepath}"
 kubectl apply -f ./teastore-db.yaml --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
 # deploy the teastore registry service to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deploying the TeaStore Registry service to AWS EKS cluster..."
+echo "kubectl apply -f ./teastore-registry.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl apply -f ./teastore-registry.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
@@ -137,11 +127,11 @@ echo "--------------------------------------------------------------------------
 echo "Deploying the TeaStore Persistence service to Intersight IKS cluster..."
 
 # substitute environment variables for the teastore registry host and port.
-cp -p teastore-persistence.yaml teastore-persistence.yaml.orig
-envsubst < teastore-persistence.yaml > teastore-persistence.yaml.np
-mv teastore-persistence.yaml.np teastore-persistence.yaml
+echo "envsubst < teastore-persistence.yaml.template > teastore-persistence.yaml"
+envsubst < teastore-persistence.yaml.template > teastore-persistence.yaml
 
 # deploy the teastore persistence service.
+echo "kubectl apply -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepath}"
 kubectl apply -f teastore-persistence.yaml --kubeconfig ${iks_kubeconfig_filepath}
 echo ""
 
@@ -177,11 +167,11 @@ echo "--------------------------------------------------------------------------
 echo "Deploying the TeaStore Auth service to AWS EKS cluster..."
 
 # substitute environment variables for the teastore registry host and port.
-cp -p teastore-auth.yaml teastore-auth.yaml.orig
-envsubst < teastore-auth.yaml > teastore-auth.yaml.np
-mv teastore-auth.yaml.np teastore-auth.yaml
+echo "envsubst < teastore-auth.yaml.template > teastore-auth.yaml"
+envsubst < teastore-auth.yaml.template > teastore-auth.yaml
 
 # deploy the teastore auth service.
+echo "kubectl apply -f ./teastore-auth.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl apply -f ./teastore-auth.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
@@ -190,11 +180,11 @@ echo "--------------------------------------------------------------------------
 echo "Deploying the TeaStore WebUI service to AWS EKS cluster..."
 
 # substitute environment variables for the teastore registry host and port.
-cp -p teastore-webui.yaml teastore-webui.yaml.orig
-envsubst < teastore-webui.yaml > teastore-webui.yaml.np
-mv teastore-webui.yaml.np teastore-webui.yaml
+echo "envsubst < teastore-webui.yaml.template > teastore-webui.yaml"
+envsubst < teastore-webui.yaml.template > teastore-webui.yaml
 
 # deploy the teastore webui service.
+echo "kubectl apply -f ./teastore-webui.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl apply -f ./teastore-webui.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
@@ -212,11 +202,11 @@ echo "Deploying the TeaStore Recommender service to AWS EKS cluster..."
 echo ""
 
 # substitute environment variables for the teastore registry host and port.
-cp -p teastore-recommender.yaml teastore-recommender.yaml.orig
-envsubst < teastore-recommender.yaml > teastore-recommender.yaml.np
-mv teastore-recommender.yaml.np teastore-recommender.yaml
+echo "envsubst < teastore-recommender.yaml.template > teastore-recommender.yaml"
+envsubst < teastore-recommender.yaml.template > teastore-recommender.yaml
 
 # deploy the teastore recommender service.
+echo "kubectl apply -f ./teastore-recommender.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl apply -f ./teastore-recommender.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
@@ -225,11 +215,11 @@ echo "--------------------------------------------------------------------------
 echo "Deploying the TeaStore Image service to AWS EKS cluster..."
 
 # substitute environment variables for the teastore registry host and port.
-cp -p teastore-image.yaml teastore-image.yaml.orig
-envsubst < teastore-image.yaml > teastore-image.yaml.np
-mv teastore-image.yaml.np teastore-image.yaml
+echo "envsubst < teastore-image.yaml.template > teastore-image.yaml"
+envsubst < teastore-image.yaml.template > teastore-image.yaml
 
 # deploy the teastore image service.
+echo "kubectl apply -f ./teastore-image.yaml --kubeconfig ${eks_kubeconfig_filepath}"
 kubectl apply -f ./teastore-image.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
@@ -238,8 +228,22 @@ echo "Pausing for ${kubectl_pause_time} seconds..."
 sleep ${kubectl_pause_time}
 echo ""
 
-# validate deployment of the teastore services. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-# validate deployment of the teastore front-end services on aws eks.
+# deploy the teastore load generator to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Deploying the TeaStore Load Generator to AWS EKS cluster..."
+
+# deploy the teastore load generator.
+echo "kubectl apply -f ./teastore-loadgen.yaml --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl apply -f ./teastore-loadgen.yaml --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+# allow time for the teastore load generator to be deployed.
+echo "Pausing for ${kubectl_pause_time} seconds..."
+sleep ${kubectl_pause_time}
+echo ""
+
+# validate deployment of the teastore services. ----------------------------------------------------
+# validate deployment of the teastore front-end services on aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Validating the AWS EKS environment..."
 echo "kubectl get pods -o wide --kubeconfig ${eks_kubeconfig_filepath}"
