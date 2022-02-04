@@ -190,6 +190,7 @@ module "vm" {
     aws_region_name        = var.aws_region
     use_aws_ec2_num_suffix = "true"
     aws_eks_cluster_name   = local.cluster_name
+    iks_cluster_name       = "${local.lab_resource_prefix}-IKS"
     iks_kubeconfig_file    = "${local.lab_resource_prefix}-IKS-kubeconfig.yml"
     lab_number             = var.lab_number
   }))

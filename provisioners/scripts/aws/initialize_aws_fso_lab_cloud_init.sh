@@ -9,6 +9,7 @@ aws_ec2_domain="${aws_ec2_domain:-localdomain}"
 aws_region_name="${aws_region_name:-us-west-1}"
 use_aws_ec2_num_suffix="${use_aws_ec2_num_suffix:-true}"
 aws_eks_cluster_name="${aws_eks_cluster_name:-fso-lab-xxxxx-eks-cluster}"
+iks_cluster_name="${iks_cluster_name:-AppD-FSO-Lab-01-IKS}"
 iks_kubeconfig_file="${iks_kubeconfig_file:-AppD-FSO-Lab-01-IKS-kubeconfig.yml}"
 lab_number="${lab_number:-1}"
 
@@ -56,6 +57,8 @@ fi
 # use the stream editor to substitute the new values.
 sed -i -e "/^aws_region_name/s/^.*$/aws_region_name=\"${aws_region_name}\"/" ${user_bash_config_file}
 sed -i -e "/^aws_eks_cluster_name/s/^.*$/aws_eks_cluster_name=\"${aws_eks_cluster_name}\"/" ${user_bash_config_file}
+sed -i -e "/^eks_kubeconfig_filepath/s/^.*$/eks_kubeconfig_filepath=\"\$HOME\/.kube\/config\"/" ${user_bash_config_file}
+sed -i -e "/^iks_cluster_name/s/^.*$/iks_cluster_name=\"${iks_cluster_name}\"/" ${user_bash_config_file}
 sed -i -e "/^iks_kubeconfig_filepath/s/^.*$/iks_kubeconfig_filepath=\"\$HOME\/${iks_kubeconfig_file}\"/" ${user_bash_config_file}
 sed -i -e "/^fso_lab_number/s/^.*$/fso_lab_number=\"${fso_lab_number}\"/" ${user_bash_config_file}
 

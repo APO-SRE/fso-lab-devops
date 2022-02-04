@@ -41,8 +41,10 @@
       "inline": [
         "sudo mkdir -p {{user `devops_home`}}/provisioners/scripts",
         "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} {{user `devops_home`}}",
-        "sudo mkdir -p /home/{{user `aws_ec2_username`}}/applications/environment/workshop",
-        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} /home/{{user `aws_ec2_username`}}/applications",
+        "sudo mkdir -p /home/{{user `aws_ec2_username`}}/environment/workshop",
+        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} /home/{{user `aws_ec2_username`}}/environment",
+        "sudo mkdir -p /home/{{user `aws_ec2_username`}}/metrics-server",
+        "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} /home/{{user `aws_ec2_username`}}/metrics-server",
         "sudo mkdir -p /home/{{user `aws_ec2_username`}}/TeaStore/examples/fso-hybrid",
         "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} /home/{{user `aws_ec2_username`}}/TeaStore"
       ],
@@ -54,8 +56,13 @@
       "type": "file"
     },
     {
-      "destination": "/home/{{user `aws_ec2_username`}}/applications/environment/workshop",
+      "destination": "/home/{{user `aws_ec2_username`}}/environment/workshop",
       "source": "{{template_dir}}/../../../applications/environment/workshop/",
+      "type": "file"
+    },
+    {
+      "destination": "/home/{{user `aws_ec2_username`}}/metrics-server",
+      "source": "{{template_dir}}/../../../applications/metrics-server/",
       "type": "file"
     },
     {
