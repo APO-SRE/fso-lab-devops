@@ -268,4 +268,4 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Terraform 1.1.5
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
--	yq 4.18.1 (command-line YAML processor)
+-	yq 4.19.1 (command-line YAML processor)
