@@ -1,0 +1,9 @@
+{
+	"localport":8080,
+    "https":true,
+	"iwo_config": {
+		"iwoServer": "https://intersight.com",
+		"iwoAPIPath": "/wo/api/v3",
+		"iwoViewEntityURL": "/view/main/"
+	}
+}
