@@ -49,6 +49,8 @@ spec:
           {{- if not .Values.args.failVolumePodMoves }}
           - --fail-volume-pod-moves={{ .Values.args.failVolumePodMoves }}
           {{- end }}
+          #- --busybox-image=docker.io/busybox
+          - --busybox-image=public.ecr.aws/d8i9k4x3/fso-lab-busybox:latest
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         volumeMounts:
