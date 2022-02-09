@@ -25,30 +25,22 @@ cd /opt/fso-lab-devops/provisioners/scripts/common
 # Check IKS pods
 kubectl get pods -o wide --kubeconfig $iks_kubeconfig_filepath
 
-#Check EKS pods
+# Check EKS pods
 kubectl get pods -o wide
 
 ##################################################################################
 
-### 5. Deploy the Load Generator for the TeaStore application
+### 5. Run the workshop utilities setup
 
-cd /home/ec2-user/TeaStore/examples/fso-hybrid
-
-kubectl apply -f teastore-loadgen.yaml
-
-##################################################################################
-
-### 6. Run the workshop utilities setup
-
-cd /opt/fso-lab-devops/applications/environment/workshop
+cd /home/ec2-user/environment/workshop
 
 ./setupWorkshop.sh
 
 ##################################################################################
 
-### 7. Deploy AppDynamics agents to both Kubernetes clusters 
+### 6. Deploy AppDynamics agents to both Kubernetes clusters 
 
-cd /opt/fso-lab-devops/applications/environment/workshop
+cd /home/ec2-user/environment/workshop
 
 ./deploy_appdynamics_agents_to_hybrid_kubernetes.sh
 

@@ -48,13 +48,12 @@ echo ""
 echo "########################################################################################      FINISHED APPDYNAMICS CLOUD WORKSHOP TEARDOWN      ################################################################################"
 
 
-#rm -f appd_workshop_setup.txt
-#rm -f appd_workshop_user.txt
-
-#rm -f values-ca1.yaml
-#rm -f db-config.yaml
-#rm -f SetupStepsState.fvq
-#rm -f workshop-user-details.txt
+rm -f appd_workshop_setup.txt
+rm -f appd_workshop_user.txt
+rm -f db-config.yaml
+rm -f SetupStepsState.fvq
+rm -f values-ca1.yaml
+rm -f workshop-user-details.txt
 
 #rm -f deploy_appdynamics_agents_to_hybrid_kubernetes.sh
 #rm -f undeploy_appdynamics_agents_from_hybrid_kubernetes.sh

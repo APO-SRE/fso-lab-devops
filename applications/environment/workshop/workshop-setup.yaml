@@ -15,6 +15,10 @@ teardownScript: "./undeploy_all_from_kubernetes_hybrid.sh"
 
 taskExecutionOrder:
   - taskType: "SHELL_TASK"
+    taskName: "update-intersight-public-key"
+  - taskType: "SHELL_TASK"
+    taskName: "update-intersight-private-key"
+  - taskType: "SHELL_TASK"
     taskName: "update-db-agent-conf"
   - taskType: "SHELL_TASK"
     taskName: "deploy-db-agent"
@@ -29,6 +33,29 @@ taskExecutionOrder:
 
     
 shellTasks:
+  - taskType: "SHELL_TASK_UPDATE_EXTERNAL_FILE"
+    taskName: "update-intersight-public-key"
+    inputTags:
+      - tagKey: "@[ADWRKSHP_UPDATE_EXTERNAL_FILE_SOURCEFILE]"
+        tagValue: "../../iwo-action-integration/keys/iwo_public_key.txt"
+
+      - tagKey: "@[ADWRKSHP_UPDATE_EXTERNAL_FILE_DESTFILE]"
+        tagValue: "../../iwo-action-integration/keys/iwo_public_key.txt"
+
+      - tagKey: "@[ADWRKSHP_GET_INTERSIGHT_API_KEY_PUBLIC]"
+        tagValue: "true"
+
+  - taskType: "SHELL_TASK_UPDATE_EXTERNAL_FILE"
+    taskName: "update-intersight-private-key"
+    inputTags:
+      - tagKey: "@[ADWRKSHP_UPDATE_EXTERNAL_FILE_SOURCEFILE]"
+        tagValue: "../../iwo-action-integration/keys/iwo_private_key.pem"
+
+      - tagKey: "@[ADWRKSHP_UPDATE_EXTERNAL_FILE_DESTFILE]"
+        tagValue: "../../iwo-action-integration/keys/iwo_private_key.pem"
+
+      - tagKey: "@[ADWRKSHP_GET_INTERSIGHT_API_KEY_PRIVATE]"
+        tagValue: "true"
 
   - taskType: "SHELL_TASK_EXECUTE_SHELL_SCRIPT"
     taskName: "deploy-db-agent"
@@ -323,3 +350,5 @@ vaultInfo:
       value: /v1/kv/cloud-labs/controller-login-info
     - name: dbagent-s3-auth
       value: /v1/kv/cloud-labs/dbagent-s3-auth
+    - name: intersight-info
+      value: /v1/kv/cloud-labs/intersight-info
