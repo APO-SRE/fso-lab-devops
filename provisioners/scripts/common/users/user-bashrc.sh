@@ -63,6 +63,12 @@ export aws_region_name
 aws_eks_cluster_name="AppD-FSO-Lab-01-abcde-EKS"
 export aws_eks_cluster_name
 
+eks_kubeconfig_filepath="$HOME/.kube/config"
+export eks_kubeconfig_filepath
+
+iks_cluster_name="AppD-FSO-Lab-01-IKS"
+export iks_cluster_name
+
 iks_kubeconfig_filepath="$HOME/AppD-FSO-Lab-01-IKS-kubeconfig.yml"
 export iks_kubeconfig_filepath
 
