@@ -256,7 +256,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	JMESPath jp 0.2.1 (command-line JSON processor)
 -	jq 1.6 (command-line JSON processor)
 -	Maven 3.8.4
--	Node.js JavaScript runtime v16.13.2 (Latest LTS Version)
+-	Node.js JavaScript runtime v16.14.0 (Latest LTS Version)
 -	npm JavaScript Package Manager for Node.js 8.4.1
 -	nvm (Node Version Manager) bash script 0.39.1
 -	Packer 1.7.10
