@@ -96,6 +96,13 @@ echo "kubectl delete -f ./teastore-loadgen.yaml --kubeconfig ${eks_kubeconfig_fi
 kubectl delete -f ./teastore-loadgen.yaml --kubeconfig ${eks_kubeconfig_filepath}
 echo ""
 
+# undeploy the teastore order processing service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Undeploying the TeaStore Order Processing Service from AWS EKS cluster..."
+echo "kubectl delete -f ./teastore-orderprocessor.yaml --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl delete -f ./teastore-orderprocessor.yaml --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
 # undeploy the teastore image service from aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Undeploying the TeaStore Image service from AWS EKS cluster..."

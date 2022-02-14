@@ -228,6 +228,24 @@ echo "Pausing for ${kubectl_pause_time} seconds..."
 sleep ${kubectl_pause_time}
 echo ""
 
+# deploy the teastore order processing service to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo "----------------------------------------------------------------------------------------------------"
+echo "Deploying the TeaStore Order Processing service to AWS EKS cluster..."
+
+# substitute environment variables for the teastore registry host and port.
+echo "envsubst < teastore-orderprocessor.yaml.template > teastore-orderprocessor.yaml"
+envsubst < teastore-orderprocessor.yaml.template > teastore-orderprocessor.yaml
+
+# deploy the teastore order processing service.
+echo "kubectl apply -f ./teastore-orderprocessor.yaml --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl apply -f ./teastore-orderprocessor.yaml --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+# allow time for the teastore order processing service to be deployed.
+echo "Pausing for ${kubectl_pause_time} seconds..."
+sleep ${kubectl_pause_time}
+echo ""
+
 # deploy the teastore load generator to aws eks. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deploying the TeaStore Load Generator to AWS EKS cluster..."

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-orderprocessor
+spec:
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-orderprocessor
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-orderprocessor
+    spec:
+      containers:
+        - name: teastore-orderprocessor
+          image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-orderprocessor
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+            limits:
+              memory: "512Mi"
+          env:
+            - name: HOST_NAME
+              value: "teastore-orderprocessor"
+            - name: REGISTRY_HOST
+              value: "$REGISTRY_NODEPORT_HOST"
+            - name: REGISTRY_PORT
+              value: "$REGISTRY_NODEPORT_PORT"
+            - name: MEM_INCREMENT_MB
+              value: "1"
+            - name: PROCESSING_RATE_SECONDS
+              value: "15"
+            - name: MAX_JVM_HEAP
+              value: "512m"
+      restartPolicy: Always
+
