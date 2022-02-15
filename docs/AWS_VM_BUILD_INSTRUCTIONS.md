@@ -37,18 +37,22 @@ Perform the following steps to install the needed software:
 
 ## AWS-Specific Installation Instructions - Windows 64-Bit
 
-Windows users have a wide variety of choice in command-line tools and shells for running the AWS CLI, 
-such as the Windows Command Prompt, [PowerShell](https://docs.microsoft.com/en-us/powershell/), 
+As stated previously, Windows users have a wide variety of choice in terminals and shells for running 
+the command-line tools, such as the Windows Command Prompt, 
+[PowerShell](https://docs.microsoft.com/en-us/powershell/), 
 [Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal/get-started), 
-[Git Bash](https://git-scm.com/download/win), and 
-[The Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about).  
+[Git Bash](https://git-scm.com/download/win), and the 
+[Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about).  
 
-Although you are free to use any of these tools, the installation steps described below will be based on 
-the usage of the **Git Bash** terminal for consistency.  
+Although you are free to use any of these tools, the installation steps described below will be based 
+on the usage of the **Git Bash** terminal or the **Windows Subsystem for Linux (WSL)** with an Ubuntu 
+installation.  
 
 Here is a list of the recommended open source software to be installed on the host Windows machine:
 
 -	Amazon AWS CLI 2.4.18 (command-line interface)
+
+### Git Bash installation - Windows 64-Bit
 
 Perform the following steps to install the needed software:
 
@@ -67,6 +71,18 @@ Perform the following steps to install the needed software:
     aws --version
     # aws-cli/2.4.18 Python/3.8.8 Windows/10 exe/AMD64 prompt/off
     ```
+
+### Windows Subsystem for Linux (WSL) installation - Ubuntu 64-Bit
+
+1.	Install [AWS CLI 2.4.18](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for Ubuntu 64-bit.  
+    ```bash
+    cd /tmp
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    rm -i awscliv2.zip
+    ```
+
 
 ## Configuration and Validation
 
@@ -243,7 +259,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Docker Bash Completion
 	-	Docker Compose 1.29.2
 	-	Docker Compose Bash Completion
--	Git 2.34.1
+-	Git 2.35.1
 	-	Git Bash Completion
 	-	Git-Flow 1.12.3 (AVH Edition)
 	-	Git-Flow Bash Completion
@@ -264,8 +280,8 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Pip 22.0.3
 -	Python 3.7.10
 	-	Pip 22.0.3
--	Serverless Framework CLI 3.2.0
+-	Serverless Framework CLI 3.2.1
 -	Terraform 1.1.5
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
--	yq 4.19.1 (command-line YAML processor)
+-	yq 4.20.1 (command-line YAML processor)

@@ -57,20 +57,20 @@ cloud CLI and/or SSH to communicate with your cloud resources and managed nodes.
 
 For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
--	Homebrew 3.3.14
--	Git 2.34.1
+-	Homebrew 3.3.15
+-	Git 2.35.1
 -	Packer 1.7.10
 -	Terraform 1.1.5
 -	jq 1.6
 
 Perform the following steps to install the needed software:
 
-1.	Install the [Homebrew 3.3.14](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
+1.	Install the [Homebrew 3.3.15](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
     ```bash
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
 
-2.	Install [Git 2.34.1](https://git-scm.com/downloads) for macOS 64-bit.  
+2.	Install [Git 2.35.1](https://git-scm.com/downloads) for macOS 64-bit.  
     ```bash
     brew install git
     ```
@@ -96,13 +96,13 @@ Perform the following steps to install the needed software:
 
     ```bash
     brew --version
-    # Homebrew 3.3.14
+    # Homebrew 3.3.15
 
     brew doctor
     # Your system is ready to brew.
 
     git --version
-    # git version 2.34.1
+    # git version 2.35.1
 
     packer --version
     # 1.7.10
@@ -124,16 +124,30 @@ Perform the following steps to install the needed software:
 
 ## Installation Instructions - Windows 64-Bit
 
-For Windows environments, the following open source software needs to be installed on the host Windows machine:
+Windows users have a wide variety of choice in terminals and shells for running the command-line tools, 
+such as the Windows Command Prompt, [PowerShell](https://docs.microsoft.com/en-us/powershell/), 
+[Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal/get-started), 
+[Git Bash](https://git-scm.com/download/win), and the 
+[Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about).  
 
--	Git 2.34.1 for Win64
+Although you are free to use any of these tools, the installation steps described below will be based 
+on the usage of the **Git Bash** terminal or the **Windows Subsystem for Linux (WSL)** with an Ubuntu 
+installation.  
+
+Here is a list of the recommended open source software to be installed on the host Windows machine:
+
+-	Curl 7.68.0 (Ubuntu 64-bit only)
+-	Wget 1.20.3 (Ubuntu 64-bit only)
+-	Git 2.35.1
 -	Packer 1.7.10
 -	Terraform 1.1.5
 -	jq 1.6
 
+### Git Bash installation - Windows 64-Bit
+
 Perform the following steps to install the needed software:
 
-1.	Install [Git 2.34.1](https://github.com/git-for-windows/git/releases/download/v2.34.1.windows.1/Git-2.34.1-64-bit.exe) for Windows 64-bit.
+1.	Install [Git 2.35.1](https://github.com/git-for-windows/git/releases/download/v2.35.1.windows.1/Git-2.35.1-64-bit.exe) for Windows 64-bit.
 
 2.	Install [Packer 1.7.10](https://releases.hashicorp.com/packer/1.7.10/packer_1.7.10_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
@@ -164,19 +178,83 @@ Perform the following steps to install the needed software:
 
     ```bash
     git --version
-    # git version 2.34.1.windows.1
+    # git version 2.35.1.windows.1
 
     packer --version
     # 1.7.10
 
     terraform --version
-    Terraform v1.1.5
+    # Terraform v1.1.5
 
     jq --version
     # jq-1.6
     ```
 
 5.	Configure Git for local user:
+
+    ```bash
+    git config --global user.name "<first_name> <last_name>"
+    git config --global user.email "<your_email>"
+    git config --global --list
+    ```
+
+### Windows Subsystem for Linux (WSL) installation - Ubuntu 64-Bit
+
+1.	Install [Curl 7.68.0](http://manpages.ubuntu.com/manpages/trusty/man1/curl.1.html) for Ubuntu 64-bit.  
+    ```bash
+    sudo apt install curl
+    ```
+
+2.	Install [Wget 1.20.3](https://www.gnu.org/software/wget/manual/wget.html) for Ubuntu 64-bit.  
+    ```bash
+    sudo apt install wget
+    ```
+
+3.	Install [Git 2.25.1](https://git-scm.com/downloads) for Ubuntu 64-bit.  
+    ```bash
+    sudo apt install git
+    ```
+
+4.	Install [Packer 1.7.10](https://www.packer.io/downloads.html) for Ubuntu 64-bit.  
+    ```bash
+    cd /usr/local/bin
+    sudo wget https://releases.hashicorp.com/packer/1.7.10/packer_1.7.10_linux_amd64.zip
+    sudo unzip packer_1.7.10_linux_amd64.zip
+    sudo rm -i packer_1.7.10_linux_amd64.zip
+    ```
+
+5.	Install [Terraform 1.1.5](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
+    ```bash
+    cd /usr/local/bin
+    sudo wget https://releases.hashicorp.com/terraform/1.1.5/terraform_1.1.5_linux_amd64.zip
+    sudo unzip terraform_1.1.5_linux_amd64.zip
+    sudo rm -i terraform_1.1.5_linux_amd64.zip
+    ```
+
+6.	Install [jq 1.6](https://stedolan.github.io/jq/) for Ubuntu 64-bit.  
+    ```bash
+    sudo apt install jq
+    ```
+
+### Configuration and Validation - Ubuntu 64-Bit
+
+1.	Validate installed command-line tools:
+
+    ```bash
+    git --version
+    # git version 2.25.1
+
+    packer --version
+    # 1.7.10
+
+    terraform --version
+    # Terraform v1.1.5
+
+    jq --version
+    # jq-1.6
+    ```
+
+2.	Configure Git for local user:
 
     ```bash
     git config --global user.name "<first_name> <last_name>"
