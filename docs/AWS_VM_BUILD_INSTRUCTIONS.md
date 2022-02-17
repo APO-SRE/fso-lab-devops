@@ -273,7 +273,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	jq 1.6 (command-line JSON processor)
 -	Maven 3.8.4
 -	Node.js JavaScript runtime v16.14.0 (Latest LTS Version)
--	npm JavaScript Package Manager for Node.js 8.5.0
+-	npm JavaScript Package Manager for Node.js 8.5.1
 -	nvm (Node Version Manager) bash script 0.39.1
 -	Packer 1.7.10
 -	Python 2.7.18
@@ -281,7 +281,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Python 3.7.10
 	-	Pip 22.0.3
 -	Serverless Framework CLI 3.2.1
--	Terraform 1.1.5
+-	Terraform 1.1.6
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
 -	yq 4.20.1 (command-line YAML processor)
