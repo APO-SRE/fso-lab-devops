@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1            ## The version of the Kubernetes API
+kind: CronJob                        ## The type of object for Cron jobs
+metadata:
+  name: teastore-hacky-load
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 2
+  schedule: "*/30 * * * *"            ## Defined schedule using the *nix style cron syntax
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+          - name: teastore-hacky-load
+            image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-hacky-load            ## Image used
+            imagePullPolicy: Always
+            env:
+              - name: LDAP_SERVER
+                value: "$LDAP_SERVER_CLUSTERIP"
+          restartPolicy: Never    ##  Restart Policy in case container failed
