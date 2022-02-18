@@ -65,7 +65,7 @@ he/she ultimately endorsed Cisco as the full stack observability solution provid
 to understanding the value each person sees in the solution, participants will gain hands-on experience in 
 solving business problems covered by the outlined use cases.  
 
-Click on one of the following link to get started exploring the workshop use cases within each section:
+Click on any of the following links to get started exploring the workshop use cases within each section:
 
 -	[FSO Performance](https://performance.fsolabs.net/)
 -	[FSO Optimization](https://optimization.fsolabs.net/)
