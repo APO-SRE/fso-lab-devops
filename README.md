@@ -6,11 +6,11 @@ solution: AppDynamics, ThousandEyes, and Intersight.
 
 ![Cisco's Foundation for Full Stack Observability](./docs/images/fso_solution.png)
 
-In this series of workshops and labs, lab participants will play a few different roles within an online 
-global tea retailer. This retailer has been on the forefront of their niche industry. However, they have 
-been running into some issues as of late during a major technical project. Throughout these workshops, 
-participants will assume the identities of various technical leads as they implement aspects of the 
-company’s full stack observability initiative.
+In this series of workshops, lab participants will play a few different roles within an online global tea 
+retailer. This retailer has been on the forefront of their niche industry. However, they have been running 
+into some issues as of late during a major technical project. Throughout these workshops, participants will 
+assume the identities of various technical leads as they implement aspects of the company’s full stack 
+observability initiative.
 
 ## Learning Objectives
 
@@ -42,18 +42,20 @@ and on-prem resources.
 
 ## Get Started
 
-To get started, AppDynamics SEs, partners, or others tasked with delivering the Workshop need to build and 
-deploy the necessary cloud and on-prem resources required for each provider:
+To get started, Cisco SEs, AppDynamics SEs, partners, or others tasked with delivering the Workshop need 
+to build and deploy the necessary cloud and on-prem resources required for each provider:
 
 **NOTE:** Lab participants should skip this link.
 
 -	[Build Steps for Preparing the Workshop](docs/BUILD_STEPS_FOR_PREPARING_THE_WORKSHOP.md)
 
-Once the cloud environment is prepared, click on one of the following links to get started with the workshop:
+## Workshop Lab Guides
+
+Once the cloud environment is prepared, click on the following link to get started with the workshop:
 
 -	[Cisco Full Stack Observability - Home](https://www.fsolabs.net/)
 
-## Use Cases
+### Use Cases
 
 -	[FSO Performance](https://performance.fsolabs.net/)
 -	[FSO Optimization](https://optimization.fsolabs.net/)
