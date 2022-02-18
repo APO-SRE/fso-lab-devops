@@ -288,10 +288,9 @@ Perform the following steps to install the needed software:
     cd fso-lab-devops
     ```
 
-## Build the VM Images and Deploy the Lab Infrastructure
+## Build the VM Image and Deploy the Lab Infrastructure
 
-The FSO Lab DevOps project currently supports VM image builds for Amazon AWS; wiht future support planned 
-for Microsoft Azure and Google Cloud Platform (GCP). Click on a link below for platform-specific 
-instructions and a Bill-of-Materials:
+The FSO Lab DevOps project currently supports a VM image build for Amazon AWS. Click on the link below 
+for platform-specific instructions and a Bill-of-Materials:
 
 -	[AWS Build and Deploy](AWS_VM_BUILD_INSTRUCTIONS.md): Instructions
