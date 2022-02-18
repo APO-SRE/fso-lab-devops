@@ -10,9 +10,10 @@ and configuration portion of these pre-workshop activities using open source too
 ## Build and Deployment Tools
 
 Although there are many tools available to accomplish the project's automation goals, it was decided to 
-standardize on [Packer](https://www.packer.io/) and [Terraform](https://www.terraform.io/) from HashiCorp.
-This is primarily due to their capability for building and deploying software platforms to multi-cloud 
-environments, as well as having a high level of adoption within the developer community.
+standardize on [Packer](https://www.packer.io/), [Terraform](https://www.terraform.io/), and 
+[Terraform Cloud](https://cloud.hashicorp.com/products/terraform) from HashiCorp. This is primarily due 
+to their capability for building and deploying software platforms to multi-cloud environments, as well 
+as having a high level of adoption within the developer community.
 
 ### Packer
 
@@ -44,14 +45,24 @@ etc.
 In this project, Terraform is used to automate the deployment of the Lab infrastructure, including VPCs, 
 subnets, security groups, load balancers, Kubdernetes clusters, and Lab VM using templates.
 
+### Terraform Cloud
+
+[Terraform Cloud](https://cloud.hashicorp.com/products/terraform) is HashiCorp’s managed service offering 
+for Terraform. It eliminates the need for unnecessary tooling and documentation for practitioners, teams, 
+and organizations to use Terraform in production.
+
 ## Get Started
 
-To configure the FSO Lab workshop environments, the first step is to set-up your local environment by 
-installing the needed software.
+To configure the FSO Lab workshop environments, the first step is to set-up your development environment 
+by installing the needed software.
 
 ### Prerequisites
+
 You install Packer and Terraform on a control node, usually your local laptop, which then uses the 
 cloud CLI and/or SSH to communicate with your cloud resources and managed nodes.
+
+__NOTE:__ A remote Virtual Machine with access to the internet can also be used as the control node. The 
+specific instructions for installing the required software are left as an exercise for the reader.
 
 ## Installation Instructions - macOS
 
