@@ -12,7 +12,7 @@ controllerInfo:
   
 # Cluster agent config
 clusterAgent:
-  nsToMonitorRegex: .*
+  nsToMonitorRegex: default
 
 instrumentationConfig:
   enabled: true

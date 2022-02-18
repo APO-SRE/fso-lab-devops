@@ -10,8 +10,13 @@
 #---------------------------------------------------------------------------------------------------
 
 
+# [MANDATORY] workshop grou prefix (appd, apo, cxc, etc.).
+workshop_group_prefix=$(echo ${aws_eks_cluster_name} | awk -F '-' '{print tolower($1)}')
+
 # [MANDATORY] workshop user identity.
-appd_workshop_user="fso-lab-"${fso_lab_number}"-"
+appd_workshop_user=${workshop_group_prefix}"-teastore-fso-lab-"${fso_lab_number}"-"
+
+#appd_workshop_user="fso-lab-"${fso_lab_number}"-"
 
 
 echo ""

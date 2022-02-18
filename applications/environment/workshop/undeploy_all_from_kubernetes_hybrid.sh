@@ -2,7 +2,7 @@
 
 
 # undeploy the LoadGen for the application
-kubectl delete -f /home/ec2-user/TeaStore/examples/fso-hybrid/teastore-loadgen.yaml
+#kubectl delete -f /home/ec2-user/TeaStore/examples/fso-hybrid/teastore-loadgen.yaml
 
 # undeploy the teastore application from both kubernetes clusters
 /bin/bash /opt/fso-lab-devops/provisioners/scripts/common/undeploy_teastore_application_from_hybrid_kubernetes.sh

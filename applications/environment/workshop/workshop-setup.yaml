@@ -98,7 +98,7 @@ shellTasks:
         tagValue: "@[ADWRKSHP_CONTROLLER_SSL_ENABLED]"
 
       - tagKey: "@[ADWRKSHP_DB_AGENT_NAME]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-dbagent"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-dbagent"
 
 
   - taskType: "SHELL_TASK_UPDATE_EXTERNAL_FILE"
@@ -114,10 +114,10 @@ shellTasks:
         tagValue: "true"
 
       - tagKey: "@[ADWRKSHP_CLUSTER_AGENT_NAME_01]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-iks"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-iks"
         
       - tagKey: "@[ADWRKSHP_CLUSTER_AGENT_NAME_02]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-eks"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-eks"
 
 
   - taskType: "SHELL_TASK_UPDATE_EXTERNAL_FILE"
@@ -133,10 +133,10 @@ shellTasks:
         tagValue: "true"
 
       - tagKey: "@[ADWRKSHP_CLUSTER_AGENT_NAME_01]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-iks"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-iks"
         
       - tagKey: "@[ADWRKSHP_CLUSTER_AGENT_NAME_02]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-eks"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-eks"
 
 
 templates:
@@ -212,7 +212,7 @@ controllerTasks:
     taskName: "create-apm-app-01"
     inputTags:
       - tagKey: "@[ADWRKSHP_APM_APP_NAME_PRE]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]"
         
     templateTargets:    
       - templateName: "cluster-agent-conf"
@@ -231,11 +231,11 @@ controllerTasks:
     taskName: "fso-db-collector"
     inputTags:
       - tagKey: "@[ADWRKSHP_CLOUD_DB_INST_NAME]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-mysql"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-mysql"
       - tagKey: "@[ADWRKSHP_CLOUD_DB_INST_TYPE]"
         tagValue: "MYSQL"    
       - tagKey: "@[ADWRKSHP_DB_AGENT_NAME]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]-dbagent"
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]-dbagent"
       - tagKey: "@[ADWRKSHP_CLOUD_DB_INST_PORT]"
         tagValue: "3306"
       - tagKey: "@[ADWRKSHP_CLOUD_DB_INST_USER]"
@@ -266,9 +266,9 @@ controllerTasks:
     taskName: "copy1-fso-hybrid-dashboard"
     inputTags:
       - tagKey: "@[ADWRKSHP_DASHBOARD_NAME]"
-        tagValue: "teastore-@[ADWRKSHP_LABUSER_KEY]"  # the name of the new copy of the dashboard
+        tagValue: "@[ADWRKSHP_LABUSER_KEY]"  # the name of the new copy of the dashboard
       - tagKey: "@[ADWRKSHP_DASHBOARD_ID]"  # the id of the dashboard you want to make a copy of
-        tagValue: "378789"    
+        tagValue: "379098"    
       - tagKey: "@[ADWRKSHP_DASHBOARD_ACTION_VIEW]"
         tagValue: "true"    
       - tagKey: "@[ADWRKSHP_DASHBOARD_ACTION_EDIT]"
