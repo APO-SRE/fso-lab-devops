@@ -57,6 +57,16 @@ Once the cloud environment is prepared, click on the following link to get start
 
 ### Use Cases
 
+This workshop series is divided into three sections: Performance, Optimization, and Security. Within each 
+of these sections, there will be one or more use cases to be addressed by Cisco’s Full Stack Observability 
+solution. Each section will introduce the lab participant to the relevant members of the organization they 
+will be working with. They will dive deeper into the pain points each person is dealing with along with why 
+he/she ultimately endorsed Cisco as the full stack observability solution provider of choice. In addition 
+to understanding the value each person sees in the solution, participants will gain hands-on experience in 
+solving business problems covered by the outlined use cases.  
+
+Click on one of the following link to get started exploring the workshop use cases within each section:
+
 -	[FSO Performance](https://performance.fsolabs.net/)
 -	[FSO Optimization](https://optimization.fsolabs.net/)
 -	[FSO Security](https://security.fsolabs.net/)
