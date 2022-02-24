@@ -40,4 +40,4 @@ spec:
           image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-loadgen
           ports:
             - containerPort: 8080
-          args: ["-t", "/teastore_browse_nogui_amex.jmx", "-Jhostname", "teastore-webui", "-Jport", "8080", "-JnumUser", "2", "-JrampUp", "1", "-n"]
+          args: ["-t", "/teastore_browse_nogui_amex.jmx", "-Jhostname", "teastore-webui", "-Jport", "8080", "-JnumUser", "6", "-JrampUp", "1", "-n"]
