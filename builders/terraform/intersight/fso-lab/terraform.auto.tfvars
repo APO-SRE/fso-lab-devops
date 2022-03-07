@@ -11,7 +11,7 @@ tags = [
   },
   {
     "key" : "Owner"
-    "value" : "Cisco SRE and AppDynamics Cloud Channel Sales Teams"
+    "value" : "Cisco APO Cross-Architectural and AppDynamics Cloud Channel Sales Teams"
   },
   {
     "key" : "Project"
