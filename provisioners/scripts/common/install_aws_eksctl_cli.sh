@@ -14,9 +14,9 @@
 #---------------------------------------------------------------------------------------------------
 
 # install eksctl cli. ------------------------------------------------------------------------------
-eksctl_release="0.84.0"
+eksctl_release="0.86.0"
 eksctl_binary="eksctl_$(uname -s)_amd64.tar.gz"
-eksctl_sha256="d7e095096f8aca51f20c03b713a5cf4a8c784d392a87f95bf7f28bc6fd119e83"
+eksctl_sha256="bcc25170ffcf09965f20e3af66c4b0213a2c5fad047f7c0a6a7d1626c224311a"
 
 # create local bin directory (if needed).
 mkdir -p /usr/local/bin
@@ -24,7 +24,7 @@ cd /usr/local/bin
 
 # download eksctl binary from github.com.
 rm -f ${eksctl_binary}
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/${eksctl_release}/${eksctl_binary}" --output ${eksctl_binary}
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v${eksctl_release}/${eksctl_binary}" --output ${eksctl_binary}
 
 # verify the downloaded binary.
 echo "${eksctl_sha256} ${eksctl_binary}" | sha256sum --check
