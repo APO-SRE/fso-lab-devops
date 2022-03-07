@@ -168,7 +168,13 @@ variable "resource_environment_tag" {
 variable "resource_owner_tag" {
   description = "Resource owner tag."
   type        = string
-  default     = "Cisco SRE and AppDynamics Cloud Channel Sales Teams"
+  default     = "Cisco APO Cross-Architectural and AppDynamics Cloud Channel Sales Teams"
+}
+
+variable "resource_event_tag" {
+  description = "Resource event tag."
+  type        = string
+  default     = "FSO Lab Demo"
 }
 
 variable "resource_project_tag" {
@@ -177,10 +183,16 @@ variable "resource_project_tag" {
   default     = "FSO Lab DevOps"
 }
 
-variable "resource_event_tag" {
-  description = "Resource event tag."
+variable "resource_owner_email_tag" {
+  description = "Resource owner email tag."
   type        = string
-  default     = "FSO Lab Demo"
+  default     = "ed.barberis@appdynamics.com"
+}
+
+variable "resource_cost_center_tag" {
+  description = "Resource cost center tag."
+  type        = string
+  default     = "020430800"
 }
 
 variable "map_roles" {
