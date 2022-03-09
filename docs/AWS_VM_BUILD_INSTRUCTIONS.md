@@ -264,7 +264,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Git-Flow 1.12.3 (AVH Edition)
 	-	Git-Flow Bash Completion
 -	Go 1.17.8
--	Gradle 7.4
+-	Gradle 7.4.1
 -	Helm CLI 3.8.0 (Package Manager for Kubernetes)
 -	Java SE JDK 8 Update 312 (Amazon Corretto 8)
 -	Java SE JDK 11.0.13 (Amazon Corretto 11)
@@ -280,7 +280,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Pip 22.0.4
 -	Python 3.7.10
 	-	Pip 22.0.4
--	Serverless Framework CLI 3.7.2
+-	Serverless Framework CLI 3.7.3
 -	Terraform 1.1.7
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
