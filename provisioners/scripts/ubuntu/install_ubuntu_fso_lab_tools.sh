@@ -81,10 +81,10 @@ curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisi
 chmod 755 ./install_aws_cli_2.sh
 sudo -E ./install_aws_cli_2.sh
 rm -f ./install_aws_cli_2.sh
-sudo rm -Rf ${devops_home}/provisioners/scripts/centos
+sudo rm -Rf ${devops_home}/provisioners
 
 # change ownership of any 'root' owned files and folders.
-chown -R ${user_name}:${user_group} .
+sudo chown -R ${user_name}:${user_group} ${devops_home}
 
 # verify installations. ----------------------------------------------------------------------------
 # set environment variables.
