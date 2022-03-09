@@ -18,9 +18,8 @@
 #---------------------------------------------------------------------------------------------------
 
 # set default values for input environment variables if not set. -----------------------------------
-# [OPTIONAL] aws cli install parameters [w/ defaults].
-devops_home="${devops_home:-/opt/fso-lab-devops}"   # fso lab devops home folder.
-update_aws_cli="${update_aws_cli:-false}"           # flag to allow 'update' of existing aws cli install.
+# [OPTIONAL] fso lab devops home folder [w/ default].
+devops_home="${devops_home:-/opt/fso-lab-devops}"
 
 # create temporary download directory. -------------------------------------------------------------
 mkdir -p ${devops_home}/provisioners/scripts/centos
@@ -82,29 +81,21 @@ gpg --import ${aws_cli_pgpkey_file}
 gpg --verify ${aws_cli_sig_file} ${aws_cli_binary}
 
 # install aws cli 2. -------------------------------------------------------------------------------
+# uninstall existing aws cli 2 installation.
+rm -f ${aws_cli_bin_dir}/aws
+rm -f ${aws_cli_bin_dir}/aws_completer
+rm -Rf ${aws_cli_install_dir}
+
 rm -Rf ${aws_cli_folder}
 unzip ${aws_cli_binary}
 chown -R root:root ./${aws_cli_folder}
-
-# add 'update' flag if aws cli installation already exists.
-if [ "$update_aws_cli" ]; then
-  ./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir} --update
-else
-  ./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir}
-fi
+./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir}
+#./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir} --update
 
 # cleanup installer files.
 rm -f ${aws_cli_binary}
 rm -f ${aws_cli_sig_file}
 rm -Rf ${aws_cli_folder}
-
-# upgrade aws cli 2.
-#./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir} --update
-
-# uninstall aws cli 2.
-#rm -f ${aws_cli_bin_dir}/aws
-#rm -f ${aws_cli_bin_dir}/aws_completer
-#rm -Rf ${aws_cli_install_dir}
 
 # verify installation. -----------------------------------------------------------------------------
 # set aws cli 2 environment variables.
