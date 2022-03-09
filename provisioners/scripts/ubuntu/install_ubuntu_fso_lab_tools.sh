@@ -80,11 +80,14 @@ sudo ./install_jq_json_processor.sh
 rm -f ./install_jq_json_processor.sh
 
 # download and install aws command line interface (cli) 2 by amazon.
+sudo rm -f /usr/local/bin/aws
+sudo rm -f /usr/local/bin/aws_completer
+sudo rm -Rf /usr/local/aws-cli
 curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_aws_cli_2.sh -o install_aws_cli_2.sh
 chmod 755 ./install_aws_cli_2.sh
 sudo -E ./install_aws_cli_2.sh
 rm -f ./install_aws_cli_2.sh
-rm -Rf ${devops_home}/provisioners/scripts/centos
+sudo rm -Rf ${devops_home}/provisioners/scripts/centos
 
 # change ownership of any 'root' owned files and folders.
 chown -R ${user_name}:${user_group} .
