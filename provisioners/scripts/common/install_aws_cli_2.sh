@@ -87,7 +87,7 @@ unzip ${aws_cli_binary}
 chown -R root:root ./${aws_cli_folder}
 
 # add 'update' flag if aws cli installation already exists.
-if [ "$update_aws_cli" == "true" ]; then
+if [ "$update_aws_cli" ]; then
   ./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir} --update
 else
   ./${aws_cli_folder}/install --install-dir ${aws_cli_install_dir} --bin-dir ${aws_cli_bin_dir}

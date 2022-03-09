@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/bin/sh -eu
 #---------------------------------------------------------------------------------------------------
 # Install FSO Lab tools on Ubuntu linux 64-bit.
 #
@@ -20,7 +20,8 @@
 #   https://stedolan.github.io/jq/
 #   https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
 #
-# NOTE: Script should be run as the installed user with 'sudo' privilege.
+# NOTE: Existing AWS CLI installs may require setting the 'update_aws_cli' variable to 'true'.
+#       Script should be run as the installed user with 'sudo' privilege.
 #---------------------------------------------------------------------------------------------------
 
 # set default values for input environment variables if not set. -----------------------------------
@@ -83,6 +84,10 @@ curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisi
 chmod 755 ./install_aws_cli_2.sh
 sudo -E ./install_aws_cli_2.sh
 rm -f ./install_aws_cli_2.sh
+rm -Rf ${devops_home}/provisioners/scripts/centos
+
+# change ownership of any 'root' owned files and folders.
+chown -R ${user_name}:${user_group} .
 
 # verify installations. ----------------------------------------------------------------------------
 # set environment variables.
