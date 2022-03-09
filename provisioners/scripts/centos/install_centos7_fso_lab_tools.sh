@@ -1,12 +1,12 @@
 #!/bin/sh -eux
 #---------------------------------------------------------------------------------------------------
-# Install FSO Lab tools on Ubuntu linux 64-bit.
+# Install FSO Lab tools on CentOS 7 linux 64-bit.
 #
 # To configure the FSO Lab workshop environments, the first step is to set-up your development
 # environment by installing the needed software. This script simplifies that process by automating
 # the installation of all needed packages.
 #
-# For Ubuntu, these software utilities include the following:
+# For Centos 7, these software utilities include the following:
 #   Git:        Git is a distributed version control system.
 #   Packer:     Packer is a machine and container image tool by HashiCorp.
 #   Terraform:  Terraform is an Infrastructure as Code (IaC) tool by HashiCorp.
@@ -32,21 +32,21 @@ devops_home="${devops_home:-$(eval echo "~${user_name}")}"  # fso lab devops hom
 export devops_home
 
 # install basic utilities needed for the install scripts. ------------------------------------------
-# update apt packages for ubuntu.
-sudo apt -y update
-sudo apt -y upgrade
+# update yum packages for centos 7.
+sudo yum -y update
+sudo yum -y upgrade
 
 # install core linux utilities.
-sudo apt -y install curl tree wget unzip
+sudo yum -y install curl tree wget unzip
 
 # download and install the custom utilities. -------------------------------------------------------
 cd ~
 
 # download, build, and install git from source.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/ubuntu/install_ubuntu_git.sh -o install_ubuntu_git.sh
-chmod 755 ./install_ubuntu_git.sh
-sudo -E ./install_ubuntu_git.sh
-rm -f ./install_ubuntu_git.sh
+curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/centos/install_centos7_git.sh -o install_centos7_git.sh
+chmod 755 ./install_centos7_git.sh
+sudo -E ./install_centos7_git.sh
+rm -f ./install_centos7_git.sh
 
 # append git environment variables to the user 'bashrc' file.
 cat <<EOF >> ~/.bashrc
