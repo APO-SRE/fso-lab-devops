@@ -20,8 +20,7 @@
 #   https://stedolan.github.io/jq/
 #   https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
 #
-# NOTE: Existing AWS CLI installs may require setting the 'update_aws_cli' variable to 'true'.
-#       Script should be run as the installed user with 'sudo' privilege.
+# NOTE: Script should be run as the installed user with 'sudo' privilege.
 #---------------------------------------------------------------------------------------------------
 
 # set default values for input environment variables if not set. -----------------------------------
@@ -31,8 +30,6 @@ user_group="${user_group:-$(groups | awk '{print $1}')}"    # current user group
 export user_group
 devops_home="${devops_home:-$(eval echo "~${user_name}")}"  # fso lab devops home folder.
 export devops_home
-update_aws_cli="${update_aws_cli:-false}"                   # flag to allow 'update' of existing aws cli install.
-export update_aws_cli
 
 # install basic utilities needed for the install scripts. ------------------------------------------
 # update apt packages for ubuntu.
