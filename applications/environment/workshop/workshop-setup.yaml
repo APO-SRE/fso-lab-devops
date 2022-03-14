@@ -26,8 +26,8 @@ taskExecutionOrder:
     taskName: "update-deploy-agents-sh"
   - taskType: "SHELL_TASK"
     taskName: "update-undeploy-agents-sh"
-  - taskType: "CONTROLLER_INIT_TASKS"
-    taskName: ""
+#  - taskType: "CONTROLLER_INIT_TASKS"
+#    taskName: ""
   - taskType: "CONTROLLER_TASKS"
     taskName: ""
 
@@ -142,7 +142,7 @@ shellTasks:
 templates:
   - templateName: "cluster-agent-conf"
     sourceFile: "./values-ca1.yaml.template"
-    destinationFile: "./values-ca1.yaml"
+    destinationFile: "./values-ca2.yaml.template"
     tags:
       - tagKey: "${ADWRKSHP_CONTROLLER_URL_FULL}"
         tagValue: "@[ADWRKSHP_CONTROLLER_URL_FULL]"
@@ -153,17 +153,17 @@ templates:
       - tagKey: "${ADWRKSHP_CONTROLLER_GLOBAL_ACCT_NAME}"
         tagValue: "@[ADWRKSHP_CONTROLLER_GLOBAL_ACCT_NAME]"
                 
-      - tagKey: "${ADWRKSHP_ACCT_ACCESS_KEY}"
-        tagValue: "@[ADWRKSHP_ACCT_ACCESS_KEY]"
-
       - tagKey: "${ADWRKSHP_APM_APP_NAME}"
         tagValue: "@[ADWRKSHP_APM_APP_NAME_PRE]"
 
-      - tagKey: "${ADWRKSHP_LABUSER_KEY}"
-        tagValue: "@[ADWRKSHP_LABUSER_KEY]"
+#      - tagKey: "${ADWRKSHP_ACCT_ACCESS_KEY}"
+#        tagValue: "@[ADWRKSHP_ACCT_ACCESS_KEY]"
+
+#      - tagKey: "${ADWRKSHP_LABUSER_KEY}"
+#        tagValue: "@[ADWRKSHP_LABUSER_KEY]"
         
-      - tagKey: "${ADWRKSHP_LABUSER_PWD}"
-        tagValue: "@[ADWRKSHP_LABUSER_PWD]"
+#      - tagKey: "${ADWRKSHP_LABUSER_PWD}"
+#        tagValue: "@[ADWRKSHP_LABUSER_PWD]"
         
 
 
@@ -192,17 +192,17 @@ controllerInitTasks:
 
 # !!! The license rule creation task should be the very first controller init task
 # NEW IBL LICENSE RULE TAG KEYS
-  - taskType: "CONTROLLER_TASK_CREATE_IBL_LICENSE_RULE"
-    taskName: "create-license-rule"
-    inputTags:
-      - tagKey: "@[ADWRKSHP_LICENSE_RULE_NAME]"
-        tagValue: "@[ADWRKSHP_LABUSER_KEY]-rule"
-      - tagKey: "@[ADWRKSHP_IBL_LICENSE_RULE_ACCT_ID]"
-        tagValue: "23458"
-      - tagKey: "@[ADWRKSHP_IBL_LICENSE_RULE_NBR_ENTR]"
-        tagValue: "24"
-      - tagKey: "@[ADWRKSHP_IBL_LICENSE_RULE_NBR_PREM]"
-        tagValue: "0"
+#  - taskType: "CONTROLLER_TASK_CREATE_IBL_LICENSE_RULE"
+#    taskName: "create-license-rule"
+#    inputTags:
+#      - tagKey: "@[ADWRKSHP_LICENSE_RULE_NAME]"
+#        tagValue: "@[ADWRKSHP_LABUSER_KEY]-rule"
+#      - tagKey: "@[ADWRKSHP_IBL_LICENSE_RULE_ACCT_ID]"
+#        tagValue: "23458"
+#      - tagKey: "@[ADWRKSHP_IBL_LICENSE_RULE_NBR_ENTR]"
+#        tagValue: "24"
+#      - tagKey: "@[ADWRKSHP_IBL_LICENSE_RULE_NBR_PREM]"
+#        tagValue: "0"
 # after settling in number of licenses used = 24 but spiked to 48 at initial deployment
 
 
@@ -268,7 +268,7 @@ controllerTasks:
       - tagKey: "@[ADWRKSHP_DASHBOARD_NAME]"
         tagValue: "@[ADWRKSHP_LABUSER_KEY]"  # the name of the new copy of the dashboard
       - tagKey: "@[ADWRKSHP_DASHBOARD_ID]"  # the id of the dashboard you want to make a copy of
-        tagValue: "379098"    
+        tagValue: "379168"    
       - tagKey: "@[ADWRKSHP_DASHBOARD_ACTION_VIEW]"
         tagValue: "true"    
       - tagKey: "@[ADWRKSHP_DASHBOARD_ACTION_EDIT]"
@@ -291,9 +291,9 @@ controllerTasks:
 
     inputTags:
       - tagKey: "@[ADWRKSHP_DEFAULT_RBAC_ROLE_IDS]"
-        tagValue: "286308,286305,286387,286459,288668,288731"
+        tagValue: "286308,286387,286459,288668"
       - tagKey: "@[ADWRKSHP_READONLY_RBAC_APP_IDS]"
-        tagValue: "557395"    
+        tagValue: "1195907"    
 
     templateTargets:   
       - templateName: "cluster-agent-conf"
@@ -307,14 +307,14 @@ controllerTasks:
           - tagKey: "${ADWRKSHP_CONTROLLER_GLOBAL_ACCT_NAME}"
             tagValue: "@[ADWRKSHP_CONTROLLER_GLOBAL_ACCT_NAME]"    
 
-          - tagKey: "${ADWRKSHP_ACCT_ACCESS_KEY}"
-            tagValue: "@[ADWRKSHP_ACCT_ACCESS_KEY]"
+#          - tagKey: "${ADWRKSHP_ACCT_ACCESS_KEY}"
+#            tagValue: "@[ADWRKSHP_ACCT_ACCESS_KEY]"
 
-          - tagKey: "${ADWRKSHP_LABUSER_KEY}"
-            tagValue: "@[ADWRKSHP_LABUSER_KEY]"
+#          - tagKey: "${ADWRKSHP_LABUSER_KEY}"
+#            tagValue: "@[ADWRKSHP_LABUSER_KEY]"
 
-          - tagKey: "${ADWRKSHP_LABUSER_PWD}"
-            tagValue: "@[ADWRKSHP_LABUSER_PWD]"    
+#          - tagKey: "${ADWRKSHP_LABUSER_PWD}"
+#            tagValue: "@[ADWRKSHP_LABUSER_PWD]"    
 
 
       - templateName: "workshop-user-details"

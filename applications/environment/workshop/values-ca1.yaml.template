@@ -5,9 +5,9 @@ installInfraViz: true
 controllerInfo:
   url: ${ADWRKSHP_CONTROLLER_URL_FULL}:443
   account: ${ADWRKSHP_CONTROLLER_ACCT_NAME}
-  username: ${ADWRKSHP_LABUSER_KEY}
-  password: ${ADWRKSHP_LABUSER_PWD}
-  accessKey: ${ADWRKSHP_ACCT_ACCESS_KEY}
+  username: @[ADWRKSHP_ELV_LABUSER_KEY]
+  password: @[ADWRKSHP_ELV_LABUSER_PWD]
+  accessKey: @[ADWRKSHP_ACCT_ACCESS_KEY]
   globalAccount: ${ADWRKSHP_CONTROLLER_GLOBAL_ACCT_NAME}
   
 # Cluster agent config
