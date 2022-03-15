@@ -1,84 +1,48 @@
-# Providers ----------------------------------------------------------------------------------------
-provider "intersight" {
-  apikey    = var.apikey
-  secretkey = var.secretkey
-  endpoint  = var.endpoint
+# Variables ----------------------------------------------------------------------------------------
+variable "apikey" {
+  description = "Intersight API Key."
+  type        = string
 }
 
-# Modules ------------------------------------------------------------------------------------------
-module "iks_cluster" {
-  source  = "terraform-cisco-modules/iks/intersight"
-  version = "2.3.0"
+variable "secretkey" {
+  description = "Intersight Secret Key or file location."
+  type        = string
+}
 
-  ip_pool = {
-    use_existing = true
-    name         = "FSO-SRE-Kubernetes"
-  }
+variable "endpoint" {
+  description = "Intersight API Endpoint URL."
+  type        = string
+  default     = "https://www.intersight.com"
+}
 
-  sysconfig = {
-    use_existing = true
-    name         = "APPD-FSO-IKS-NODE-OS-CONFIG"
-  }
+variable "organization" {
+  description = "Intersight organization name."
+  type        = string
+  default     = "default"
+}
 
-  k8s_network = {
-    use_existing = true
-    name         = "APPD-FSO-IKS-NETWORK-CIDR-DEMO"
-  }
+variable "ssh_user" {
+  description = "SSH Username for IKS node login."
+  type        = string
+}
 
-  # Version policy.
-  versionPolicy = {
-    useExisting = true
-    policyName  = "APPD-FSO-K8S-VERSION-DEMO"
-  }
+variable "ssh_key" {
+  description = "SSH Public Key to be used for IKS node login."
+  type        = string
+}
 
-  tr_policy = {
-    use_existing = false
-    create_new   = false
-    name         = "trusted-registry"
-  }
+variable "vc_password" {
+  description = "Password of the account to be used with vCenter. This should be the password for the account used to register vCenter with Intersight."
+  type        = string
+  sensitive   = true
+}
 
-  runtime_policy = {
-    use_existing = false
-    create_new   = false
+variable "tags" {
+  type    = list(map(string))
+  default = []
+}
 
-#   name                 = "runtime"
-#   http_proxy_hostname  = "t"
-#   http_proxy_port      = 80
-#   http_proxy_protocol  = "http"
-#   http_proxy_username  = null
-#   http_proxy_password  = null
-#   https_proxy_hostname = "t"
-#   https_proxy_port     = 8080
-#   https_proxy_protocol = "https"
-#   https_proxy_username = null
-#   https_proxy_password = null
-  }
-
-  # Infra Config Policy Information.
-  infraConfigPolicy = {
-    use_existing = true
-    policyName   = "FSO-HX-SRE-2001"
-  }
-
-  instance_type = {
-    use_existing = true
-    name         = "APPD-FSO-VM-INSTANCE-TYPE-IKS-DEMO"
-  }
-
-  # Cluster information.
-  cluster = {
-    name                = var.cluster_name
-    action              = "Deploy"
-    wait_for_completion = false
-    worker_nodes        = 2
-    load_balancers      = 1
-    worker_max          = 3
-    control_nodes       = 1
-    ssh_user            = "iksadmin"
-    ssh_public_key      = var.ssh_key
-  }
-
-  # Organization and Tags.
-  organization = var.organization
-  tags         = var.tags
+variable "cluster_name" {
+  description = "Name of IKS Cluster."
+  type = string
 }
