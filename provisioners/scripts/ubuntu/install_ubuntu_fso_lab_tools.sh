@@ -39,7 +39,7 @@ sudo apt -y update
 sudo apt -y upgrade
 
 # install core linux utilities.
-sudo apt -y install curl tree wget unzip
+sudo apt -y install curl git tree wget unzip
 
 # download the fso lab devops project from github.com. ---------------------------------------------
 cd ${user_home}
