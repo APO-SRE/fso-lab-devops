@@ -19,4 +19,6 @@ spec:
             env:
               - name: LDAP_SERVER
                 value: "$LDAP_SERVER_CLUSTERIP"
+          nodeSelector:
+              eksWorkerNode: eks-worker-node-02
           restartPolicy: Never    ##  Restart Policy in case container failed

@@ -77,6 +77,38 @@ if [ ! -f "$iks_kubeconfig_filepath" ]; then
   exit 1
 fi
 
+# add labels to kubernetes worker nodes for manual balancing of pod workloads. ---------------------
+echo "----------------------------------------------------------------------------------------------------"
+echo "Adding labels to Kubernetes worker nodes..."
+
+# add labels to aws eks cluster.
+eks_node_1=$(kubectl get nodes -o wide --output json --kubeconfig ${eks_kubeconfig_filepath} | jq -r '.items[0].metadata.name')
+eks_node_2=$(kubectl get nodes -o wide --output json --kubeconfig ${eks_kubeconfig_filepath} | jq -r '.items[1].metadata.name')
+
+echo "kubectl label --overwrite nodes ${eks_node_1} eksWorkerNode=eks-worker-node-01 --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${eks_node_1} eksWorkerNode=eks-worker-node-01 --kubeconfig ${eks_kubeconfig_filepath}
+echo "kubectl label --overwrite nodes ${eks_node_2} eksWorkerNode=eks-worker-node-02 --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${eks_node_2} eksWorkerNode=eks-worker-node-02 --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+echo "kubectl get nodes --show-labels --kubeconfig ${eks_kubeconfig_filepath} | grep -i eksWorkerNode"
+kubectl get nodes --show-labels --kubeconfig ${eks_kubeconfig_filepath} | grep -i eksWorkerNode
+echo ""
+
+# add labels to intersight iks cluster.
+iks_node_1=$(kubectl get nodes -o wide --output json --kubeconfig ${iks_kubeconfig_filepath} | jq -r '.items[1].metadata.name')
+iks_node_2=$(kubectl get nodes -o wide --output json --kubeconfig ${iks_kubeconfig_filepath} | jq -r '.items[2].metadata.name')
+
+echo "kubectl label --overwrite nodes ${iks_node_1} iksWorkerNode=iks-worker-node-01 --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${iks_node_1} iksWorkerNode=iks-worker-node-01 --kubeconfig ${iks_kubeconfig_filepath}
+echo "kubectl label --overwrite nodes ${iks_node_2} iksWorkerNode=iks-worker-node-02 --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${iks_node_2} iksWorkerNode=iks-worker-node-02 --kubeconfig ${iks_kubeconfig_filepath}
+echo ""
+
+echo "kubectl get nodes --show-labels --kubeconfig ${iks_kubeconfig_filepath} | grep -i iksWorkerNode"
+kubectl get nodes --show-labels --kubeconfig ${iks_kubeconfig_filepath} | grep -i iksWorkerNode
+echo ""
+
 # deploy the teastore application to a hybrid kubernetes environment. ------------------------------
 echo "cd $HOME/TeaStore/examples/fso-hybrid/"
 cd $HOME/TeaStore/examples/fso-hybrid/
@@ -101,7 +133,7 @@ sleep ${kubectl_pause_time}
 echo ""
 
 # store teastore registry nodeport host.
-export REGISTRY_NODEPORT_HOST=$(kubectl get nodes -o wide --output json --kubeconfig ${eks_kubeconfig_filepath} | jq -r '.items[0].status.addresses[0].address')
+export REGISTRY_NODEPORT_HOST=$(kubectl get nodes -o wide --output json --kubeconfig ${eks_kubeconfig_filepath} | jq -r '.items[1].status.addresses[0].address')
 echo "REGISTRY_NODEPORT_HOST: ${REGISTRY_NODEPORT_HOST}"
 
 # store teastore registry nodeport port.
@@ -141,7 +173,7 @@ sleep ${kubectl_pause_time}
 echo ""
 
 # store teastore persistence nodeport host.
-export PERSISTENCE_NODEPORT_HOST=$(kubectl get nodes -o wide --output json --kubeconfig ${iks_kubeconfig_filepath} | jq -r '.items[1].status.addresses[1].address')
+export PERSISTENCE_NODEPORT_HOST=$(kubectl get nodes -o wide --output json --kubeconfig ${iks_kubeconfig_filepath} | jq -r '.items[2].status.addresses[1].address')
 echo "PERSISTENCE_NODEPORT_HOST: ${PERSISTENCE_NODEPORT_HOST}"
 
 # store teastore persistence nodeport port.

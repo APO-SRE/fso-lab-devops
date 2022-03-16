@@ -19,6 +19,8 @@ spec:
           ports:
             - containerPort: 8888
             - containerPort: 1389
+      nodeSelector:
+          eksWorkerNode: eks-worker-node-02
 ---
 apiVersion: v1
 kind: Service

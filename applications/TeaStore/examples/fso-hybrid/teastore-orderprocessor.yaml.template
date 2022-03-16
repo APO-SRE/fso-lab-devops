@@ -35,5 +35,7 @@ spec:
               value: "15"
             - name: MAX_JVM_HEAP
               value: "512m"
+      nodeSelector:
+          eksWorkerNode: eks-worker-node-01
       restartPolicy: Always
 

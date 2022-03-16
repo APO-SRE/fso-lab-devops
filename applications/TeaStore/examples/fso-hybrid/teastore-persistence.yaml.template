@@ -31,6 +31,8 @@ spec:
               value: "teastore-db"
             - name: DB_PORT
               value: "3306"
+      nodeSelector:
+          iksWorkerNode: iks-worker-node-02
 ---
 apiVersion: v1
 kind: Service

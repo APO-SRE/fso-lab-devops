@@ -20,6 +20,8 @@ spec:
           image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-registry
           ports:
             - containerPort: 8080
+      nodeSelector:
+          eksWorkerNode: eks-worker-node-02
 ---
 apiVersion: v1
 kind: Service

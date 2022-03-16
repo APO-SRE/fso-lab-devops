@@ -27,6 +27,8 @@ spec:
               value: "$REGISTRY_NODEPORT_HOST"
             - name: REGISTRY_PORT
               value: "$REGISTRY_NODEPORT_PORT"
+      nodeSelector:
+          eksWorkerNode: eks-worker-node-01
 ---
 apiVersion: v1
 kind: Service

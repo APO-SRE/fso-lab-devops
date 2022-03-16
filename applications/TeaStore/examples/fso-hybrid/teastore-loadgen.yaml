@@ -19,6 +19,8 @@ spec:
           ports:
             - containerPort: 8080
           args: ["-t", "/teastore_browse_nogui.jmx", "-Jhostname", "teastore-webui", "-Jport", "8080", "-JnumUser", "2", "-JrampUp", "1", "-n"]
+      nodeSelector:
+          eksWorkerNode: eks-worker-node-01
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -41,3 +43,5 @@ spec:
           ports:
             - containerPort: 8080
           args: ["-t", "/teastore_browse_nogui_amex.jmx", "-Jhostname", "teastore-webui", "-Jport", "8080", "-JnumUser", "3", "-JrampUp", "1", "-n"]
+      nodeSelector:
+          eksWorkerNode: eks-worker-node-02

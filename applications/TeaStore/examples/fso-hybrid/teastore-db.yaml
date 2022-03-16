@@ -18,6 +18,8 @@ spec:
           image: public.ecr.aws/d8i9k4x3/fso-lab-teastore-db
           ports:
             - containerPort: 3306
+      nodeSelector:
+          iksWorkerNode: iks-worker-node-01
 ---
 apiVersion: v1
 kind: Service
