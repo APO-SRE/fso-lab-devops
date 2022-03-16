@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/bin/bash -eux
 # create default command-line environment profile for fso lab devops user.
 
 # set default values for input environment variables if not set. -----------------------------------

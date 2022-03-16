@@ -77,10 +77,10 @@ sudo ./install_ubuntu_vim_8.sh
 cd ${devops_home}/provisioners/scripts/common
 sudo runuser -c "touch ~/.bash_profile" - root
 sudo runuser -c "touch ~/.bashrc" - root
-sudo -E runuser -c "TERM=xterm-256color ${devops_home}/provisioners/scripts/common/install_root_user_env.sh" - root
+sudo -E runuser -c "TERM=xterm-256color devops_home=${devops_home} ${devops_home}/provisioners/scripts/common/install_root_user_env.sh" - root
 
 # use the stream editor to update the correct 'devops_home'.
-#sudo -E runuser -c "sed -i -e \"/^devops_home/c\devops_home=\"${devops_home}\"\" ~/.bashrc" - root
+sudo -E runuser -c "devops_home=${devops_home} sed -i -e \"/^devops_home/c\devops_home=\"${devops_home}\"\" ~/.bashrc" - root
 
 # create default command-line environment profile for the current user.
 cd ${devops_home}/provisioners/scripts/common
