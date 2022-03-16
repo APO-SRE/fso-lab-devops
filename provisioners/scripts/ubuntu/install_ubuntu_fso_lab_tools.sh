@@ -30,7 +30,7 @@ user_group="${user_group:-$(groups | awk '{print $1}')}"    # current user group
 export user_group
 user_home="${user_home:-$(eval echo "~${user_name}")}"      # current user home folder.
 export user_home
-devops_home="${devops_home:-${user_home}}"                  # fso lab devops home folder.
+devops_home="${devops_home:-${user_home}/fso-lab-devops}"   # fso lab devops home folder.
 export devops_home
 
 # install basic utilities needed for the install scripts. ------------------------------------------
@@ -73,7 +73,7 @@ curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisi
 chmod 755 ./install_aws_cli_2.sh
 sudo -E ./install_aws_cli_2.sh
 rm -f ./install_aws_cli_2.sh
-sudo rm -Rf ./provisioners
+sudo rm -Rf ${devops_home}/provisioners
 
 # download, build, and install vim 8 text editor from source.
 curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/ubuntu/install_ubuntu_vim_8.sh -o install_ubuntu_vim_8.sh
@@ -86,6 +86,9 @@ curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisi
 chmod 755 ./install_user_env.sh
 sudo -E ./install_user_env.sh
 rm -f ./install_user_env.sh
+
+# use the stream editor to update the correct 'devops_home'.
+sed -i -e "/^devops_home/s/^.*$/devops_home=\"${devops_home}\"/" .bashrc
 
 # change ownership of any 'root' owned files and folders.
 sudo chown -R ${user_name}:${user_group} .
@@ -110,6 +113,14 @@ terraform --version
 jq --version
 aws --version
 vim --version | awk 'FNR < 3 {print $0}'
+
+# unset user environment variables. ----------------------------------------------------------------
+unset user_name
+unset user_group
+unset user_home
+unset devops_home
+unset GIT_HOME
+unset PATH
 
 # print completion message.
 echo "FSO Lab Tools installation complete."
