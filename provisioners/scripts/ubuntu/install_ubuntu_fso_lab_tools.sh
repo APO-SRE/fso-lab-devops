@@ -41,56 +41,58 @@ sudo apt -y upgrade
 # install core linux utilities.
 sudo apt -y install curl tree wget unzip
 
-# download and install the custom utilities. -------------------------------------------------------
-cd ~
+# download the fso lab devops project from github.com. ---------------------------------------------
+cd ${user_home}
+rm -Rf ${devops_home}
+git clone https://github.com/APO-SRE/fso-lab-devops.git ${devops_home}
+cd ${devops_home}
+git fetch origin
 
+# download and install the custom utilities. -------------------------------------------------------
 # download, build, and install git from source.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/ubuntu/install_ubuntu_git.sh -o install_ubuntu_git.sh
-chmod 755 ./install_ubuntu_git.sh
+cd ${devops_home}/provisioners/scripts/ubuntu
 sudo -E ./install_ubuntu_git.sh
-rm -f ./install_ubuntu_git.sh
 
 # download and install packer by hashicorp.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_hashicorp_packer.sh -o install_hashicorp_packer.sh
-chmod 755 ./install_hashicorp_packer.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo ./install_hashicorp_packer.sh
-rm -f ./install_hashicorp_packer.sh
 
 # download and install terraform by hashicorp.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_hashicorp_terraform.sh -o install_hashicorp_terraform.sh
-chmod 755 ./install_hashicorp_terraform.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo ./install_hashicorp_terraform.sh
-rm -f ./install_hashicorp_terraform.sh
 
 # download and install jq json processor.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_jq_json_processor.sh -o install_jq_json_processor.sh
-chmod 755 ./install_jq_json_processor.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo ./install_jq_json_processor.sh
-rm -f ./install_jq_json_processor.sh
 
 # download and install aws command line interface (cli) 2 by amazon.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_aws_cli_2.sh -o install_aws_cli_2.sh
-chmod 755 ./install_aws_cli_2.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo -E ./install_aws_cli_2.sh
-rm -f ./install_aws_cli_2.sh
-sudo rm -Rf ${devops_home}/provisioners
 
 # download, build, and install vim 8 text editor from source.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/ubuntu/install_ubuntu_vim_8.sh -o install_ubuntu_vim_8.sh
-chmod 755 ./install_ubuntu_vim_8.sh
+cd ${devops_home}/provisioners/scripts/ubuntu
 sudo ./install_ubuntu_vim_8.sh
-rm -f ./install_ubuntu_vim_8.sh
 
-# create default command-line environment profile for the current user.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_user_env.sh -o install_user_env.sh
-chmod 755 ./install_user_env.sh
-sudo -E ./install_user_env.sh
-rm -f ./install_user_env.sh
+# create default command-line environment profile for the 'root' user.
+cd ${devops_home}/provisioners/scripts/common
+sudo runuser -c "touch ~/.bash_profile" - root
+sudo runuser -c "touch ~/.bashrc" - root
+sudo -E runuser -c "TERM=xterm-256color ${devops_home}/provisioners/scripts/common/install_root_user_env.sh" - root
 
 # use the stream editor to update the correct 'devops_home'.
-sed -i -e "/^devops_home/s/^.*$/devops_home=\"${devops_home}\"/" .bashrc
+sudo -E runuser -c "sed -i -e \"/^devops_home/c\devops_home=\"${devops_home}\"\" ~/.bashrc" - root
+
+# create default command-line environment profile for the current user.
+cd ${devops_home}/provisioners/scripts/common
+touch ~/.bash_profile
+touch ~/.bashrc
+sudo -E ./install_user_env.sh
+
+# use the stream editor to update the correct 'devops_home'.
+sed -i -e "/^devops_home/c\devops_home=\"${devops_home}\"" ~/.bashrc
 
 # change ownership of any 'root' owned files and folders.
+cd ${user_home}
 sudo chown -R ${user_name}:${user_group} .
 
 # verify installations. ----------------------------------------------------------------------------
@@ -119,8 +121,6 @@ unset user_name
 unset user_group
 unset user_home
 unset devops_home
-unset GIT_HOME
-unset PATH
 
 # print completion message.
 echo "FSO Lab Tools installation complete."
