@@ -28,7 +28,9 @@ user_name="${user_name:-$(whoami)}"                         # current user name.
 export user_name
 user_group="${user_group:-$(groups | awk '{print $1}')}"    # current user group name.
 export user_group
-devops_home="${devops_home:-$(eval echo "~${user_name}")}"  # fso lab devops home folder.
+user_home="${user_home:-$(eval echo "~${user_name}")}"      # current user home folder.
+export user_home
+devops_home="${devops_home:-${user_home}/fso-lab-devops}"   # fso lab devops home folder.
 export devops_home
 
 # install basic utilities needed for the install scripts. ------------------------------------------
@@ -39,52 +41,59 @@ sudo yum -y upgrade
 # install core linux utilities.
 sudo yum -y install curl tree wget unzip
 
+# download the fso lab devops project from github.com. ---------------------------------------------
+cd ${user_home}
+rm -Rf ${devops_home}
+git clone https://github.com/APO-SRE/fso-lab-devops.git ${devops_home}
+cd ${devops_home}
+git fetch origin
+
 # download and install the custom utilities. -------------------------------------------------------
-cd ~
-
 # download, build, and install git from source.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/centos/install_centos7_git.sh -o install_centos7_git.sh
-chmod 755 ./install_centos7_git.sh
-sudo -E ./install_centos7_git.sh
-rm -f ./install_centos7_git.sh
-
-# append git environment variables to the user 'bashrc' file.
-cat <<EOF >> ~/.bashrc
-
-# set git home environment variables.
-GIT_HOME=/usr/local/git/git
-export GIT_HOME
-PATH=\${GIT_HOME}/bin:\$PATH
-export PATH
-EOF
+cd ${devops_home}/provisioners/scripts/ubuntu
+sudo -E ./install_ubuntu_git.sh
 
 # download and install packer by hashicorp.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_hashicorp_packer.sh -o install_hashicorp_packer.sh
-chmod 755 ./install_hashicorp_packer.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo ./install_hashicorp_packer.sh
-rm -f ./install_hashicorp_packer.sh
 
 # download and install terraform by hashicorp.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_hashicorp_terraform.sh -o install_hashicorp_terraform.sh
-chmod 755 ./install_hashicorp_terraform.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo ./install_hashicorp_terraform.sh
-rm -f ./install_hashicorp_terraform.sh
 
 # download and install jq json processor.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_jq_json_processor.sh -o install_jq_json_processor.sh
-chmod 755 ./install_jq_json_processor.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo ./install_jq_json_processor.sh
-rm -f ./install_jq_json_processor.sh
 
 # download and install aws command line interface (cli) 2 by amazon.
-curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_aws_cli_2.sh -o install_aws_cli_2.sh
-chmod 755 ./install_aws_cli_2.sh
+cd ${devops_home}/provisioners/scripts/common
 sudo -E ./install_aws_cli_2.sh
-rm -f ./install_aws_cli_2.sh
-sudo rm -Rf ${devops_home}/provisioners
+
+# download, build, and install vim 8 text editor from source.
+cd ${devops_home}/provisioners/scripts/ubuntu
+sudo ./install_ubuntu_vim_8.sh
+
+# create default command-line environment profile for the 'root' user.
+cd ${devops_home}/provisioners/scripts/common
+sudo runuser -c "touch ~/.bash_profile" - root
+sudo runuser -c "touch ~/.bashrc" - root
+sudo -E runuser -c "TERM=xterm-256color ${devops_home}/provisioners/scripts/common/install_root_user_env.sh" - root
+
+# use the stream editor to update the correct 'devops_home'.
+sudo -E runuser -c "sed -i -e \"/^devops_home/c\devops_home=\"${devops_home}\"\" ~/.bashrc" - root
+
+# create default command-line environment profile for the current user.
+cd ${devops_home}/provisioners/scripts/common
+touch ~/.bash_profile
+touch ~/.bashrc
+sudo -E ./install_user_env.sh
+
+# use the stream editor to update the correct 'devops_home'.
+sed -i -e "/^devops_home/c\devops_home=\"${devops_home}\"" ~/.bashrc
 
 # change ownership of any 'root' owned files and folders.
-sudo chown -R ${user_name}:${user_group} ${devops_home}
+cd ${user_home}
+sudo chown -R ${user_name}:${user_group} .
 
 # verify installations. ----------------------------------------------------------------------------
 # set environment variables.
@@ -105,6 +114,13 @@ packer --version
 terraform --version
 jq --version
 aws --version
+vim --version | awk 'FNR < 3 {print $0}'
+
+# unset user environment variables. ----------------------------------------------------------------
+unset user_name
+unset user_group
+unset user_home
+unset devops_home
 
 # print completion message.
 echo "FSO Lab Tools installation complete."
