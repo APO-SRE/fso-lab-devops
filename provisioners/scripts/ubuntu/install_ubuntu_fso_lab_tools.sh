@@ -28,7 +28,9 @@ user_name="${user_name:-$(whoami)}"                         # current user name.
 export user_name
 user_group="${user_group:-$(groups | awk '{print $1}')}"    # current user group name.
 export user_group
-devops_home="${devops_home:-$(eval echo "~${user_name}")}"  # fso lab devops home folder.
+user_home="${user_home:-$(eval echo "~${user_name}")}"      # current user home folder.
+export user_home
+devops_home="${devops_home:-${user_home}}"                  # fso lab devops home folder.
 export devops_home
 
 # install basic utilities needed for the install scripts. ------------------------------------------
@@ -47,16 +49,6 @@ curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisi
 chmod 755 ./install_ubuntu_git.sh
 sudo -E ./install_ubuntu_git.sh
 rm -f ./install_ubuntu_git.sh
-
-# append git environment variables to the user 'bashrc' file.
-cat <<EOF >> ~/.bashrc
-
-# set git home environment variables.
-GIT_HOME=/usr/local/git/git
-export GIT_HOME
-PATH=\${GIT_HOME}/bin:\$PATH
-export PATH
-EOF
 
 # download and install packer by hashicorp.
 curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_hashicorp_packer.sh -o install_hashicorp_packer.sh
@@ -81,10 +73,22 @@ curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisi
 chmod 755 ./install_aws_cli_2.sh
 sudo -E ./install_aws_cli_2.sh
 rm -f ./install_aws_cli_2.sh
-sudo rm -Rf ${devops_home}/provisioners
+sudo rm -Rf ./provisioners
+
+# download, build, and install vim 8 text editor from source.
+curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/ubuntu/install_ubuntu_vim_8.sh -o install_ubuntu_vim_8.sh
+chmod 755 ./install_ubuntu_vim_8.sh
+sudo ./install_ubuntu_vim_8.sh
+rm -f ./install_ubuntu_vim_8.sh
+
+# create default command-line environment profile for the current user.
+curl -fsSL https://raw.githubusercontent.com/APO-SRE/fso-lab-devops/main/provisioners/scripts/common/install_user_env.sh -o install_user_env.sh
+chmod 755 ./install_user_env.sh
+sudo -E ./install_user_env.sh
+rm -f ./install_user_env.sh
 
 # change ownership of any 'root' owned files and folders.
-sudo chown -R ${user_name}:${user_group} ${devops_home}
+sudo chown -R ${user_name}:${user_group} .
 
 # verify installations. ----------------------------------------------------------------------------
 # set environment variables.
@@ -105,6 +109,7 @@ packer --version
 terraform --version
 jq --version
 aws --version
+vim --version | awk 'FNR < 3 {print $0}'
 
 # print completion message.
 echo "FSO Lab Tools installation complete."

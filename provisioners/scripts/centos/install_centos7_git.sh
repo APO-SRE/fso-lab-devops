@@ -4,7 +4,7 @@
 #
 # Git is a fast, scalable, distributed revision control system with an unusually rich command set
 # that provides both high-level operations and full access to internals.
-# 
+#
 # For more details, please visit:
 #   https://git-scm.com/
 #   https://github.com/git/git/blob/master/INSTALL
