@@ -28,9 +28,6 @@ aws_user_password="${aws_user_password:-C1sc0Fso2022!}"
 aws_group_name="${aws_group_name:-fso-lab-group}"
 aws_policy_name="${aws_policy_name:-FSOLabTEAgentDeployment}"
 
-# [OPTIONAL] fso lab devops home folder [w/ default].
-devops_home="${devops_home:-~/fso-lab-devops}"
-
 # define usage function. ---------------------------------------------------------------------------
 usage() {
   cat <<EOF
@@ -40,14 +37,13 @@ Usage:
         User should have pre-configured AWS CLI.
 
   Description of Environment Variables:
-    [ec2-user]$ export aws_user_name="fso-lab-user"                 # [optional] aws user name.
-    [ec2-user]$ export aws_user_password="<custom_password_here>"   # [optional] aws user password.
-    [ec2-user]$ export aws_group_name="fso-lab-group"               # [optional] aws group name.
-    [ec2-user]$ export aws_policy_name="FSOLabTEAgentDeployment"    # [optional] aws policy name for thousandeyes agent.
-    [ec2-user]$ export devops_home="/opt/fso-lab-devops"            # [optional] devops home.
+    [ubuntu]$ export aws_user_name="fso-lab-user"               # [optional] fso lab user name.
+    [ubuntu]$ export aws_user_password="<custom_password_here>" # [optional] fso lab user password.
+    [ubuntu]$ export aws_group_name="fso-lab-group"             # [optional] fso lab group name.
+    [ubuntu]$ export aws_policy_name="FSOLabTEAgentDeployment"  # [optional] aws policy name for thousandeyes agent.
 
   Example:
-    [ec2-user]$ $0
+    [ubuntu]$ $0
 EOF
 }
 
@@ -75,13 +71,13 @@ fi
 aws iam create-group --group-name ${aws_group_name}
 
 # create custom thousandeyes agent deployment policy.
-cd ${devops_home}/provisioners/scripts/aws/policies/
+cd $HOME/provisioners/scripts/aws/policies/
 aws_account_id=$(aws sts get-caller-identity --query "Account" --output text)
 sed -e "s/AWS_ACCOUNT_ID/${aws_account_id}/g" FSOLabTEAgentDeployment.json.template >| FSOLabTEAgentDeployment.json
 aws iam create-policy --policy-name ${aws_policy_name} --policy-document file://FSOLabTEAgentDeployment.json
 
 # attach group policies to fso lab group.
-aws iam attach-group-policy --group-name ${aws_group_name} --policy-arn arn:aws:iam::975944588697:policy/${aws_policy_name}
+aws iam attach-group-policy --group-name ${aws_group_name} --policy-arn arn:aws:iam::${aws_account_id}:policy/${aws_policy_name}
 aws iam attach-group-policy --group-name ${aws_group_name} --policy-arn arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
 aws iam attach-group-policy --group-name ${aws_group_name} --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
 aws iam attach-group-policy --group-name ${aws_group_name} --policy-arn arn:aws:iam::aws:policy/AWSCloud9EnvironmentMember
