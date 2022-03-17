@@ -71,7 +71,7 @@ fi
 aws iam create-group --group-name ${aws_group_name}
 
 # create custom thousandeyes agent deployment policy.
-cd $HOME/provisioners/scripts/aws/policies/
+cd $HOME/fso-lab-devops/provisioners/scripts/aws/policies/
 aws_account_id=$(aws sts get-caller-identity --query "Account" --output text)
 sed -e "s/AWS_ACCOUNT_ID/${aws_account_id}/g" FSOLabTEAgentDeployment.json.template >| FSOLabTEAgentDeployment.json
 aws iam create-policy --policy-name ${aws_policy_name} --policy-document file://FSOLabTEAgentDeployment.json
