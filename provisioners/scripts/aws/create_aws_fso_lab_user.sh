@@ -24,7 +24,7 @@
 # set default values for input environment variables if not set. -----------------------------------
 # [OPTIONAL] aws create user install parameters [w/ defaults].
 aws_user_name="${aws_user_name:-fso-lab-user}"
-aws_user_password="${aws_user_password:-C1sc0Fso2022!}"
+aws_user_password="${aws_user_password:-C1sc0Fso2022!!}"
 aws_group_name="${aws_group_name:-fso-lab-group}"
 aws_policy_name="${aws_policy_name:-FSOLabTEAgentDeployment}"
 
