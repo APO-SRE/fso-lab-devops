@@ -169,6 +169,38 @@ echo "rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml tea
 rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml
 echo ""
 
+# remove labels from kubernetes worker nodes. ------------------------------------------------------
+echo "----------------------------------------------------------------------------------------------------"
+echo "Removing labels from Kubernetes worker nodes..."
+
+# remove labels from aws eks cluster. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+eks_node_1=$(kubectl get nodes -o wide --output json --kubeconfig ${eks_kubeconfig_filepath} | jq -r '.items[0].metadata.name')
+eks_node_2=$(kubectl get nodes -o wide --output json --kubeconfig ${eks_kubeconfig_filepath} | jq -r '.items[1].metadata.name')
+
+echo "kubectl label --overwrite nodes ${eks_node_1} eksWorkerNode- --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${eks_node_1} eksWorkerNode- --kubeconfig ${eks_kubeconfig_filepath}
+echo "kubectl label --overwrite nodes ${eks_node_2} eksWorkerNode- --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${eks_node_2} eksWorkerNode- --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+echo "kubectl get nodes --show-labels --kubeconfig ${eks_kubeconfig_filepath}"
+kubectl get nodes --show-labels --kubeconfig ${eks_kubeconfig_filepath}
+echo ""
+
+# remove labels from intersight iks cluster. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+iks_node_1=$(kubectl get nodes -o wide --output json --kubeconfig ${iks_kubeconfig_filepath} | jq -r '.items[1].metadata.name')
+iks_node_2=$(kubectl get nodes -o wide --output json --kubeconfig ${iks_kubeconfig_filepath} | jq -r '.items[2].metadata.name')
+
+echo "kubectl label --overwrite nodes ${iks_node_1} iksWorkerNode- --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${iks_node_1} iksWorkerNode- --kubeconfig ${iks_kubeconfig_filepath}
+echo "kubectl label --overwrite nodes ${iks_node_2} iksWorkerNode- --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl label --overwrite nodes ${iks_node_2} iksWorkerNode- --kubeconfig ${iks_kubeconfig_filepath}
+echo ""
+
+echo "kubectl get nodes --show-labels --kubeconfig ${iks_kubeconfig_filepath}"
+kubectl get nodes --show-labels --kubeconfig ${iks_kubeconfig_filepath}
+echo ""
+
 # validate the teastore services undeployment. -----------------------------------------------------
 echo "----------------------------------------------------------------------------------------------------"
 echo "Validating the TeaStore services undeployment..."
