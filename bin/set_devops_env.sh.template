@@ -9,6 +9,18 @@
 devops_home="/opt/fso-lab-devops"
 export devops_home
 
+# [optional] aws create user install parameters [w/ defaults].
+#aws_user_name="fso-lab-user"
+#export aws_user_name
+#aws_user_password="<your_fso_user_password_here>"
+#export aws_user_password
+#aws_group_name="fso-lab-group"
+#export aws_group_name
+#aws_policy_name="FSOLabTEAgentDeployment"
+#export aws_policy_name
+#local_devops_home="$HOME/fso-lab-devops"
+#export local_devops_home
+
 # --------------------------------------------------------------------------------------------------
 # amazon aws environment parameters.
 # --------------------------------------------------------------------------------------------------
