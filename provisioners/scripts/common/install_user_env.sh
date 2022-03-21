@@ -123,6 +123,22 @@ chown ${user_name}:${user_group} ${vimrc_local}
 # download and install useful vim configuration based on developer pair stations at pivotal labs.
 runuser -c "git clone https://github.com/pivotal-legacy/vim-config.git ${user_home}/.vim" - ${user_name}
 
+# use the stream editor to add the terraform plugin into the vim config. ---------------------------
+vim_config_file="vimrc"
+cd ${vimrc_home}
+cp -p ${vim_config_file} ${vim_config_file}.orig
+
+# define stream editor search string.
+vim_config_search="  Plugin 'luan\/vim-concourse'"
+
+# define stream editor vim config substitution strings.
+vim_config_line="  Plugin 'hashivim\/vim-terraform'"
+
+# insert vim config lines after this line: '  Plugin 'luan/vim-concourse'.
+if ! grep -qF -- 'terraform' "${vimrc_home}/${vim_config_file}" ; then
+  runuser -c "sed -i -e \"s/^${vim_config_search}$/${vim_config_search}\n${vim_config_line}/g\" ${vimrc_home}/${vim_config_file}" - ${user_name}
+fi
+
 ###### vundle installer bug fix. ------------------------------------------------------------------------
 ###### append the bug fix into the vundle install script.
 #####vundle_install_file="${user_home}/.vim/bin/install"
@@ -140,6 +156,7 @@ runuser -c "git clone https://github.com/pivotal-legacy/vim-config.git ${user_ho
 #####fi
 
 # run the vundle install script. -------------------------------------------------------------------
+cd ${user_home}
 runuser -c "TERM=xterm-256color ${user_home}/.vim/bin/install" - ${user_name}
 
 # create final vimrc local file. -------------------------------------------------------------------
