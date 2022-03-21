@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #---------------------------------------------------------------------------------------------------
 # Delete the FSO Lab Devops project-specific AWS AMI's for the specified region.
 #

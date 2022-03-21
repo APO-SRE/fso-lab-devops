@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # utility script to retrieve the controller global account name.
 
 # set default values for input environment variables if not set. -----------------------------------

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # utility script to retrieve the controller access key.
 
 # set default values for input environment variables if not set. -----------------------------------
