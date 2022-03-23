@@ -269,6 +269,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Java SE JDK 8 Update 312 (Amazon Corretto 8)
 -	Java SE JDK 11.0.13 (Amazon Corretto 11)
 -	Java SE JDK 17.0.1 (Amazon Corretto 17)
+-	Java SE JDK 18.0.0 (Amazon Corretto 18)
 -	JMESPath jp 0.2.1 (command-line JSON processor)
 -	jq 1.6 (command-line JSON processor)
 -	Maven 3.8.5
@@ -280,7 +281,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Pip 22.0.4
 -	Python 3.7.10
 	-	Pip 22.0.4
--	Serverless Framework CLI 3.7.9
+-	Serverless Framework CLI 3.8.0
 -	Terraform 1.1.7
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
