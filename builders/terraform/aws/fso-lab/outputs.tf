@@ -139,6 +139,11 @@ output "lab_ssh_pub_key_name" {
   value       = var.lab_ssh_pub_key_name
 }
 
+output "resource_tags" {
+  description = "Tag names for AWS resources."
+  value       = local.resource_tags
+}
+
 output "resource_environment_tag" {
   description = "Resource environment tag."
   value       = var.resource_environment_tag
