@@ -144,9 +144,9 @@ output "resource_tags" {
   value       = local.resource_tags
 }
 
-output "resource_environment_tag" {
-  description = "Resource environment tag."
-  value       = var.resource_environment_tag
+output "resource_environment_home_tag" {
+  description = "Resource environment home tag."
+  value       = var.resource_environment_home_tag
 }
 
 output "resource_owner_tag" {
