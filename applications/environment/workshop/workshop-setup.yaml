@@ -268,7 +268,7 @@ controllerTasks:
       - tagKey: "@[ADWRKSHP_DASHBOARD_NAME]"
         tagValue: "@[ADWRKSHP_LABUSER_KEY]"  # the name of the new copy of the dashboard
       - tagKey: "@[ADWRKSHP_DASHBOARD_ID]"  # the id of the dashboard you want to make a copy of
-        tagValue: "379168"    
+        tagValue: "379257"
       - tagKey: "@[ADWRKSHP_DASHBOARD_ACTION_VIEW]"
         tagValue: "true"    
       - tagKey: "@[ADWRKSHP_DASHBOARD_ACTION_EDIT]"
@@ -293,7 +293,7 @@ controllerTasks:
       - tagKey: "@[ADWRKSHP_DEFAULT_RBAC_ROLE_IDS]"
         tagValue: "286308,286387,286459,288668"
       - tagKey: "@[ADWRKSHP_READONLY_RBAC_APP_IDS]"
-        tagValue: "1195907"    
+        tagValue: "1224927"
 
     templateTargets:   
       - templateName: "cluster-agent-conf"
