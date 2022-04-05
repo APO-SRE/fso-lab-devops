@@ -250,8 +250,8 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Amazon AWS CLI 2.5.2 (command-line interface)
 -	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
--	Amazon AWS EKS CLI [eksctl] 0.90.0 (command-line interface)
--	Amazon AWS Kubernetes Control CLI [kubectl] 1.20.4 (command-line interface)
+-	Amazon AWS EKS CLI [eksctl] 0.91.0 (command-line interface)
+-	Amazon AWS Kubernetes Control CLI [kubectl] 1.21.2 (command-line interface)
 -	Ansible 2.9.23
 -	Ant 1.10.12
 -	AppDynamics Node.js Serverless Tracer 21.11.348
@@ -281,7 +281,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 	-	Pip 22.0.4
 -	Python 3.7.10
 	-	Pip 22.0.4
--	Serverless Framework CLI 3.10.2
+-	Serverless Framework CLI 3.11.0
 -	Terraform 1.1.7
 -	VIM - Vi IMproved 8.2
 -	XMLStarlet 1.6.1 (command-line XML processor)
