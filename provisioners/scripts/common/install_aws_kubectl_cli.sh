@@ -18,6 +18,9 @@
 kubectl_release="1.21.2"
 kubectl_date="2021-07-05"
 kubectl_sha256="178aad4c23894ad69781213dfdf170983066e8fab5ea6a05675f1b364977dd57"
+#kubectl_release="1.22.6"
+#kubectl_date="2022-03-09"
+#kubectl_sha256="860c3d37a5979491895767e7332404d28dc0d7797c7673c33df30ca80e215a07"
 
 # create local bin directory (if needed).
 mkdir -p /usr/local/bin
