@@ -60,3 +60,16 @@ export aws_ami_region
 # source cidrs used by packer when creating a temporary security group for image builds (defaults to '0.0.0.0/0').
 aws_ec2_temporary_source_cidrs="0.0.0.0/0"
 export aws_ec2_temporary_source_cidrs
+
+# --------------------------------------------------------------------------------------------------
+# organization environment parameters.
+# --------------------------------------------------------------------------------------------------
+# set variables for aws resource tagging.
+org_cost_center="<your_org_cost_center_here>"
+export org_cost_center
+aws_user_arn="$(aws sts get-caller-identity --query "Arn" --output text)"
+export aws_user_arn
+aws_user_email="<your_aws_user_email_address_here>"
+export aws_user_email
+app_service_name="FSOLab"
+export app_service_name
