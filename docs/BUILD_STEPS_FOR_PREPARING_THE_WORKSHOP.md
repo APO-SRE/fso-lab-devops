@@ -69,7 +69,7 @@ specific instructions for installing the required software are left as an exerci
 For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
 -	Homebrew 3.4.6
--	Git 2.35.1
+-	Git 2.35.2
 -	Packer 1.8.0
 -	Terraform 1.1.8
 -	jq 1.6
@@ -81,7 +81,7 @@ Perform the following steps to install the needed software:
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
 
-2.	Install [Git 2.35.1](https://git-scm.com/downloads) for macOS 64-bit.  
+2.	Install [Git 2.35.2](https://git-scm.com/downloads) for macOS 64-bit.  
     ```bash
     brew install git
     ```
@@ -113,7 +113,7 @@ Perform the following steps to install the needed software:
     # Your system is ready to brew.
 
     git --version
-    # git version 2.35.1
+    # git version 2.35.2
 
     packer --version
     # 1.8.0
@@ -149,7 +149,7 @@ Here is a list of the recommended open source software to be installed on the ho
 
 -	Curl 7.68.0 (Ubuntu 64-bit only)
 -	Wget 1.20.3 (Ubuntu 64-bit only)
--	Git 2.35.1
+-	Git 2.35.2
 -	Packer 1.8.0
 -	Terraform 1.1.8
 -	jq 1.6
@@ -158,7 +158,7 @@ Here is a list of the recommended open source software to be installed on the ho
 
 Perform the following steps to install the needed software:
 
-1.	Install [Git 2.35.1](https://github.com/git-for-windows/git/releases/download/v2.35.1.windows.1/Git-2.35.1-64-bit.exe) for Windows 64-bit.
+1.	Install [Git 2.35.2](https://github.com/git-for-windows/git/releases/download/v2.35.2.windows.1/Git-2.35.2-64-bit.exe) for Windows 64-bit.
 
 2.	Install [Packer 1.8.0](https://releases.hashicorp.com/packer/1.8.0/packer_1.8.0_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
@@ -189,7 +189,7 @@ Perform the following steps to install the needed software:
 
     ```bash
     git --version
-    # git version 2.35.1.windows.1
+    # git version 2.35.2.windows.1
 
     packer --version
     # 1.8.0
