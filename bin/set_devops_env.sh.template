@@ -71,5 +71,3 @@ aws_user_arn="$(aws sts get-caller-identity --query "Arn" --output text)"
 export aws_user_arn
 aws_user_email="<your_aws_user_email_address_here>"
 export aws_user_email
-app_service_name="FSOLab"
-export app_service_name
