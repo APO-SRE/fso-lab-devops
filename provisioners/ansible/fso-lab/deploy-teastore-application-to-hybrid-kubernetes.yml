@@ -7,7 +7,7 @@
 
   vars:
     env_vars:
-      iks_kubeconfig_filepath: "{{ lookup('env', 'iks_kubeconfig_filepath') | default(ansible_env.HOME + '/AppD-FSO-Lab-01-kubeconfig.yaml', true) }}"
+      iks_kubeconfig_filepath: "{{ lookup('env', 'iks_kubeconfig_filepath') | default(ansible_env.HOME + '/AppD-FSO-Lab-01-IKS-kubeconfig.yml', true) }}"
       eks_kubeconfig_filepath: "{{ lookup('env', 'eks_kubeconfig_filepath') | default(ansible_env.HOME + '/.kube/config', true) }}"
       kubectl_pause_time: "{{ lookup('env', 'kubectl_pause_time') | default('10', true) }}"
       devops_home: "{{ lookup('env', 'devops_home') | default('/opt/fso-lab-devops', true) }}"

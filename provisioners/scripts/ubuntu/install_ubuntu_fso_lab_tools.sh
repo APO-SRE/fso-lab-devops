@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/bin/bash -eux
 #---------------------------------------------------------------------------------------------------
 # Install FSO Lab tools on Ubuntu linux 64-bit.
 #
@@ -32,6 +32,13 @@ user_home="$(eval echo "~${user_name}")"                    # current user home 
 export user_home
 devops_home="${user_home}/fso-lab-devops"                   # fso lab devops home folder.
 export devops_home
+
+# validate environment variables. ------------------------------------------------------------------
+if [ "$user_name" == "root" ]; then
+  echo "Error: 'user_name' should NOT be 'root'."
+  usage
+  exit 1
+fi
 
 # install basic utilities needed for the install scripts. ------------------------------------------
 # update apt packages for ubuntu.
