@@ -37,7 +37,7 @@ infraViz:
   stdoutLogging: true
   enableContainerHostId: true
   enableServerViz: true
-  enableDockerViz: true
+  enableDockerViz: false
 
 # Netviz config
 netViz:
