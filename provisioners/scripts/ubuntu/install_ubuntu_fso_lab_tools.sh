@@ -36,7 +36,6 @@ export devops_home
 # validate environment variables. ------------------------------------------------------------------
 if [ "$user_name" == "root" ]; then
   echo "Error: 'user_name' should NOT be 'root'."
-  usage
   exit 1
 fi
 

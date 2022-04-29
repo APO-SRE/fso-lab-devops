@@ -40,7 +40,7 @@ apt -y install docker-ce docker-ce-cli containerd.io
 #systemctl enable docker
 
 # check that the docker service is running.
-systemctl status docker
+#systemctl status docker
 
 # display configuration info and verify version.
 #docker info
