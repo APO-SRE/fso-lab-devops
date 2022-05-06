@@ -1,12 +1,12 @@
-#!/bin/sh -eux
+#!/bin/bash -eux
 #---------------------------------------------------------------------------------------------------
-# Install FSO Lab tools on CentOS 7 linux 64-bit.
+# Install FSO Lab tools on CentOS 7.9 linux 64-bit.
 #
 # To configure the FSO Lab workshop environments, the first step is to set-up your development
 # environment by installing the needed software. This script simplifies that process by automating
 # the installation of all needed packages.
 #
-# For Centos 7, these software utilities include the following:
+# For CentOS, these software utilities include the following:
 #   Git:        Git is a distributed version control system.
 #   Packer:     Packer is a machine and container image tool by HashiCorp.
 #   Terraform:  Terraform is an Infrastructure as Code (IaC) tool by HashiCorp.
@@ -33,13 +33,18 @@ export user_home
 devops_home="${user_home}/fso-lab-devops"                   # fso lab devops home folder.
 export devops_home
 
+# validate environment variables. ------------------------------------------------------------------
+if [ "$user_name" == "root" ]; then
+  echo "Error: 'user_name' should NOT be 'root'."
+  exit 1
+fi
+
 # install basic utilities needed for the install scripts. ------------------------------------------
-# update yum packages for centos 7.
+# update yum packages for centos.
 sudo yum -y update
-sudo yum -y upgrade
 
 # install core linux utilities.
-sudo yum -y install curl git tree wget unzip
+sudo yum -y install curl git tree wget unzip man
 
 # download the fso lab devops project from github.com. ---------------------------------------------
 cd ${user_home}
@@ -50,8 +55,8 @@ git fetch origin
 
 # download and install the custom utilities. -------------------------------------------------------
 # download, build, and install git from source.
-cd ${devops_home}/provisioners/scripts/ubuntu
-sudo -E ./install_ubuntu_git.sh
+cd ${devops_home}/provisioners/scripts/centos
+sudo -E ./install_centos7_git.sh
 
 # download and install packer by hashicorp.
 cd ${devops_home}/provisioners/scripts/common
@@ -70,8 +75,8 @@ cd ${devops_home}/provisioners/scripts/common
 sudo -E ./install_aws_cli_2.sh
 
 # download, build, and install vim 8 text editor from source.
-cd ${devops_home}/provisioners/scripts/ubuntu
-sudo ./install_ubuntu_vim_8.sh
+cd ${devops_home}/provisioners/scripts/centos
+sudo ./install_centos7_vim_8.sh
 
 # create default command-line environment profile for the 'root' user.
 cd ${devops_home}/provisioners/scripts/common
