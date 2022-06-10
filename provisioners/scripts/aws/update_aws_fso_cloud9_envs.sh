@@ -98,6 +98,7 @@ if [ "${aws_account_id}" == "395719258032" ]; then
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/fso-lab-user" )
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/ed.barberis" )
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/james.schneider" )
+  fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/pranav.kumar" )
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/wayne.brown" )
 # create user arns array for appd original aws account.
 elif [ "${aws_account_id}" == "975944588697" ]; then
