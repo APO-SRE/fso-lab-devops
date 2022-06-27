@@ -71,6 +71,14 @@ aws_cloud9_public_key_13="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBW4yKp5vTj97E7z
 aws_cloud9_key_name_14="admin+496972728175@cloud9.amazon.com"
 aws_cloud9_public_key_14="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDmqdLr5IM9GK15/RXrWyuoh0eVG50BIjIJwzgrjFIujQIMeuMS83h6jQV5Lqd3H3xMlUiRYErTAmnjAqtbA2C5klabPC4UiJjP2W9HQYmUh5Dp2mWW09RIsa0BfRF7oTgCjOxIai2r0cVk9YSFaIylz3KwFmDR7r1Jt6pAdyZzTvHrxDnUZX5XLFOx/h1If8vboEeenTk/B6NSX9s8RfnaFk31G9Bjosa733fgTUK7epYt7ArNnQyUhFRwBs+mDbxp95nlNrT5ASfJQzpAJdjRUOh3YEY8S3vbEEp5T9qMxehfqnrIfLN1NJSgUhAXovBTJLMv4cntHAjilbNKnr0yW1l4tKHKYOowuBHJ5drDcr1c8VkHtKhuLeqUpKdyK2A597Zr5f5fEoDHCZw16gzDuvLM9LhsDoh/U9OfSFuTBbnq5dPSpC1EYFmTU0Ws6OAlMFCYSzbFBl1dG30cbu+HI5Tvz1mUinajiRK9Txld24HSi7IAgQMv2fykeZFL5eWNW2C1wnHuSHYh8qVbU1StCRGcM4yQi8fOb1N9ZwHR/OpYixp2y3mjYSN8m1Z64gvGUv/ID1i+/mt1Fc0ip30YxegZW1knZNJOMta3KHm/0ef5qMQ1wfn0uJS1GcUE1ZPxAoMARuycwJm/iyMjDYWFr3Cf2NSa7fQ8uqch3wugbw== admin+496972728175@cloud9.amazon.com"
 
+# public key from cisco sre account for the admin user (Stephen Bader).
+aws_cloud9_key_name_15="admin+496972728175@cloud9.amazon.com"
+aws_cloud9_public_key_15="AAAAB3NzaC1yc2EAAAADAQABAAACAQDAcNePZKTj6kFaA71UCiCK4GIW/ElfbOQn91DCvW/HO65PS/AGFMpmA9Hm37wLZtPFucBBi0IJr9uhYi1GOeCkjXNnl7KhqzEXhfeZoF0rZVSlXWNHzAazMOK1VPKC1BJdIIHInr1H9yzUC2QPj6W6WDyLdCnZFkdWqevz6+ta9T6xSSl7jfT/dcg7tCm+0KHOOFRwicQ1oTkvs4jqrvJ2RowN3A9ERrtot8AZnate5i1Co8EWa+KaP/TUWRc7sjal8utY68M1FPb6GfdhUcnTkN84ultuj1UpDCt1Q60MVrQEOw5UbR0V2ZjUhOrvPZTJRxp18gvMT0siBlPkTFbPNxRCZGw35jgvM1BD58ADy2QSTtIxk7QRGVOL8Pfc8ewWHpPLJsJApC/88sBVSz+jhXbvEADEb49DnsG3mw3RfKh8cxZZCjCkz/M7FLtkpDzaNmJJM3NLzz2daVO/HqNF4C3wzqBJ07D3klOYIAP5DY6rCuhfzl0aqsLxpl0Zmcc4XQJL7nEMz81u8infIB2bC54Hc07gHUmKA414Z7WCKq7l1jiffQ0H+zaX0lbPlYppQY6NYPuN4tZ8Fb7If3JT188CRsycqrY84RAP0t9GBftY6cBtP+KWK2tO5tTNVCENnTD2vyfmmk020+u2g/ohD1n+YSYQUdg+3gdLpRclWw== admin+496972728175@cloud9.amazon.com"
+
+# public key from cisco sre account for the admin user (John Meersma).
+aws_cloud9_key_name_16="admin+496972728175@cloud9.amazon.com"
+aws_cloud9_public_key_16="AAAAB3NzaC1yc2EAAAADAQABAAACAQDBpPsA19eAxyYbcJ4vLGcPYHGd0HIlIQ3h7LTYYl33dSWmIG+kpjkDeNDpTHtyqAyekKdjdAnHf85dMUps1BNVfoUusXnnYw1h6V3XlUsFLw0/GzJsS1aAT6a1TnaCQOytZQcnXy4st04pYQiDkvGqTmTL8xO7Q8RjpMTZnXvJyF5EtUfSEyFA6vB/zhFC68XzH2ofG1MrDeoIzurW3HaQr8bndOt20VBzS3Xdde4p1YBRtaCDErIBV/tNSHQZltVUr1Y1LAPUO/rp4vqZ9mov9OQuXTDWwOi6Bu0oP3sLJU6DsMsyFfNoszOpSyxZPz1QRtyZK2mexKRjr7hJT2pEzspkjL2iEKF5WtEpRmtPm3i0yB5XtV0s8YjRGmykqdGINBrsN29p7yCm1b2HzlNTieycnYB3du8zBDqgohE6drQOgFHN/MnHOgPNoHgEy3z9uIPHAM+V/RgAIybInpF1kg8+f0pHealC23VDNFTXLhYe2l8WGDn5qBRGMRjWRQUMqqmYUSMteMNYUaO9ZM+0n+VMaDUtxh8LGRrd5iX2dDGJUga7ESI6Rf66AChfZ1KJ90lAM37rrtwv4u12GXawouKvYADt7xmXBQd0Cjym2lVr4OIaO6OUwxl+XA1R79W/1ZadlPWAXf/5f1eryS40o1aipgcD9E+906z8cVXUww== admin+496972728175@cloud9.amazon.com"
+
 # 'grep' to see if the aws cloud9 public key is already present, if not, append to the file.
 grep -qF "${aws_cloud9_key_name_01}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_01}}" >> ${user_authorized_keys_file}
 grep -qF "${aws_cloud9_key_name_02}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_02}}" >> ${user_authorized_keys_file}
@@ -86,6 +94,9 @@ grep -qF "${aws_cloud9_key_name_11}" ${user_authorized_keys_file} || echo "${aws
 grep -qF "${aws_cloud9_key_name_12}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_12}}" >> ${user_authorized_keys_file}
 grep -qF "${aws_cloud9_key_name_13}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_13}}" >> ${user_authorized_keys_file}
 grep -qF "${aws_cloud9_key_name_14}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_14}}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_key_name_15}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_15}}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_key_name_16}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_16}}" >> ${user_authorized_keys_file}
+
 chmod 600 ${user_authorized_keys_file}
 
 # delete public key inserted by packer during the ami build.
