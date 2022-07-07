@@ -77,8 +77,14 @@ user_bashrc="${devops_home}/provisioners/scripts/common/users/user-bashrc.sh"
 
 # copy environment profiles to user home.
 cd ${user_home}
-cp -p .bash_profile .bash_profile.orig
-cp -p .bashrc .bashrc.orig
+
+if [ -f ".bash_profile" ]; then
+  cp -p .bash_profile .bash_profile.orig
+fi
+
+if [ -f ".bashrc" ]; then
+  cp -p .bashrc .bashrc.orig
+fi
 
 cp -f ${user_bashprofile} .bash_profile
 cp -f ${user_bashrc} .bashrc
