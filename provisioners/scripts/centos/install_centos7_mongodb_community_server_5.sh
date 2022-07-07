@@ -9,7 +9,7 @@
 # For more details, please visit:
 #   https://www.mongodb.com/docs/manual/introduction/
 #   https://www.mongodb.com/try/download/community/
-#   https://www.mongodb.com/docs/upcoming/tutorial/install-mongodb-on-amazon/
+#   https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-red-hat/
 #
 # NOTE: All inputs are defined by external environment variables.
 #       Optional variables have reasonable defaults, but you may override as needed.
