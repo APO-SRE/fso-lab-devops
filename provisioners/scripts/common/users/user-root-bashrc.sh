@@ -78,8 +78,8 @@ export HISTCONTROL
 # define system alias commands.
 alias back='cd $OLDPWD; pwd'
 alias c=clear
-alias here='cd $here; pwd'
 alias devopshome='cd $devops_home; pwd'
+alias here='cd $here; pwd'
 alias more='less'
 alias there='cd $there; pwd'
 alias vi='vim'
