@@ -19,10 +19,10 @@
 #---------------------------------------------------------------------------------------------------
 
 # install helm cli client. -------------------------------------------------------------------------
-helm_release="3.9.1"
+helm_release="3.9.2"
 helm_folder="linux-amd64"
 helm_binary="helm-v${helm_release}-linux-amd64.tar.gz"
-helm_sha256="73df7ddd5ab05e96230304bf0e6e31484b1ba136d0fc22679345c0b4bd43f7ac"
+helm_sha256="3f5be38068a1829670440ccf00b3b6656fd90d0d9cfd4367539f3b13e4c20531"
 
 # create local bin directory (if needed).
 mkdir -p /usr/local/bin
