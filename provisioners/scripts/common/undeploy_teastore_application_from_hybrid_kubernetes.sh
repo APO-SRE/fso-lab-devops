@@ -162,11 +162,11 @@ echo "Pausing for $(($kubectl_pause_time * 9)) seconds..."
 sleep $(($kubectl_pause_time * 9))
 echo ""
 
-# remove the teastore application project directory. -----------------------------------------------
+# remove the teastore application generated yaml files. --------------------------------------------
 echo "----------------------------------------------------------------------------------------------------"
 echo "Deleting the TeaStore generated YAML files..."
-echo "rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml"
-rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml
+echo "rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml teastore-orderprocessor.yaml"
+rm -f teastore-persistence.yaml teastore-auth.yaml teastore-webui.yaml teastore-recommender.yaml teastore-image.yaml teastore-orderprocessor.yaml
 echo ""
 
 # remove labels from kubernetes worker nodes. ------------------------------------------------------
