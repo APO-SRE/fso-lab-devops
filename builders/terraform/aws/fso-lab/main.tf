@@ -192,6 +192,11 @@ module "vm" {
   iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.id
   key_name             = var.aws_ec2_ssh_pub_key_name
 
+  capacity_reservation_specification = {
+    capacity_reservation_preference = "none"
+#   capacity_reservation_preference = "open"
+  }
+
   tags = local.resource_tags
 
   subnet_id                   = tolist(module.vpc.public_subnets)[0]
