@@ -151,7 +151,7 @@ module "vpc" {
 
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = ">= 4.10"
+  version = ">= 4.11"
 
   name        = local.security_group_name
   description = "Security group for LPAD VM EC2 instance"
