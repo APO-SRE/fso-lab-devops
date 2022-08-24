@@ -67,15 +67,15 @@ specific instructions for installing the required software are left as an exerci
 
 For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
--	Homebrew 3.5.9
+-	Homebrew 3.5.10
 -	Git 2.37.2
 -	Packer 1.8.3
--	Terraform 1.2.7
+-	Terraform 1.2.8
 -	jq 1.6
 
 Perform the following steps to install the needed software:
 
-1.	Install the [Homebrew 3.5.9](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
+1.	Install the [Homebrew 3.5.10](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
     ```bash
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
@@ -91,7 +91,7 @@ Perform the following steps to install the needed software:
     brew install hashicorp/tap/packer
     ```
 
-4.	Install [Terraform 1.2.7](https://www.terraform.io/downloads.html) for macOS 64-bit.  
+4.	Install [Terraform 1.2.8](https://www.terraform.io/downloads.html) for macOS 64-bit.  
     ```bash
     brew tap hashicorp/tap
     brew install hashicorp/tap/terraform
@@ -106,7 +106,7 @@ Perform the following steps to install the needed software:
 
     ```bash
     brew --version
-    # Homebrew 3.5.9
+    # Homebrew 3.5.10
 
     brew doctor
     # Your system is ready to brew.
@@ -118,7 +118,7 @@ Perform the following steps to install the needed software:
     # 1.8.3
 
     terraform --version
-    # Terraform v1.2.7
+    # Terraform v1.2.8
 
     jq --version
     # jq-1.6
@@ -150,7 +150,7 @@ Here is a list of the recommended open source software to be installed on the ho
 -	Wget 1.20.3 (Ubuntu 64-bit only)
 -	Git 2.37.2
 -	Packer 1.8.3
--	Terraform 1.2.7
+-	Terraform 1.2.8
 -	jq 1.6
 
 ### Git Bash installation - Windows 64-Bit
@@ -163,7 +163,7 @@ Perform the following steps to install the needed software:
     Create suggested install folder and extract contents of ZIP file to:  
     `C:\HashiCorp\bin`  
 
-3.	Install [Terraform 1.2.7](https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_windows_amd64.zip) for Windows 64-bit.  
+3.	Install [Terraform 1.2.8](https://releases.hashicorp.com/terraform/1.2.8/terraform_1.2.8_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
     `C:\HashiCorp\bin`  
 
@@ -194,7 +194,7 @@ Perform the following steps to install the needed software:
     # 1.8.3
 
     terraform --version
-    # Terraform v1.2.7
+    # Terraform v1.2.8
 
     jq --version
     # jq-1.6
@@ -233,12 +233,12 @@ Perform the following steps to install the needed software:
     sudo rm -i packer_1.8.3_linux_amd64.zip
     ```
 
-5.	Install [Terraform 1.2.7](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
+5.	Install [Terraform 1.2.8](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
     ```bash
     cd /usr/local/bin
-    sudo wget https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_amd64.zip
-    sudo unzip terraform_1.2.7_linux_amd64.zip
-    sudo rm -i terraform_1.2.7_linux_amd64.zip
+    sudo wget https://releases.hashicorp.com/terraform/1.2.8/terraform_1.2.8_linux_amd64.zip
+    sudo unzip terraform_1.2.8_linux_amd64.zip
+    sudo rm -i terraform_1.2.8_linux_amd64.zip
     ```
 
 6.	Install [jq 1.6](https://stedolan.github.io/jq/) for Ubuntu 64-bit.  
@@ -258,7 +258,7 @@ Perform the following steps to install the needed software:
     # 1.8.3
 
     terraform --version
-    # Terraform v1.2.7
+    # Terraform v1.2.8
 
     jq --version
     # jq-1.6
