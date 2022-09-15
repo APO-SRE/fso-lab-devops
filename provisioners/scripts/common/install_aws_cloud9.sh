@@ -25,6 +25,7 @@
 # For more details, please visit:
 #   https://aws.amazon.com/cloud9/
 #   https://docs.aws.amazon.com/cloud9/latest/user-guide/ip-ranges.html
+#   https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html
 #
 # NOTE: Script should be run with 'root' privilege.
 #---------------------------------------------------------------------------------------------------
