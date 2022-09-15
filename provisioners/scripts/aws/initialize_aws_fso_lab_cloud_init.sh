@@ -20,7 +20,7 @@ user_key_name="FSO-Lab-DevOps"
 user_public_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/wWW+/qc7amCKl/xVrNdVtbSUtWniw5CVHChWqIJU0vef8nQESLU6RPot54r6gzjfNegQFNqaJL+F9JeDVRZ1jYl78+yvmJMCX2ylNIJlfe/owHcFjzWdfDafeusktwifoMSEvc+KouGQinDrrWE5LC8XXkxWjQIwR0Dzv1W/BoiwpPf1F78w2HRRmTkJ6IwSC3Bry0IfmPKTi9OxBAuzJ34gzxIjeb/U8jEABLs0MIkZ8qpVh1s7lv1c7rZ7y3is+fdEqhPeTr03zjIiKerer/5yjjYKE3nsGqEGSQjwrVDw5aEQmtTRBY6G6usP9PLQaRwncJulXngr1k7E7qcz FSO-Lab-DevOps"
 
 # 'grep' to see if the user's public key is already present, if not, append to the file.
-grep -qF "${user_key_name}" ${user_authorized_keys_file} || echo "${user_public_key}}" >> ${user_authorized_keys_file}
+grep -qF "${user_key_name}" ${user_authorized_keys_file} || echo "${user_public_key}" >> ${user_authorized_keys_file}
 chmod 600 ${user_authorized_keys_file}
 
 # public keys from appdynamics channel sales team accounts for ed barberis.
@@ -56,22 +56,22 @@ aws_cloud9_public_key_15="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDAcNePZKTj6kFaA7
 aws_cloud9_public_key_16="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBpPsA19eAxyYbcJ4vLGcPYHGd0HIlIQ3h7LTYYl33dSWmIG+kpjkDeNDpTHtyqAyekKdjdAnHf85dMUps1BNVfoUusXnnYw1h6V3XlUsFLw0/GzJsS1aAT6a1TnaCQOytZQcnXy4st04pYQiDkvGqTmTL8xO7Q8RjpMTZnXvJyF5EtUfSEyFA6vB/zhFC68XzH2ofG1MrDeoIzurW3HaQr8bndOt20VBzS3Xdde4p1YBRtaCDErIBV/tNSHQZltVUr1Y1LAPUO/rp4vqZ9mov9OQuXTDWwOi6Bu0oP3sLJU6DsMsyFfNoszOpSyxZPz1QRtyZK2mexKRjr7hJT2pEzspkjL2iEKF5WtEpRmtPm3i0yB5XtV0s8YjRGmykqdGINBrsN29p7yCm1b2HzlNTieycnYB3du8zBDqgohE6drQOgFHN/MnHOgPNoHgEy3z9uIPHAM+V/RgAIybInpF1kg8+f0pHealC23VDNFTXLhYe2l8WGDn5qBRGMRjWRQUMqqmYUSMteMNYUaO9ZM+0n+VMaDUtxh8LGRrd5iX2dDGJUga7ESI6Rf66AChfZ1KJ90lAM37rrtwv4u12GXawouKvYADt7xmXBQd0Cjym2lVr4OIaO6OUwxl+XA1R79W/1ZadlPWAXf/5f1eryS40o1aipgcD9E+906z8cVXUww== admin+496972728175@cloud9.amazon.com"
 
 # 'grep' to see if the aws cloud9 public key is already present, if not, append to the file.
-grep -qF "${aws_cloud9_public_key_01}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_01}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_02}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_02}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_03}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_03}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_04}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_04}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_05}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_05}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_06}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_06}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_07}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_07}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_08}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_08}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_09}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_09}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_10}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_10}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_11}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_11}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_12}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_12}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_13}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_13}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_14}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_14}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_15}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_15}}" >> ${user_authorized_keys_file}
-grep -qF "${aws_cloud9_public_key_16}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_16}}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_01}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_01}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_02}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_02}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_03}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_03}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_04}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_04}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_05}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_05}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_06}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_06}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_07}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_07}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_08}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_08}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_09}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_09}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_10}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_10}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_11}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_11}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_12}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_12}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_13}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_13}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_14}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_14}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_15}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_15}" >> ${user_authorized_keys_file}
+grep -qF "${aws_cloud9_public_key_16}" ${user_authorized_keys_file} || echo "${aws_cloud9_public_key_16}" >> ${user_authorized_keys_file}
 
 chmod 600 ${user_authorized_keys_file}
 
