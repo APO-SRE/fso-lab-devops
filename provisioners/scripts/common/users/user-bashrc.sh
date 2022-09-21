@@ -16,7 +16,7 @@ umask 022
 JAVA_HOME=/usr/local/java/jdk180
 #JAVA_HOME=/usr/local/java/jdk11
 #JAVA_HOME=/usr/local/java/jdk17
-#JAVA_HOME=/usr/local/java/jdk18
+#JAVA_HOME=/usr/local/java/jdk19
 export JAVA_HOME
 
 # set ant home path.
