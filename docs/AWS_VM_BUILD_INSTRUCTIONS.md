@@ -250,7 +250,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Amazon AWS CLI 2.7.31 (command-line interface)
 -	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
--	Amazon AWS EKS CLI [eksctl] 0.111.0 (command-line interface)
+-	Amazon AWS EKS CLI [eksctl] 0.112.0 (command-line interface)
 -	Amazon AWS Kubernetes Control CLI [kubectl] 1.21.2 (command-line interface)
 -	Ansible 2.9.23
 -	Ant 1.10.12
@@ -269,7 +269,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Java SE JDK 8 Update 342 (Amazon Corretto 8)
 -	Java SE JDK 11.0.16 (Amazon Corretto 11)
 -	Java SE JDK 17.0.4 (Amazon Corretto 17)
--	Java SE JDK 18.0.2 (Amazon Corretto 18)
+-	Java SE JDK 19.0.0 (Amazon Corretto 19)
 -	JMESPath jp 0.2.1 (command-line JSON processor)
 -	jq 1.6 (command-line JSON processor)
 -	Maven 3.8.6
