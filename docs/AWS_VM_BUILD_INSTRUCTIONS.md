@@ -282,7 +282,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Python 3.7.10
 	-	Pip 22.2.2
 -	Serverless Framework CLI 3.22.0
--	Terraform 1.2.9
+-	Terraform 1.3.0
 -	VIM - Vi IMproved 9.0
 -	XMLStarlet 1.6.1 (command-line XML processor)
 -	yq 4.27.5 (command-line YAML processor)
