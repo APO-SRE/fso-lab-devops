@@ -1,4 +1,4 @@
-# @(#).bashrc       1.0 2022/03/23 SMI
+# @(#).bashrc       1.0 2022/09/21 SMI
 # bash resource configuration for fso lpad administrators.
 
 # user 'root' specific aliases and functions.
