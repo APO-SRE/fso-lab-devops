@@ -250,7 +250,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Amazon AWS CLI 2.8.8 (command-line interface)
 -	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
--	Amazon AWS EKS CLI [eksctl] 0.116.0 (command-line interface)
+-	Amazon AWS EKS CLI [eksctl] 0.117.0 (command-line interface)
 -	Amazon AWS Kubernetes Control CLI [kubectl] 1.21.2 (command-line interface)
 -	Ansible 2.9.23
 -	Ant 1.10.12
@@ -274,14 +274,14 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	jq 1.6 (command-line JSON processor)
 -	Maven 3.8.6
 -	Node.js JavaScript runtime v16.18.0 (Latest LTS Version)
--	npm JavaScript Package Manager for Node.js 8.19.2
+-	npm JavaScript Package Manager for Node.js 8.19.3
 -	nvm (Node Version Manager) bash script 0.39.2
 -	Packer 1.8.4
 -	Python 2.7.18
 	-	Pip 22.3
 -	Python 3.7.10
 	-	Pip 22.3
--	Serverless Framework CLI 3.23.0
+-	Serverless Framework CLI 3.24.0
 -	Terraform 1.3.4
 -	VIM - Vi IMproved 9.0
 -	XMLStarlet 1.6.1 (command-line XML processor)
