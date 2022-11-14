@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1            ## The version of the Kubernetes API
+apiVersion: batch/v1                 ## The version of the Kubernetes API
 kind: CronJob                        ## The type of object for Cron jobs
 metadata:
   name: teastore-hacky-load
