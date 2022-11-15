@@ -251,7 +251,7 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
 -	Amazon AWS EKS CLI [eksctl] 0.118.0 (command-line interface)
--	Amazon AWS Kubernetes Control CLI [kubectl] 1.21.2 (command-line interface)
+-	Amazon AWS Kubernetes Control CLI [kubectl] 1.21.14 (command-line interface)
 -	Ansible 2.9.23
 -	Ant 1.10.12
 -	AppDynamics Node.js Serverless Tracer 21.11.348
@@ -285,4 +285,4 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Terraform 1.3.4
 -	VIM - Vi IMproved 9.0
 -	XMLStarlet 1.6.1 (command-line XML processor)
--	yq 4.30.2 (command-line YAML processor)
+-	yq 4.30.4 (command-line YAML processor)
