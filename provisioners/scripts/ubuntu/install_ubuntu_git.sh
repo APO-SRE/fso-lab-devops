@@ -17,8 +17,11 @@
 user_name="${user_name:-ubuntu}"                                # user name.
 user_group="${user_group:-ubuntu}"                              # user login group.
 
+# update the apt repository package indexes. -------------------------------------------------------
+apt-get update
+
 # install tools needed to build git from source. ---------------------------------------------------
-apt -y install libz-dev libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext cmake gcc
+apt-get -y install libz-dev libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext cmake gcc
 
 # install git binaries from source. ----------------------------------------------------------------
 githome="git"
