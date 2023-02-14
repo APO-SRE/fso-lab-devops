@@ -98,17 +98,13 @@ if [ "${aws_account_id}" == "395719258032" ]; then
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/fso-lab-user" )
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/ed.barberis" )
   fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/james.schneider" )
-  fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/pranav.kumar" )
-  fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/wayne.brown" )
+# fso_cloud9_user_share_array+=( "arn:aws:iam::395719258032:user/wayne.brown" )
 # create user arns array for appd original aws account.
 elif [ "${aws_account_id}" == "975944588697" ]; then
   fso_cloud9_user_share_array+=( "arn:aws:iam::975944588697:user/fso-lab-user" )
   fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/ed.barberis@appdynamics.com" )
   fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/james.schneider@appdynamics.com" )
-# fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/manju.sunkad@appdynamics.com" )
-  fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/pranav.kumar@appdynamics.com" )
-  fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/ramiro.nagles@appdynamics.com" )
-  fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/wayne.brown@appdynamics.com" )
+# fso_cloud9_user_share_array+=( "arn:aws:sts::975944588697:assumed-role/AWSReservedSSO_appd-aws-975944588697-dev_35531c6d12fd4c96/wayne.brown@appdynamics.com" )
 # create user arns array for apo cisco runon aws account.
 elif [ "${aws_account_id}" == "496972728175" ]; then
   fso_cloud9_user_share_array+=( "arn:aws:iam::496972728175:user/fso_user" )
