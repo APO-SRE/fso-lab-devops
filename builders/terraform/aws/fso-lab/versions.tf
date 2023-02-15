@@ -1,6 +1,6 @@
 # Terraform ----------------------------------------------------------------------------------------
 terraform {
-  required_version = ">= 1.3.8"
+  required_version = ">= 1.3.9"
 
   required_providers {
     aws = {
@@ -10,7 +10,7 @@ terraform {
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.17"
+      version = ">= 2.18"
     }
 
     helm = {
