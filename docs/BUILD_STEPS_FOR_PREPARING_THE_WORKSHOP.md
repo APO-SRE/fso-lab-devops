@@ -67,15 +67,15 @@ specific instructions for installing the required software are left as an exerci
 
 For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
--	Homebrew 3.6.21
+-	Homebrew 4.0.5
 -	Git 2.39.2
--	Packer 1.8.5
--	Terraform 1.3.8
+-	Packer 1.8.6
+-	Terraform 1.4.0
 -	jq 1.6
 
 Perform the following steps to install the needed software:
 
-1.	Install the [Homebrew 3.6.21](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
+1.	Install the [Homebrew 4.0.5](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
     ```bash
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
@@ -85,13 +85,13 @@ Perform the following steps to install the needed software:
     brew install git
     ```
 
-3.	Install [Packer 1.8.5](https://www.packer.io/downloads.html) for macOS 64-bit.  
+3.	Install [Packer 1.8.6](https://www.packer.io/downloads.html) for macOS 64-bit.  
     ```bash
     brew tap hashicorp/tap
     brew install hashicorp/tap/packer
     ```
 
-4.	Install [Terraform 1.3.8](https://www.terraform.io/downloads.html) for macOS 64-bit.  
+4.	Install [Terraform 1.4.0](https://www.terraform.io/downloads.html) for macOS 64-bit.  
     ```bash
     brew tap hashicorp/tap
     brew install hashicorp/tap/terraform
@@ -106,7 +106,7 @@ Perform the following steps to install the needed software:
 
     ```bash
     brew --version
-    # Homebrew 3.6.21
+    # Homebrew 4.0.5
 
     brew doctor
     # Your system is ready to brew.
@@ -115,10 +115,10 @@ Perform the following steps to install the needed software:
     # git version 2.39.2
 
     packer --version
-    # 1.8.5
+    # 1.8.6
 
     terraform --version
-    # Terraform v1.3.8
+    # Terraform v1.4.0
 
     jq --version
     # jq-1.6
@@ -149,8 +149,8 @@ Here is a list of the recommended open source software to be installed on the ho
 -	Curl 7.68.0 (Ubuntu 64-bit only)
 -	Wget 1.20.3 (Ubuntu 64-bit only)
 -	Git 2.39.2
--	Packer 1.8.5
--	Terraform 1.3.8
+-	Packer 1.8.6
+-	Terraform 1.4.0
 -	jq 1.6
 
 ### Git Bash installation - Windows 64-Bit
@@ -159,11 +159,11 @@ Perform the following steps to install the needed software:
 
 1.	Install [Git 2.39.2](https://github.com/git-for-windows/git/releases/download/v2.39.2.windows.1/Git-2.39.2-64-bit.exe) for Windows 64-bit.
 
-2.	Install [Packer 1.8.5](https://releases.hashicorp.com/packer/1.8.5/packer_1.8.5_windows_amd64.zip) for Windows 64-bit.  
+2.	Install [Packer 1.8.6](https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
     `C:\HashiCorp\bin`  
 
-3.	Install [Terraform 1.3.8](https://releases.hashicorp.com/terraform/1.3.8/terraform_1.3.8_windows_amd64.zip) for Windows 64-bit.  
+3.	Install [Terraform 1.4.0](https://releases.hashicorp.com/terraform/1.4.0/terraform_1.4.0_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
     `C:\HashiCorp\bin`  
 
@@ -191,10 +191,10 @@ Perform the following steps to install the needed software:
     # git version 2.39.2.windows.1
 
     packer --version
-    # 1.8.5
+    # 1.8.6
 
     terraform --version
-    # Terraform v1.3.8
+    # Terraform v1.4.0
 
     jq --version
     # jq-1.6
@@ -225,20 +225,20 @@ Perform the following steps to install the needed software:
     sudo apt install git
     ```
 
-4.	Install [Packer 1.8.5](https://www.packer.io/downloads.html) for Ubuntu 64-bit.  
+4.	Install [Packer 1.8.6](https://www.packer.io/downloads.html) for Ubuntu 64-bit.  
     ```bash
     cd /usr/local/bin
-    sudo wget https://releases.hashicorp.com/packer/1.8.5/packer_1.8.5_linux_amd64.zip
-    sudo unzip packer_1.8.5_linux_amd64.zip
-    sudo rm -i packer_1.8.5_linux_amd64.zip
+    sudo wget https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_linux_amd64.zip
+    sudo unzip packer_1.8.6_linux_amd64.zip
+    sudo rm -i packer_1.8.6_linux_amd64.zip
     ```
 
-5.	Install [Terraform 1.3.8](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
+5.	Install [Terraform 1.4.0](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
     ```bash
     cd /usr/local/bin
-    sudo wget https://releases.hashicorp.com/terraform/1.3.8/terraform_1.3.8_linux_amd64.zip
-    sudo unzip terraform_1.3.8_linux_amd64.zip
-    sudo rm -i terraform_1.3.8_linux_amd64.zip
+    sudo wget https://releases.hashicorp.com/terraform/1.4.0/terraform_1.4.0_linux_amd64.zip
+    sudo unzip terraform_1.4.0_linux_amd64.zip
+    sudo rm -i terraform_1.4.0_linux_amd64.zip
     ```
 
 6.	Install [jq 1.6](https://stedolan.github.io/jq/) for Ubuntu 64-bit.  
@@ -255,10 +255,10 @@ Perform the following steps to install the needed software:
     # git version 2.39.2
 
     packer --version
-    # 1.8.5
+    # 1.8.6
 
     terraform --version
-    # Terraform v1.3.8
+    # Terraform v1.4.0
 
     jq --version
     # jq-1.6
