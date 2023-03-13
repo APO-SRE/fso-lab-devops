@@ -35,6 +35,7 @@
         "Owner": "{{user `aws_ami_owner`}}",
         "Project": "{{user `app_name`}}",
         "Project_Image_Type": "FSO-LPAD-AL2",
+        "VM_Username": "{{user `aws_ec2_username`}}",
         "Base_AMI_Name": "{{.SourceAMIName}}",
         "ApplicationName": "{{user `app_name`}}",
         "CiscoMailAlias": "{{user `aws_user_email`}}",
@@ -61,6 +62,7 @@
   "provisioners": [
     {
       "inline": [
+        "sudo hostnamectl | awk '/Operating System/ {print $0}'",
         "sudo mkdir -p {{user `devops_home`}}/provisioners/scripts",
         "sudo chown -R {{user `aws_ec2_username`}}:{{user `aws_ec2_group`}} {{user `devops_home`}}",
         "sudo mkdir -p /home/{{user `aws_ec2_username`}}/environment/workshop",
@@ -141,6 +143,8 @@
         "user_group={{user `aws_ec2_group`}}",
         "user_docker_profile={{user `user_docker_profile`}}",
         "d_completion_release={{user `docker_completion_release`}}",
+        "nodejs_release={{user `nodejs_release`}}",
+        "npm_release={{user `npm_release`}}",
         "devops_home={{user `devops_home`}}",
         "HOME_DIR=/home/{{user `aws_ec2_username`}}"
       ],
@@ -202,7 +206,7 @@
     "aws_ec2_boot_disk_size": "48",
     "aws_ec2_hostname": "fso-lab",
     "aws_ec2_domain": "localdomain",
-    "aws_ec2_instance_type": "t2.micro",
+    "aws_ec2_instance_type": "t2.large",
     "aws_ec2_username": "ec2-user",
     "aws_ec2_group": "ec2-user",
     "aws_ec2_temporary_source_cidrs": "{{env `aws_ec2_temporary_source_cidrs`}}",
@@ -210,6 +214,8 @@
     "aws_user_email": "{{env `aws_user_email`}}",
     "user_docker_profile": "true",
     "docker_completion_release": "20.10.17",
+    "nodejs_release": "16",
+    "npm_release": "latest",
     "devops_home": "/opt/fso-lab-devops",
     "org_cost_center": "{{env `org_cost_center`}}"
   }
