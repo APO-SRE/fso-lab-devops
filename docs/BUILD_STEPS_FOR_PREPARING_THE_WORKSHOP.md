@@ -67,7 +67,7 @@ specific instructions for installing the required software are left as an exerci
 
 For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
--	Homebrew 4.0.5
+-	Homebrew 4.0.6
 -	Git 2.39.2
 -	Packer 1.8.6
 -	Terraform 1.4.0
@@ -75,7 +75,7 @@ For macOS environments, the following open source software needs to be installed
 
 Perform the following steps to install the needed software:
 
-1.	Install the [Homebrew 4.0.5](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
+1.	Install the [Homebrew 4.0.6](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
     ```bash
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
@@ -106,7 +106,7 @@ Perform the following steps to install the needed software:
 
     ```bash
     brew --version
-    # Homebrew 4.0.5
+    # Homebrew 4.0.6
 
     brew doctor
     # Your system is ready to brew.
