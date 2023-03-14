@@ -27,7 +27,7 @@
       "azure_tags": {
         "Owner": "{{user `azure_image_owner`}}",
         "Project": "FSO Lab DevOps",
-        "Project_Image_Type": "FSO-Lab-VM-CentOS",
+        "Project_Image_Type": "FSO-LPAD-CentOS7",
         "VM_Username": "{{user `azure_ssh_username`}}"
       }
     }
