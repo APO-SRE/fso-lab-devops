@@ -89,8 +89,8 @@ appd_platform_installer="platform-setup-x64-linux-${appd_platform_release}.sh"
 yum -y install net-tools libaio numactl tzdata
 
 # create temporary download directory. -------------------------------------------------------------
-mkdir -p ${kickstart_home}/provisioners/scripts/centos/appdynamics
-cd ${kickstart_home}/provisioners/scripts/centos/appdynamics
+mkdir -p ${devops_home}/provisioners/scripts/centos/appdynamics
+cd ${devops_home}/provisioners/scripts/centos/appdynamics
 
 # check linux distro and install correct ui tools.
 # note: mysql 5.5.57 and 5.7.19 require ncurses-libs version 5, which is NOT
@@ -199,7 +199,7 @@ if [ -f "$sysctlfile" ]; then
 fi
 
 # change to the download directory. ----------------------------------------------------------------
-cd ${kickstart_home}/provisioners/scripts/centos/appdynamics
+cd ${devops_home}/provisioners/scripts/centos/appdynamics
 
 # create appd home directory and change ownership to platform user name and group. -----------------
 mkdir -p ${appd_home}
