@@ -10,7 +10,7 @@
 
 # set default values for input environment variables if not set. -----------------------------------
 appd_platform_name="${appd_platform_name-FSO Lab DevOps}"
-appd_project_image_types="${appd_project_image_types-FSO-LPAD-AL2 FSO-LPAD-CentOS7 FSO-LPAD-Ubuntu-Focal FSO-LPAD-Ubuntu-Jammy}"
+appd_project_image_types="${appd_project_image_types-FSO-LPAD-AL2 FSO-LPAD-AL2023 FSO-LPAD-CentOS7 FSO-LPAD-Ubuntu-Focal FSO-LPAD-Ubuntu-Jammy}"
 aws_ami_region="${aws_ami_region-us-west-1}"
 aws_ami_keep_last="${aws_ami_keep_last-true}"
 
