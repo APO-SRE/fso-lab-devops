@@ -9,17 +9,26 @@
 connectorImage:
 # repository: intersight/pasadena
   repository: public.ecr.aws/d8i9k4x3/fso-lab-intersight-pasadena
-  tag: 1.0.9-110
+  tag: 1.0.11-937
   pullPolicy: IfNotPresent
 
 collectorImage:
 # repository: intersight/kubeturbo
   repository: public.ecr.aws/d8i9k4x3/fso-lab-intersight-kubeturbo
-  tag: 8.3.1
+  tag: 8.7.5.1
   pullPolicy: IfNotPresent
 
+# The collector will spin off simple jobs to run at each node to collect its cpu frequency.
+# The job is based on the busybox image.  Uncomment below to customize the repository.
+# Note that currently neither the tag nor the pull policy is customizable.
+#busyboxImage:
+#  repository: busybox
+
+# The credentials to log onto the image registry to pull images.  This applies to all the above 3 images.
+#imagePullSecret: ""
+
 # IWO server major.minor version
-iwoServerVersion: 8.3
+iwoServerVersion: 8.7
 
 # Target config -
 # - If no targetConfig is specified, a default targetName will be created from the apiserver URL in the kubeconfig.

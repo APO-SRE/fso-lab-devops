@@ -26,6 +26,14 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       serviceAccountName: iwo-user
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000      
+      {{- if .Values.imagePullSecret }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret }}
+      {{- end }}
       containers:
       - name: iwo-k8s-collector
         image: {{ .Values.collectorImage.repository }}:{{ .Values.collectorImage.tag }}
@@ -49,8 +57,17 @@ spec:
           {{- if not .Values.args.failVolumePodMoves }}
           - --fail-volume-pod-moves={{ .Values.args.failVolumePodMoves }}
           {{- end }}
-          #- --busybox-image=docker.io/busybox
-          - --busybox-image=public.ecr.aws/d8i9k4x3/fso-lab-busybox:latest
+          {{- if .Values.busyboxImage }}
+          {{- if .Values.busyboxImage.repository }}
+          - --busybox-image={{ .Values.busyboxImage.repository }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.imagePullSecret }}
+          - --busybox-image-pull-secret={{ .Values.imagePullSecret }}
+          {{- end }}
+          {{- if .Values.args.busyboxExcludeNodeLabels }}
+          - --cpufreq-job-exclude-node-labels={{ .Values.args.busyboxExcludeNodeLabels }}
+          {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         volumeMounts:
