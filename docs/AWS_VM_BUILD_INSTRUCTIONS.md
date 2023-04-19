@@ -266,10 +266,10 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Go 1.20.3
 -	Gradle 8.1
 -	Helm CLI 3.11.3 (Package Manager for Kubernetes)
--	Java SE JDK 8 Update 362 (Amazon Corretto 8)
--	Java SE JDK 11.0.18 (Amazon Corretto 11)
--	Java SE JDK 17.0.6 (Amazon Corretto 17)
--	Java SE JDK 20.0.0 (Amazon Corretto 20)
+-	Java SE JDK 8 Update 372 (Amazon Corretto 8)
+-	Java SE JDK 11.0.19 (Amazon Corretto 11)
+-	Java SE JDK 17.0.7 (Amazon Corretto 17)
+-	Java SE JDK 20.0.1 (Amazon Corretto 20)
 -	JMESPath jp 0.2.1 (command-line JSON processor)
 -	jq 1.6 (command-line JSON processor)
 -	Maven 3.9.1
