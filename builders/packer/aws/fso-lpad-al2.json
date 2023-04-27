@@ -214,7 +214,7 @@
     "aws_user_arn": "{{env `aws_user_arn`}}",
     "aws_user_email": "{{env `aws_user_email`}}",
     "user_docker_profile": "true",
-    "docker_completion_release": "20.10.22",
+    "docker_completion_release": "20.10.23",
     "nodejs_release": "16",
     "npm_release": "latest",
     "devops_home": "/opt/fso-lab-devops",
