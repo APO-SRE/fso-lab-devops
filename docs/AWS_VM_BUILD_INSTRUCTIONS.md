@@ -21,18 +21,18 @@ required Python 3 libraries are now embedded in the installer and no longer need
 
 Here is a list of the recommended open source software to be installed on the host macOS machine:
 
--	Amazon AWS CLI 2.11.14 (command-line interface)
+-	Amazon AWS CLI 2.11.15 (command-line interface)
 
 Perform the following steps to install the needed software:
 
-1.	Install [AWS CLI 2.11.14](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).  
+1.	Install [AWS CLI 2.11.15](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html).  
     `brew install awscli@2`  
 
 2.	Validate installed command-line tools:
 
     ```bash
     aws --version
-    # aws-cli/2.11.14 Python/3.11.3 Darwin/22.4.0 source/arm64 prompt/off
+    # aws-cli/2.11.15 Python/3.11.3 Darwin/22.4.0 source/arm64 prompt/off
     ```
 
 ## AWS-Specific Installation Instructions - Windows 64-Bit
@@ -50,13 +50,13 @@ installation.
 
 Here is a list of the recommended open source software to be installed on the host Windows machine:
 
--	Amazon AWS CLI 2.11.14 (command-line interface)
+-	Amazon AWS CLI 2.11.15 (command-line interface)
 
 ### Git Bash installation - Windows 64-Bit
 
 Perform the following steps to install the needed software:
 
-1.	Install [AWS CLI 2.11.14](https://awscli.amazonaws.com/AWSCLIV2.msi) for Windows 64-bit.  
+1.	Install [AWS CLI 2.11.15](https://awscli.amazonaws.com/AWSCLIV2.msi) for Windows 64-bit.  
     Run the downloaded MSI installer and follow the on-screen instructions.  
 
     **NOTE:** For Windows users, the MSI installation package offers a familiar and convenient way to 
@@ -69,12 +69,12 @@ Perform the following steps to install the needed software:
 
     ```bash
     aws --version
-    # aws-cli/2.11.14 Python/3.9.11 Windows/10 exe/AMD64 prompt/off
+    # aws-cli/2.11.15 Python/3.9.11 Windows/10 exe/AMD64 prompt/off
     ```
 
 ### Windows Subsystem for Linux (WSL) installation - Ubuntu 64-Bit
 
-1.	Install [AWS CLI 2.11.14](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for Ubuntu 64-bit.  
+1.	Install [AWS CLI 2.11.15](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for Ubuntu 64-bit.  
     ```bash
     cd /tmp
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -247,7 +247,7 @@ __NOTE:__ The following steps are repeated for each major element of the worksho
 
 __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-installed:
 
--	Amazon AWS CLI 2.11.14 (command-line interface)
+-	Amazon AWS CLI 2.11.15 (command-line interface)
 -	Amazon AWS Cloud9 IDE
 -	Amazon AWS EC2 Instance Metadata Query Tool (command-line interface)
 -	Amazon AWS EKS CLI [eksctl] 0.138.0 (command-line interface)
@@ -255,11 +255,11 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	Ansible 2.9.23
 -	Ant 1.10.13
 -	AppDynamics Node.js Serverless Tracer 21.11.348
--	Docker 20.10.22 CE
+-	Docker 20.10.23 CE
 	-	Docker Bash Completion
 	-	Docker Compose 1.29.2
 	-	Docker Compose Bash Completion
--	Git 2.40.0
+-	Git 2.40.1
 	-	Git Bash Completion
 	-	Git-Flow 1.12.3 (AVH Edition)
 	-	Git-Flow Bash Completion
@@ -278,11 +278,11 @@ __LPAD VM__ - The following AWS CLI command-line tools and utilities are pre-ins
 -	nvm (Node Version Manager) bash script 0.39.3
 -	Packer 1.8.6
 -	Python 2.7.18
-	-	Pip 23.1
+	-	Pip 23.1.2
 -	Python 3.7.10
-	-	Pip 23.1
+	-	Pip 23.1.2
 -	Serverless Framework CLI 3.30.1
--	Terraform 1.4.5
+-	Terraform 1.4.6
 -	VIM - Vi IMproved 9.0
 -	XMLStarlet 1.6.1 (command-line XML processor)
 -	yq 4.33.3 (command-line YAML processor)
