@@ -145,10 +145,11 @@ module "vpc" {
   public_subnets  = var.aws_vpc_public_subnets
   private_subnets = var.aws_vpc_private_subnets
 
-  enable_nat_gateway      = true
-  single_nat_gateway      = true
-  enable_dns_hostnames    = true
-  map_public_ip_on_launch = true
+  enable_nat_gateway         = true
+  single_nat_gateway         = true
+  enable_dns_hostnames       = true
+  manage_default_network_acl = false
+  map_public_ip_on_launch    = true
 
   tags = local.resource_tags
 
@@ -231,7 +232,7 @@ module "vm" {
 }
 
 module "eks_blueprints" {
-  source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.30.0"
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.31.0"
 
   cluster_name       = local.cluster_name
   cluster_version    = var.aws_eks_kubernetes_version
