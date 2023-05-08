@@ -67,15 +67,15 @@ specific instructions for installing the required software are left as an exerci
 
 For macOS environments, the following open source software needs to be installed on the host macOS machine:
 
--	Homebrew 4.0.16
+-	Homebrew 4.0.17
 -	Git 2.40.1
--	Packer 1.8.6
+-	Packer 1.8.7
 -	Terraform 1.4.6
 -	jq 1.6
 
 Perform the following steps to install the needed software:
 
-1.	Install the [Homebrew 4.0.16](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
+1.	Install the [Homebrew 4.0.17](https://brew.sh/) package manager for macOS 64-bit. Paste the following into a macOS Terminal prompt:  
     ```bash
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     ```
@@ -85,7 +85,7 @@ Perform the following steps to install the needed software:
     brew install git
     ```
 
-3.	Install [Packer 1.8.6](https://www.packer.io/downloads.html) for macOS 64-bit.  
+3.	Install [Packer 1.8.7](https://www.packer.io/downloads.html) for macOS 64-bit.  
     ```bash
     brew tap hashicorp/tap
     brew install hashicorp/tap/packer
@@ -106,7 +106,7 @@ Perform the following steps to install the needed software:
 
     ```bash
     brew --version
-    # Homebrew 4.0.16
+    # Homebrew 4.0.17
 
     brew doctor
     # Your system is ready to brew.
@@ -115,7 +115,7 @@ Perform the following steps to install the needed software:
     # git version 2.40.1
 
     packer --version
-    # 1.8.6
+    # 1.8.7
 
     terraform --version
     # Terraform v1.4.6
@@ -149,7 +149,7 @@ Here is a list of the recommended open source software to be installed on the ho
 -	Curl 7.68.0 (Ubuntu 64-bit only)
 -	Wget 1.20.3 (Ubuntu 64-bit only)
 -	Git 2.40.1
--	Packer 1.8.6
+-	Packer 1.8.7
 -	Terraform 1.4.6
 -	jq 1.6
 
@@ -159,7 +159,7 @@ Perform the following steps to install the needed software:
 
 1.	Install [Git 2.40.1](https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/Git-2.40.1-64-bit.exe) for Windows 64-bit.
 
-2.	Install [Packer 1.8.6](https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_windows_amd64.zip) for Windows 64-bit.  
+2.	Install [Packer 1.8.7](https://releases.hashicorp.com/packer/1.8.7/packer_1.8.7_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
     `C:\HashiCorp\bin`  
 
@@ -191,7 +191,7 @@ Perform the following steps to install the needed software:
     # git version 2.40.1.windows.1
 
     packer --version
-    # 1.8.6
+    # 1.8.7
 
     terraform --version
     # Terraform v1.4.6
@@ -225,12 +225,12 @@ Perform the following steps to install the needed software:
     sudo apt install git
     ```
 
-4.	Install [Packer 1.8.6](https://www.packer.io/downloads.html) for Ubuntu 64-bit.  
+4.	Install [Packer 1.8.7](https://www.packer.io/downloads.html) for Ubuntu 64-bit.  
     ```bash
     cd /usr/local/bin
-    sudo wget https://releases.hashicorp.com/packer/1.8.6/packer_1.8.6_linux_amd64.zip
-    sudo unzip packer_1.8.6_linux_amd64.zip
-    sudo rm -i packer_1.8.6_linux_amd64.zip
+    sudo wget https://releases.hashicorp.com/packer/1.8.7/packer_1.8.7_linux_amd64.zip
+    sudo unzip packer_1.8.7_linux_amd64.zip
+    sudo rm -i packer_1.8.7_linux_amd64.zip
     ```
 
 5.	Install [Terraform 1.4.6](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
@@ -255,7 +255,7 @@ Perform the following steps to install the needed software:
     # git version 2.40.1
 
     packer --version
-    # 1.8.6
+    # 1.8.7
 
     terraform --version
     # Terraform v1.4.6
