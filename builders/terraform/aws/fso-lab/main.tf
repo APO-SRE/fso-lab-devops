@@ -199,7 +199,7 @@ module "security_group" {
 
 module "vm" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = ">= 5.1"
+  version = ">= 5.2"
 
   name                 = local.vm_name
   ami                  = data.aws_ami.fso_lab_ami.id
