@@ -5,12 +5,12 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.7"
+      version = ">= 5.8"
     }
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.21"
+      version = ">= 2.22"
     }
 
     helm = {
