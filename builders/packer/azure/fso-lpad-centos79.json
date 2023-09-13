@@ -176,9 +176,9 @@
     "azure_vm_size": "Standard_B1s",
     "azure_os_disk_size": "48",
     "user_docker_profile": "true",
-    "docker_completion_release": "24.0.5",
+    "docker_completion_release": "24.0.6",
     "nodejs_release": "16",
-    "npm_release": "latest",
+    "npm_release": "9.8.1",
     "devops_home": "/opt/fso-lab-devops",
     "org_cost_center": "{{env `org_cost_center`}}"
   }
