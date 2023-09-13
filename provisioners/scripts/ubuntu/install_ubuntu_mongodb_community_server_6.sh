@@ -27,7 +27,7 @@ set -x  # turn command display back ON.
 mongodb_enable_access_control="${mongodb_enable_access_control:-false}"     # [optional] enable access control for mongodb (defaults to 'false').
 
 # [OPTIONAL] fso lab devops home folder [w/ default].
-devops_home="${devops_home:-/opt/fso-lab-devops}"                               # [optional] devops home (defaults to '/opt/fso-lab-devops').
+devops_home="${devops_home:-/opt/fso-lab-devops}"                           # [optional] devops home (defaults to '/opt/fso-lab-devops').
 
 # validate ubuntu release version. -----------------------------------------------------------------
 # check for supported ubuntu release.
@@ -35,7 +35,7 @@ ubuntu_release=$(lsb_release -rs)
 
 if [ -n "$ubuntu_release" ]; then
   case $ubuntu_release in
-      16.04|18.04|20.04|22.04)
+      18.04|20.04|22.04)
         ;;
       *)
         echo "Error: MongoDB NOT supported on Ubuntu release: '$(lsb_release -ds)'."
@@ -111,10 +111,6 @@ EOF
   # create the mongodb admin user.
   runuser -c "mongosh --file ${devops_home}/provisioners/scripts/centos/mongodb/createMongoDBAdminUser.js" - ${user_name}
 fi
-
-# perform general mongodb housekeeping tasks. ------------------------------------------------------
-# disable the mongodb free monitoring solution.
-runuser -c "mongosh --quiet --eval \"db.disableFreeMonitoring()\"" - ${user_name}
 
 # shutdown the mongodb database. -------------------------------------------------------------------
 systemctl stop mongod

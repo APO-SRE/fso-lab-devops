@@ -27,7 +27,7 @@ set -x  # turn command display back ON.
 mongodb_enable_access_control="${mongodb_enable_access_control:-false}"     # [optional] enable access control for mongodb (defaults to 'false').
 
 # [OPTIONAL] fso lab devops home folder [w/ default].
-devops_home="${devops_home:-/opt/fso-lab-devops}"                               # [optional] devops home (defaults to '/opt/fso-lab-devops').
+devops_home="${devops_home:-/opt/fso-lab-devops}"                           # [optional] devops home (defaults to '/opt/fso-lab-devops').
 
 # prepare the mongodb repository for installation. -------------------------------------------------
 # create the mongodb repository.
@@ -90,10 +90,6 @@ EOF
   # create the mongodb admin user.
   runuser -c "mongosh --file ${devops_home}/provisioners/scripts/centos/mongodb/createMongoDBAdminUser.js" - ${user_name}
 fi
-
-# perform general mongodb housekeeping tasks. ------------------------------------------------------
-# disable the mongodb free monitoring solution.
-runuser -c "mongosh --quiet --eval \"db.disableFreeMonitoring()\"" - ${user_name}
 
 # shutdown the mongodb database. -------------------------------------------------------------------
 systemctl stop mongod
