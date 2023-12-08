@@ -182,6 +182,7 @@
         "{{template_dir}}/../../../provisioners/scripts/common/install_user_env.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_apache_ant.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_apache_maven.sh",
+        "{{template_dir}}/../../../provisioners/scripts/common/install_apache_groovy.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_gradle.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_google_golang.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_jmespath_jp_json_processor.sh",
@@ -219,7 +220,7 @@
     "user_docker_profile": "true",
     "docker_completion_release": "20.10.23",
     "nodejs_release": "16",
-    "npm_release": "9.8.1",
+    "npm_release": "9.9.2",
     "devops_home": "/opt/fso-lab-devops",
     "org_cost_center": "{{env `org_cost_center`}}"
   }
