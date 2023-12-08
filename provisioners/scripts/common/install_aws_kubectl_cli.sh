@@ -15,21 +15,24 @@
 #---------------------------------------------------------------------------------------------------
 
 # install kubectl cli. -----------------------------------------------------------------------------
-#kubectl_release="1.27.5"
-#kubectl_date="2023-09-14"
-#kubectl_sha256="c19063ccf5b3042b641f889e9106befdaee913efce500eb69647caa1133a2804"
-#kubectl_release="1.26.8"
-#kubectl_date="2023-09-14"
-#kubectl_sha256="7fc29627d746e46afe8080a817be56f7ff2d5745de56875a7c4923b7f7625db3"
-#kubectl_release="1.25.13"
-#kubectl_date="2023-09-14"
-#kubectl_sha256="0ea698b87184260a984d2fcfbb6c06d22820b3ef37c6b41fdbb15f3b944d4e21"
-kubectl_release="1.24.17"
-kubectl_date="2023-09-14"
-kubectl_sha256="ad5d619779aadfe219bb34bf044c53184040b90100e950c0373e1a7c7d69bfc9"
+kubectl_release="1.28.3"
+kubectl_date="2023-11-14"
+kubectl_sha256="3b9ffe2effbfc12a30b12739126f069fe8a7f13625e71ccb82c33ad1ea8f8092"
+#kubectl_release="1.27.7"
+#kubectl_date="2023-11-14"
+#kubectl_sha256="d2351de8ebcebb4a3ba1a3daf359910b93460a0b71db93f4f83ddfabcd0ed041"
+#kubectl_release="1.26.10"
+#kubectl_date="2023-11-14"
+#kubectl_sha256="b55a9aa731e79b824812555c0f8671e00e03b3e2a41403134b8c2f883506fdb6"
+#kubectl_release="1.25.15"
+#kubectl_date="2023-11-14"
+#kubectl_sha256="d08fe44203e0798ec34d7cd4721202bebafc9b3f3b5bca5c9a62f15e58423260"
+#kubectl_release="1.24.17"
+#kubectl_date="2023-11-14"
+#kubectl_sha256="ef774c10dbfbff8a593c8761796794e5f7ef19f8fd4672c6321b0fa5722a76be"
 #kubectl_release="1.23.17"
-#kubectl_date="2023-09-14"
-#kubectl_sha256="c24f547a0ad520ffbde037f0e3e57059872d7e0140bc9f9b84e59bdc906b67bd"
+#kubectl_date="2023-11-14"
+#kubectl_sha256="8ebc59c645d59b2b3f4d69485ef4abbd1f3b9461a7e5cf7222a5c85abc3f5aee"
 
 # create local bin directory (if needed).
 mkdir -p /usr/local/bin
@@ -52,6 +55,13 @@ PATH=/usr/local/bin:$PATH
 export PATH
 
 # verify installation.
-kubectl version --short --client
+case $kubectl_release in
+  1.28.3|1.29.0)
+    kubectl version --client
+    ;;
+  *)
+    kubectl version --short --client
+    ;;
+esac
 
 #export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
