@@ -2,16 +2,16 @@
 # install oracle mysql shell command-line utility on centos linux 7.x.
 
 # set default value for fso lab devops home environment variable if not set. -----------------------
-devops_home="${devops_home:-/opt/fso-lab-devops}"           # [optional] devops home (defaults to '/opt/fso-lab-devops').
+devops_home="${devops_home:-/opt/fso-lab-devops}"
 
 # create scripts directory (if needed). ------------------------------------------------------------
 mkdir -p ${devops_home}/provisioners/scripts/centos
 cd ${devops_home}/provisioners/scripts/centos
 
 # install mysql shell. -----------------------------------------------------------------------------
-mysqlsh_release="8.0.34-1"
+mysqlsh_release="8.0.35-1"
 mysqlsh_binary="mysql-shell-${mysqlsh_release}.el7.x86_64.rpm"
-mysqlsh_checksum="2a10e1dbb9e9e268cf74de78b81464c9"
+mysqlsh_checksum="43fac0423c7fc0221599e32ff7715494"
 
 # download mysql shell repository.
 rm -f ${mysqlsh_binary}
