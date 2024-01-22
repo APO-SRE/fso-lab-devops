@@ -2,7 +2,7 @@
 
 devops='
 This system was built with the FSO Lab DevOps project by the Cisco APO Cross-Architectural and
-AppDynamics Cloud Channel Sales Teams.
+Cisco AppDynamics Cloud Channel Sales Teams.
 More information can be found at: https://github.com/APO-SRE/fso-lab-devops.git'
 
 if [ -d /etc/update-motd.d ]; then
