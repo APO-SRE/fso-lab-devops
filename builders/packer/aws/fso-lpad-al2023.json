@@ -9,7 +9,7 @@
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
-          "name": "al2023-ami-*-2023*x86_64*",
+          "name": "al2023-ami-2023.3*x86_64*",
           "root-device-type": "ebs"
         },
         "owners": ["amazon"],
@@ -191,6 +191,7 @@
         "{{template_dir}}/../../../provisioners/scripts/common/install_nodejs_javascript_runtime.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_serverless_framework_cli.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_appdynamics_nodejs_serverless_tracer.sh",
+        "{{template_dir}}/../../../provisioners/scripts/centos/install_centos8_aws_ec2_instance_connect.sh",
         "{{template_dir}}/../../../provisioners/scripts/common/install_aws_cloud9.sh"
       ],
       "type": "shell"
@@ -219,7 +220,7 @@
     "aws_user_arn": "{{env `aws_user_arn`}}",
     "aws_user_email": "{{env `aws_user_email`}}",
     "user_docker_profile": "true",
-    "docker_completion_release": "20.10.17",
+    "docker_completion_release": "24.0.5",
     "nodejs_release": "--lts",
     "npm_release": "latest",
     "devops_home": "/opt/fso-lab-devops",
