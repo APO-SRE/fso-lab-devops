@@ -69,7 +69,7 @@ For macOS environments, the following open source software needs to be installed
 
 -	Homebrew 4.2.11
 -	Git 2.44.0
--	Packer 1.10.1
+-	Packer 1.10.2
 -	Terraform 1.7.4
 -	jq 1.7.1
 
@@ -85,13 +85,13 @@ Perform the following steps to install the needed software:
     brew install git
     ```
 
-3.	Install [Packer 1.10.1](https://www.packer.io/downloads.html) for macOS 64-bit.  
+3.	Install [Packer 1.10.2](https://developer.hashicorp.com/packer/install) for macOS 64-bit.  
     ```bash
     brew tap hashicorp/tap
     brew install hashicorp/tap/packer
     ```
 
-4.	Install [Terraform 1.7.4](https://www.terraform.io/downloads.html) for macOS 64-bit.  
+4.	Install [Terraform 1.7.4](https://developer.hashicorp.com/terraform/install) for macOS 64-bit.  
     ```bash
     brew tap hashicorp/tap
     brew install hashicorp/tap/terraform
@@ -115,7 +115,7 @@ Perform the following steps to install the needed software:
     # git version 2.44.0
 
     packer --version
-    # 1.10.1
+    # 1.10.2
 
     terraform --version
     # Terraform v1.7.4
@@ -149,7 +149,7 @@ Here is a list of the recommended open source software to be installed on the ho
 -	Curl 7.68.0 (Ubuntu 64-bit only)
 -	Wget 1.21.1 (Ubuntu 64-bit only)
 -	Git 2.44.0
--	Packer 1.10.1
+-	Packer 1.10.2
 -	Terraform 1.7.4
 -	jq 1.7.1
 
@@ -159,7 +159,7 @@ Perform the following steps to install the needed software:
 
 1.	Install [Git 2.44.0](https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe) for Windows 64-bit.
 
-2.	Install [Packer 1.10.1](https://releases.hashicorp.com/packer/1.10.1/packer_1.10.1_windows_amd64.zip) for Windows 64-bit.  
+2.	Install [Packer 1.10.2](https://releases.hashicorp.com/packer/1.10.2/packer_1.10.2_windows_amd64.zip) for Windows 64-bit.  
     Create suggested install folder and extract contents of ZIP file to:  
     `C:\HashiCorp\bin`  
 
@@ -191,7 +191,7 @@ Perform the following steps to install the needed software:
     # git version 2.44.0.windows.1
 
     packer --version
-    # 1.10.1
+    # 1.10.2
 
     terraform --version
     # Terraform v1.7.4
@@ -225,15 +225,15 @@ Perform the following steps to install the needed software:
     sudo apt install git
     ```
 
-4.	Install [Packer 1.10.1](https://www.packer.io/downloads.html) for Ubuntu 64-bit.  
+4.	Install [Packer 1.10.2](https://developer.hashicorp.com/packer/install) for Ubuntu 64-bit.  
     ```bash
     cd /usr/local/bin
-    sudo wget https://releases.hashicorp.com/packer/1.10.1/packer_1.10.1_linux_amd64.zip
-    sudo unzip packer_1.10.1_linux_amd64.zip
-    sudo rm -i packer_1.10.1_linux_amd64.zip
+    sudo wget https://releases.hashicorp.com/packer/1.10.2/packer_1.10.2_linux_amd64.zip
+    sudo unzip packer_1.10.2_linux_amd64.zip
+    sudo rm -i packer_1.10.2_linux_amd64.zip
     ```
 
-5.	Install [Terraform 1.7.4](https://www.terraform.io/downloads.html) for Ubuntu 64-bit.  
+5.	Install [Terraform 1.7.4](https://developer.hashicorp.com/terraform/install) for Ubuntu 64-bit.  
     ```bash
     cd /usr/local/bin
     sudo wget https://releases.hashicorp.com/terraform/1.7.4/terraform_1.7.4_linux_amd64.zip
@@ -255,7 +255,7 @@ Perform the following steps to install the needed software:
     # git version 2.44.0
 
     packer --version
-    # 1.10.1
+    # 1.10.2
 
     terraform --version
     # Terraform v1.7.4
